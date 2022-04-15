@@ -1,8 +1,10 @@
 using Xhh_Auto.Storage;
-using Xiaoheihe_CShape;
-using Xiaoheihe_CShape.Data;
-using Xiaoheihe_CShape.Request;
+using Xiaoheihe_Core;
+using Xiaoheihe_Core.Data;
+using Xiaoheihe_Core.Request;
 using static System.Windows.Forms.ListView;
+
+using static Xiaoheihe_Core.StaticValue;
 
 namespace Xhh_Auto
 {
@@ -10,14 +12,16 @@ namespace Xhh_Auto
     {
         Dictionary<string, Account> Accounts = new();
 
-        const string DefaultOSType = "Android";
-        const string DefaultOSVersion = "11";
-        const string DefaultDevice = "K40";
-        const string DefaultChannal = "heybox_xiaomi";
+        HashSet<string> ChecledItems = new();
 
         public FormMain()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+
+            Version version = typeof(Program).Assembly.GetName().Version ?? throw new ArgumentNullException(nameof(Version));
+
+            Text = $"–°∫⁄∫– ÷˙ ÷ - {version.Major}.{version.Minor}.{version.Build}.{version.Revision} - by Chr_ - 2022";
+
             LoadCfg();
         }
 
@@ -34,6 +38,7 @@ namespace Xhh_Auto
                 HkeyServer = txtHKeyServer.Text,
                 XhhVersion = txtHBVersion.Text,
                 Accounts = Accounts.Values.ToHashSet(),
+                CheckedItems = ChecledItems,
             };
 
             Utils.SaveConfig(config);
@@ -52,6 +57,7 @@ namespace Xhh_Auto
             {
                 Accounts[account.HeyboxID] = account;
             }
+            ChecledItems = config.CheckedItems;
 
             UpdateAccountList();
         }
@@ -74,6 +80,8 @@ namespace Xhh_Auto
                 item.SubItems.Add(account.DeviceInfo);
                 item.SubItems.Add(account.Channal);
 
+                item.Checked = ChecledItems.Contains(account.HeyboxID);
+
                 lVAccounts.Items.Add(item);
             }
 
@@ -90,7 +98,7 @@ namespace Xhh_Auto
                 Channal = DefaultChannal
             };
 
-            FormAddAccount frmAdd = new(account, "µº»Î’À∫≈");
+            FormAddAccount frmAdd = new(account, true);
 
             if (frmAdd.ShowDialog(this) == DialogResult.OK)
             {
@@ -133,7 +141,7 @@ namespace Xhh_Auto
                 {
                     Account account = Accounts[heyboxID];
 
-                    FormAddAccount frmAdd = new(account, "±‡º≠’À∫≈");
+                    FormAddAccount frmAdd = new(account, false);
 
                     if (frmAdd.ShowDialog(this) == DialogResult.OK)
                     {
@@ -181,16 +189,6 @@ namespace Xhh_Auto
             }
         }
 
-        private void btnLoadConfig_Click(object sender, EventArgs e)
-        {
-            LoadCfg();
-        }
-
-        private void btnSaveConfig_Click(object sender, EventArgs e)
-        {
-            SaveCfg();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
@@ -210,11 +208,29 @@ namespace Xhh_Auto
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        xhh.GetAccountInfo();
+                        var result = xhh.TaskSign();
 
+                        var a = "";
                     }
                 }
             }
+        }
+
+        private void lVAccounts_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            ChecledItems.Clear();
+
+            foreach (ListViewItem item in lVAccounts.CheckedItems)
+            {
+                ChecledItems.Add(item.SubItems[1].Text);
+            }
+
+
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveCfg();
         }
     }
 }

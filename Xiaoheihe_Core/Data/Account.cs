@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xiaoheihe_CShape.Data
+namespace Xiaoheihe_Core.Data
 {
     public sealed class Account
     {

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xiaoheihe_Core\Xiaoheihe_CShape.csproj" />
+    <ProjectReference Include="..\Xiaoheihe_Core\Xiaoheihe_Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

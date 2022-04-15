@@ -6,25 +6,20 @@ using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
-using Xiaoheihe_CShape.Data;
+using Xiaoheihe_Core.Data;
 
-namespace Xiaoheihe_CShape.Request
+namespace Xiaoheihe_Core.Request
 {
     public static class AccountAPI
     {
         public static AccountInfoResponse GetAccountInfo(this XiaoheiheClient xhh)
         {
-            const string subPath = "/account/info/";
+            string subPath = "/account/info/";
 
-            Uri uri = xhh.BuildQueryParams(subPath, null);
+            AccountInfoResponse response = xhh.BasicRequest<AccountInfoResponse>
+                (HttpMethod.Get, subPath, null, null);
 
-            HttpRequestMessage request = new(HttpMethod.Get, uri);
-
-            AccountInfoResponse? response = xhh.BasicRequest<AccountInfoResponse>(request);
-
-            return response??new();
+            return response;
         }
-
-
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xiaoheihe_CShape.Data;
-using static Xiaoheihe_CShape.StaticValue;
+using Xiaoheihe_Core.Data;
+using static Xiaoheihe_Core.StaticValue;
 
-namespace Xiaoheihe_CShape
+namespace Xiaoheihe_Core
 {
     public static class Utils
     {

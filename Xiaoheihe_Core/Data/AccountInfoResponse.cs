@@ -5,16 +5,13 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Xiaoheihe_CShape.Data
+namespace Xiaoheihe_Core.Data
 {
-    public sealed class AccountInfoResponse : BasicResponse
+    public sealed class AccountInfoResponse : BasicResponse<AccountInfoResultData>
     {
-
-        [JsonPropertyName("result")]
-        public AccountInfoResult Result { get; set; } = new();
     }
 
-    public sealed class AccountInfoResult
+    public sealed class AccountInfoResultData
     {
         [JsonPropertyName("profile")]
 
@@ -72,11 +69,4 @@ namespace Xiaoheihe_CShape.Data
         public LevelInfoData LevelInfo { get; set; } = new();
 
     }
-
-    public sealed class LevelInfoData
-    {
-        [JsonPropertyName("level")]
-        public int Level { get; set; } = 0;
-    }
-
 }

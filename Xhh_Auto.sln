@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xhh_Auto", "Xhh_Auto\Xhh_Auto.csproj", "{E5109F2E-FECD-45F0-A2F8-C56EF2994D03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xiaoheihe_CShape", "Xiaoheihe_Core\Xiaoheihe_CShape.csproj", "{0311D383-AADA-4D2A-9833-0641443007F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xiaoheihe_Core", "Xiaoheihe_Core\Xiaoheihe_Core.csproj", "{0311D383-AADA-4D2A-9833-0641443007F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

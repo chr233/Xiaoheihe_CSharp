@@ -1,21 +1,12 @@
-﻿using System.Collections;
-using System;
-using System.Text;
-using System.Reflection;
-using System.Threading.Channels;
-using System.Net.Http;
-using System.Web;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Specialized;
 using System.Net;
-using System.Net.Http;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using System.Collections.Specialized;
-using Xiaoheihe_CShape.Data;
+using System.Text;
 using System.Text.Json;
+using System.Web;
+using Xiaoheihe_Core.Data;
+using Xiaoheihe_Core.Exceptions;
 
-namespace Xiaoheihe_CShape
+namespace Xiaoheihe_Core
 {
     public class XiaoheiheClient
     {
@@ -39,6 +30,13 @@ namespace Xiaoheihe_CShape
         }
 
 
+        /// <summary>
+        /// 计算Hkey
+        /// </summary>
+        /// <param name="urlPath"></param>
+        /// <param name="nonce"></param>
+        /// <param name="timeStamp"></param>
+        /// <returns></returns>
         private string CallHkeyServer(string urlPath, string nonce, string timeStamp)
         {
             if (!urlPath.EndsWith("/")) { urlPath += "/"; }
@@ -55,6 +53,12 @@ namespace Xiaoheihe_CShape
         }
 
 
+        /// <summary>
+        /// 构建请求URL
+        /// </summary>
+        /// <param name="urlPath"></param>
+        /// <param name="extendParams"></param>
+        /// <returns></returns>
         public Uri BuildQueryParams(string urlPath, Dictionary<string, string>? extendParams = null)
         {
             UriBuilder ub = new(XiaoHeiHeAPI);
@@ -99,20 +103,42 @@ namespace Xiaoheihe_CShape
             return ub.Uri;
         }
 
-        public T? BasicRequest<T>(HttpRequestMessage request)
+        private void CheckMessage(BasicResponse response)
         {
+            switch (response.Status.ToLower())
+            {
+                case "ok":
+                    return;
+                case "relogin":
+                    throw new AccountErrorException(message: response.Message);
+            }
+        }
+
+        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams = null, HttpContent? content = null) where T : BasicResponse
+        {
+            Uri uri;
+            try
+            {
+                uri = BuildQueryParams(subPath, extendParams);
+            }
+            catch (Exception ex)
+            {
+                throw new HkeyServerErrorException(ex.Message);
+            }
+
+            HttpRequestMessage request = new(method, uri) { Content = content };
+
             HttpResponseMessage response = Http.Send(request);
 
             Stream receiveStream = response.Content.ReadAsStreamAsync().Result;
-            StreamReader readStream = new (receiveStream, Encoding.UTF8);
+            StreamReader readStream = new(receiveStream, Encoding.UTF8);
             string strJson = readStream.ReadToEnd();
 
             T? result = JsonSerializer.Deserialize<T>(strJson);
 
-            if(result == null)
-            {
-                //throw new NullRespo
-            }
+            if (result == null) { throw new NullResponseException(); }
+
+            CheckMessage(result);
 
             return result;
         }

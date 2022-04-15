@@ -8,23 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Xiaoheihe_CShape.Data;
+using Xiaoheihe_Core.Data;
 using Xhh_Auto.Storage;
 
 namespace Xhh_Auto
 {
     public partial class FormAddAccount : Form
     {
-        public FormAddAccount(string title = "导入账号")
+        public FormAddAccount(Account account, bool Add = false)
         {
             InitializeComponent();
-            Text = title;
-            groupBox2.Text = title;
-        }
 
-        public FormAddAccount(Account account, string title = "导入账号")
-        {
-            InitializeComponent();
+            string title = Add ? "添加账号" : "编辑账号";
+
+            string okBtn = Add ? "&A. 添加" : "&A. 修改";
+
             Text = title;
             groupBox2.Text = title;
             txtHeyboxID.Text = account.HeyboxID;
@@ -34,11 +32,12 @@ namespace Xhh_Auto
             txtOSVersion.Text = account.OSVersion;
             txtDeviceInfo.Text = account.DeviceInfo;
             txtChannal.Text = account.Channal;
+            txtHeyboxID.ReadOnly = !Add;
         }
 
         private void btnRandomImei_Click(object sender, EventArgs e)
         {
-            txtImei.Text = Xiaoheihe_CShape.Utils.RandomImei();
+            txtImei.Text = Xiaoheihe_Core.Utils.RandomImei();
         }
 
         private void btnOK_Click(object sender, EventArgs e)

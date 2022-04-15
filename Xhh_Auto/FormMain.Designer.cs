@@ -43,10 +43,9 @@
             this.colDeviceName = new System.Windows.Forms.ColumnHeader();
             this.colChannal = new System.Windows.Forms.ColumnHeader();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.txtHBVersion = new System.Windows.Forms.TextBox();
             this.txtHKeyServer = new System.Windows.Forms.TextBox();
-            this.btnLoadConfig = new System.Windows.Forms.Button();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.btnImportAccount = new System.Windows.Forms.Button();
             this.btnExportAccount = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
@@ -57,7 +56,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tPDailyTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -147,6 +145,7 @@
             this.lVAccounts.TabIndex = 0;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
+            this.lVAccounts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVAccounts_ItemChecked);
             // 
             // colChecks
             // 
@@ -196,8 +195,6 @@
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.txtHBVersion);
             this.groupBox2.Controls.Add(this.txtHKeyServer);
-            this.groupBox2.Controls.Add(this.btnLoadConfig);
-            this.groupBox2.Controls.Add(this.btnSaveConfig);
             this.groupBox2.Controls.Add(this.btnImportAccount);
             this.groupBox2.Controls.Add(this.btnExportAccount);
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
@@ -209,6 +206,16 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "操作";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(163, 22);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(99, 28);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "每日任务";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtHBVersion
             // 
@@ -225,26 +232,6 @@
             this.txtHKeyServer.Size = new System.Drawing.Size(224, 23);
             this.txtHKeyServer.TabIndex = 5;
             this.txtHKeyServer.Text = "http://localhost:9000/encode";
-            // 
-            // btnLoadConfig
-            // 
-            this.btnLoadConfig.Location = new System.Drawing.Point(236, 90);
-            this.btnLoadConfig.Name = "btnLoadConfig";
-            this.btnLoadConfig.Size = new System.Drawing.Size(99, 28);
-            this.btnLoadConfig.TabIndex = 4;
-            this.btnLoadConfig.Text = "加载配置";
-            this.btnLoadConfig.UseVisualStyleBackColor = true;
-            this.btnLoadConfig.Click += new System.EventHandler(this.btnLoadConfig_Click);
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(341, 89);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(99, 28);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "保存配置";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
             // btnImportAccount
             // 
@@ -346,16 +333,6 @@
             this.button4.Text = "测试 HKey API";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(163, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 28);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "每日任务";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -364,6 +341,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "FormMain";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tPDailyTask.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -400,8 +378,6 @@
         private Button btnImportAccount;
         private TextBox textBox1;
         private Button button4;
-        private Button btnLoadConfig;
-        private Button btnSaveConfig;
         private TextBox txtHBVersion;
         private TextBox txtHKeyServer;
         private ColumnHeader colChecks;

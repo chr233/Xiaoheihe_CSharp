@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Xiaoheihe_CShape.Data
+namespace Xiaoheihe_Core.Data
 {
     public class BasicResponse
     {
-        //{"status":"ok","msg":"","version":"1.0","result":{"state":"ignore"}
         [JsonPropertyName("status")]
         public string Status { get; set; } = "";
 
@@ -20,5 +19,11 @@ namespace Xiaoheihe_CShape.Data
 
         [JsonPropertyName("version")]
         public string Version { get; set; } = "";
+    }
+
+    public class BasicResponse<T> : BasicResponse
+    {
+        [JsonPropertyName("result")]
+        public T? Result { get; set; } = default;
     }
 }
