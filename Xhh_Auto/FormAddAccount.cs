@@ -36,12 +36,12 @@ namespace Xhh_Auto
             txtHeyboxID.ReadOnly = !Add;
         }
 
-        private void btnRandomImei_Click(object sender, EventArgs e)
+        private void BtnRandomImei_Click(object sender, EventArgs e)
         {
             txtImei.Text = Xiaoheihe_Core.Utils.RandomImei();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtHeyboxID.Text))
             {
@@ -85,7 +85,7 @@ namespace Xhh_Auto
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();

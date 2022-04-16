@@ -10,13 +10,13 @@ namespace Xhh_Auto
 {
     public partial class FormMain : Form
     {
-        Dictionary<string, Account> Accounts = new();
+        private readonly Dictionary<string, Account> Accounts = new();
 
-        HashSet<string> ChecledItems = new();
+        private HashSet<string> ChecledItems = new();
 
         public FormMain()
         {
-            InitializeComponent(); 
+            InitializeComponent();
 
             Version version = typeof(Program).Assembly.GetName().Version ?? throw new ArgumentNullException(nameof(Version));
 
@@ -33,7 +33,7 @@ namespace Xhh_Auto
 
         private void SaveCfg()
         {
-            Config config = new Config()
+            Config config = new()
             {
                 HkeyServer = txtHKeyServer.Text,
                 XhhVersion = txtHBVersion.Text,
@@ -88,7 +88,7 @@ namespace Xhh_Auto
             lVAccounts.EndUpdate();
         }
 
-        private void btnAddAccount_Click(object sender, EventArgs e)
+        private void BtnAddAccount_Click(object sender, EventArgs e)
         {
             Account account = new()
             {
@@ -126,7 +126,7 @@ namespace Xhh_Auto
 
         }
 
-        private void btnEditAccount_Click(object sender, EventArgs e)
+        private void BtnEditAccount_Click(object sender, EventArgs e)
         {
             SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
             if (selectedItems.Count == 0)
@@ -167,7 +167,7 @@ namespace Xhh_Auto
 
             SaveAndReload();
         }
-        private void btnDeleteAccount_Click(object sender, EventArgs e)
+        private void BtnDeleteAccount_Click(object sender, EventArgs e)
         {
             CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
 
@@ -189,7 +189,7 @@ namespace Xhh_Auto
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
 
@@ -221,7 +221,7 @@ namespace Xhh_Auto
             }
         }
 
-        private void lVAccounts_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void LVAccounts_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             ChecledItems.Clear();
 
@@ -229,8 +229,6 @@ namespace Xhh_Auto
             {
                 ChecledItems.Add(item.SubItems[1].Text);
             }
-
-
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)

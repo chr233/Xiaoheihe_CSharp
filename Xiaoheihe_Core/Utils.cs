@@ -90,7 +90,7 @@ namespace Xiaoheihe_Core
             StringBuilder imei = new();
             for (int i = 0; i < 16; i++)
             {
-                imei.Append(template.Substring(rand.Next(0, template.Length - 1), 1));
+                imei.Append(template.AsSpan(rand.Next(0, template.Length - 1), 1));
             }
             return imei.ToString();
         }
@@ -102,7 +102,7 @@ namespace Xiaoheihe_Core
             StringBuilder imei = new();
             for (int i = 0; i < 32; i++)
             {
-                imei.Append(template.Substring(rand.Next(0, template.Length - 1), 1));
+                imei.Append(template.AsSpan(rand.Next(0, template.Length - 1), 1));
             }
             return imei.ToString();
         }

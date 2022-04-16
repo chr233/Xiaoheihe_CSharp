@@ -123,7 +123,7 @@
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "&C. 取消";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnOK
             // 
@@ -134,7 +134,7 @@
             this.btnOK.TabIndex = 7;
             this.btnOK.Text = "&A. 添加";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnRandomImei
             // 
@@ -145,7 +145,7 @@
             this.btnRandomImei.TabIndex = 9;
             this.btnRandomImei.Text = "&R. 随机生成";
             this.btnRandomImei.UseVisualStyleBackColor = true;
-            this.btnRandomImei.Click += new System.EventHandler(this.btnRandomImei_Click);
+            this.btnRandomImei.Click += new System.EventHandler(this.BtnRandomImei_Click);
             // 
             // txtChannal
             // 

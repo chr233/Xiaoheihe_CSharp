@@ -115,7 +115,7 @@ namespace Xiaoheihe_Core
             return ub.Uri;
         }
 
-        private void CheckMessage(BasicResponse response)
+        private static void CheckMessage(BasicResponse response)
         {
             switch (response.Status.ToLower())
             {

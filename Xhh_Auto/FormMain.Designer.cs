@@ -145,7 +145,7 @@
             this.lVAccounts.TabIndex = 0;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
-            this.lVAccounts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lVAccounts_ItemChecked);
+            this.lVAccounts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.LVAccounts_ItemChecked);
             // 
             // colChecks
             // 
@@ -215,7 +215,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "每日任务";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // txtHBVersion
             // 
@@ -259,7 +259,7 @@
             this.btnDeleteAccount.TabIndex = 0;
             this.btnDeleteAccount.Text = "&D. 删除选中账号";
             this.btnDeleteAccount.UseVisualStyleBackColor = true;
-            this.btnDeleteAccount.Click += new System.EventHandler(this.btnDeleteAccount_Click);
+            this.btnDeleteAccount.Click += new System.EventHandler(this.BtnDeleteAccount_Click);
             // 
             // btnEditAccount
             // 
@@ -269,7 +269,7 @@
             this.btnEditAccount.TabIndex = 0;
             this.btnEditAccount.Text = "&E. 编辑账号";
             this.btnEditAccount.UseVisualStyleBackColor = true;
-            this.btnEditAccount.Click += new System.EventHandler(this.btnEditAccount_Click);
+            this.btnEditAccount.Click += new System.EventHandler(this.BtnEditAccount_Click);
             // 
             // btnAddAccount
             // 
@@ -279,7 +279,7 @@
             this.btnAddAccount.TabIndex = 0;
             this.btnAddAccount.Text = "&A. 添加账号";
             this.btnAddAccount.UseVisualStyleBackColor = true;
-            this.btnAddAccount.Click += new System.EventHandler(this.btnAddAccount_Click);
+            this.btnAddAccount.Click += new System.EventHandler(this.BtnAddAccount_Click);
             // 
             // groupBox1
             // 
