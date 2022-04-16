@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 using Xiaoheihe_Core.Data;
 
-namespace Xiaoheihe_Core.Request
+namespace Xiaoheihe_Core.APIs
 {
     public static class AccountAPI
     {
+        /// <summary>
+        /// 获取账号详情
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <returns></returns>
         public static AccountInfoResponse GetAccountInfo(this XiaoheiheClient xhh)
         {
             string subPath = "/account/info/";
