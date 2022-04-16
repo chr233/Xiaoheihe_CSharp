@@ -13,10 +13,10 @@ namespace Xiaoheihe_Core.Data
         public string Group { get; set; } = "";
 
         [JsonPropertyName("links")]
-        public HashSet<NewsLinkData> Links { get; set; } = new();
+        public HashSet<LinkData> Links { get; set; } = new();
     }
 
-    public sealed class NewsLinkData
+    public sealed class LinkData
     {
         [JsonPropertyName("description")]
         public string Description { get; set; } = "";
@@ -30,6 +30,9 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("comment_num")]
         public int CommentNum { get; set; }
 
+        [JsonPropertyName("create_at")]
+        public DateTime CreateAt { get; set; }
+
         [JsonPropertyName("special_type")]
         public int SpecialType { get; set; }
 
@@ -42,6 +45,9 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("imgs")]
         public HashSet<string> Imgs { get; set; } = new();
 
+        [JsonPropertyName("modify_at")]
+        public DateTime ModifyAt { get; set; }
+
         [JsonPropertyName("click")]
         public int Click { get; set; }
 
@@ -50,6 +56,9 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("forward_num")]
         public int ForwardNum { get; set; }
+
+        [JsonPropertyName("follow_status")]
+        public int FollowStatus { get; set; }
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";

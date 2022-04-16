@@ -208,11 +208,7 @@ namespace Xhh_Auto
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-
-
-                        var result1 = xhh.LikeNews(79931173, true);
-                        var result2 = xhh.LikeNews(79931173, false);
-
+                        var result1 = xhh.GetMomentsEvents(0);
 
                         var a = "";
                     }

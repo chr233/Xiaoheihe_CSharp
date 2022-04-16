@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 using Xiaoheihe_Core.Data;
+using System.Reflection;
 
 namespace Xiaoheihe_Core.APIs
 {
@@ -56,11 +57,26 @@ namespace Xiaoheihe_Core.APIs
             return response;
         }
 
+        /// <summary>
+        /// 点赞新闻
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <param name="like"></param>
+        /// <returns></returns>
         public static BasicResponse LikeNews(this XiaoheiheClient xhh, uint linkID, bool like)
         {
             return xhh.LikeNews(linkID, 1, like);
         }
 
+        /// <summary>
+        /// 点赞新闻
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <param name="index"></param>
+        /// <param name="like"></param>
+        /// <returns></returns>
         public static BasicResponse LikeNews(this XiaoheiheClient xhh, uint linkID, uint index, bool like)
         {
             string subPath = "/bbs/app/profile/award/link";
@@ -82,6 +98,40 @@ namespace Xiaoheihe_Core.APIs
             FormUrlEncodedContent content = new(formData);
 
             BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extendParams, content);
+
+            return response;
+        }
+
+        /// <summary>
+        /// 获取动态
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static SubscribedEventsResponse GetMomentsEvents(this XiaoheiheClient xhh, uint offset)
+        {
+            return xhh.GetMomentsEvents(offset, "post_link|game_comment|roll_room|followed_event");
+        }
+
+        /// <summary>
+        /// 获取动态
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="offset"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public static SubscribedEventsResponse GetMomentsEvents(this XiaoheiheClient xhh, uint offset, string filter)
+        {
+            string subPath = "/bbs/app/profile/subscribed/events";
+
+            Dictionary<string, string> extendParams = new(3)
+            {
+                { "offset", offset.ToString() },
+                { "limit", "30" },
+                { "filters", filter },
+            };
+
+            SubscribedEventsResponse response = xhh.BasicRequest<SubscribedEventsResponse>(HttpMethod.Get, subPath, extendParams);
 
             return response;
         }
