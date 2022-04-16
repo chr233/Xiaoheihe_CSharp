@@ -51,7 +51,37 @@ namespace Xiaoheihe_Core.APIs
             };
 
             AppFeedNewsResponse response = xhh.BasicRequest<AppFeedNewsResponse>
-                (HttpMethod.Get, subPath, extendParams, null);
+                (HttpMethod.Get, subPath, extendParams);
+
+            return response;
+        }
+
+        public static BasicResponse LikeNews(this XiaoheiheClient xhh, uint linkID, bool like)
+        {
+            return xhh.LikeNews(linkID, 1, like);
+        }
+
+        public static BasicResponse LikeNews(this XiaoheiheClient xhh, uint linkID, uint index, bool like)
+        {
+            string subPath = "/bbs/app/profile/award/link";
+
+            string hSrc = Utils.Base64Encode($"news_feeds_-1__link_id__{linkID}");
+
+            Dictionary<string, string> extendParams = new(2)
+            {
+                { "h_src", hSrc },
+                { "index", index.ToString() },
+            };
+
+            Dictionary<string, string> formData = new(2)
+            {
+                { "link_id", linkID.ToString() },
+                { "award_type", like ? "1" : "0" },
+            };
+
+            FormUrlEncodedContent content = new(formData);
+
+            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extendParams, content);
 
             return response;
         }

@@ -208,12 +208,11 @@ namespace Xhh_Auto
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result = xhh.GetFeedNews(0);
 
-                        var result1 = xhh.TaskSign();
-                        var result2 = xhh.GetTaskList();
-                        var result3 = xhh.GetTaskSignList();
-                        var result4 = xhh.GetAccountInfo();
+
+                        var result1 = xhh.LikeNews(79931173, true);
+                        var result2 = xhh.LikeNews(79931173, false);
+
 
                         var a = "";
                     }

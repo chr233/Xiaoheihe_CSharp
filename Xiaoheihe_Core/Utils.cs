@@ -120,5 +120,13 @@ namespace Xiaoheihe_Core
             }
             return imei.ToString();
         }
+
+
+        public static string Base64Encode(string text)
+        {
+            byte[] inArray = Encoding.UTF8.GetBytes(text);
+            string b64String = Convert.ToBase64String(inArray);
+            return b64String;
+        }
     }
 }

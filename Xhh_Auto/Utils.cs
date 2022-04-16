@@ -7,7 +7,6 @@ namespace Xhh_Auto
 {
     public static class Utils
     {
-
         public static string GetConfigFilePath()
         {
             string appFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -28,7 +27,6 @@ namespace Xhh_Auto
             SaveConfig(config, filePath);
         }
 
-
         public static void SaveConfig(Config config, string filePath)
         {
 
@@ -48,7 +46,6 @@ namespace Xhh_Auto
 
             return LoadConfig(filePath);
         }
-
 
         public static Config LoadConfig(string filePath)
         {
