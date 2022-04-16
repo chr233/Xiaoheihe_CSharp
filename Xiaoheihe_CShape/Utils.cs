@@ -1,16 +1,16 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-using Xhh_Auto.Storage;
+using Xiaoheihe_CShape.Storage;
 
-namespace Xhh_Auto
+namespace Xiaoheihe_CShape
 {
     public static class Utils
     {
         public static string GetConfigFilePath()
         {
             string appFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string configFolder = Path.Combine(appFolder, nameof(Xhh_Auto));
+            string configFolder = Path.Combine(appFolder, nameof(Xiaoheihe_CShape));
 
             if (!Directory.Exists(configFolder))
             {

@@ -1,6 +1,6 @@
 ﻿using Xiaoheihe_Core.Data;
 
-namespace Xhh_Auto.Storage
+namespace Xiaoheihe_CShape.Storage
 {
     public class Config
     {

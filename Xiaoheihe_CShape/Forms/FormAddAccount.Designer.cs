@@ -1,4 +1,4 @@
-﻿namespace Xhh_Auto
+﻿namespace Xiaoheihe_CShape.Forms
 {
     partial class FormAddAccount
     {

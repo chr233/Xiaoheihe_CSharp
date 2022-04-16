@@ -1,4 +1,6 @@
-namespace Xhh_Auto
+using Xiaoheihe_CShape.Forms;
+
+namespace Xiaoheihe_CShape
 {
     internal static class Program
     {
@@ -8,8 +10,6 @@ namespace Xhh_Auto
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new FormMain());
         }

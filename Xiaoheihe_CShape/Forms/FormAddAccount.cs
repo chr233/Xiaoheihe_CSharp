@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Xiaoheihe_Core.Data;
-using Xhh_Auto.Storage;
+using Xiaoheihe_CShape.Storage;
 
-namespace Xhh_Auto
+namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormAddAccount : Form
     {

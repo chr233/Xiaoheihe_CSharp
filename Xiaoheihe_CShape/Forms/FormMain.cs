@@ -1,4 +1,4 @@
-using Xhh_Auto.Storage;
+using Xiaoheihe_CShape.Storage;
 using Xiaoheihe_Core;
 using Xiaoheihe_Core.Data;
 using Xiaoheihe_Core.APIs;
@@ -6,7 +6,7 @@ using static System.Windows.Forms.ListView;
 
 using static Xiaoheihe_Core.StaticValue;
 
-namespace Xhh_Auto
+namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormMain : Form
     {
