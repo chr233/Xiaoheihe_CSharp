@@ -2,9 +2,11 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Web;
 using Xiaoheihe_Core.Data;
 using Xiaoheihe_Core.Exceptions;
+using Xiaoheihe_Core.Converters;
 
 namespace Xiaoheihe_Core
 {
@@ -15,9 +17,10 @@ namespace Xiaoheihe_Core
         internal string HeyboxID { get; set; }
         internal string HeyboxVersion { get; set; }
         internal Dictionary<string, string> RequestParams { get; set; }
-        internal Dictionary<string, string> HttpHeaders { get; set; }
-        internal Uri HkeyServer { get; set; }
+        internal Dictionary<string, string> HttpHeaders { get; private set; }
+        internal Uri HkeyServer { get; private set; }
         internal HttpClient Http { get; private set; } = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip });
+        internal JsonSerializerOptions JsonOptions { get; private set; } = new();
 
         /// <summary>
         /// 构造函数
@@ -33,6 +36,8 @@ namespace Xiaoheihe_Core
             RequestParams = Utils.DefaultParams(account, version);
             HttpHeaders = Utils.SetDefaultHttpHeaders(Http, account.Pkey);
             HkeyServer = new Uri(hkeyServer);
+
+            JsonOptions.Converters.Add(new DateTimeConverter());
         }
 
 
@@ -191,7 +196,7 @@ namespace Xiaoheihe_Core
             StreamReader readStream = new(receiveStream, Encoding.UTF8);
             string strJson = readStream.ReadToEnd();
 
-            T? result = JsonSerializer.Deserialize<T>(strJson);
+            T? result = JsonSerializer.Deserialize<T>(strJson, JsonOptions);
 
             if (result == null) { throw new NullResponseException(); }
 
