@@ -12,13 +12,29 @@ namespace Xiaoheihe_Core.APIs
 {
     public static class BBSAPI
     {
+
         /// <summary>
         /// 获取首页新闻流
         /// </summary>
         /// <param name="xhh"></param>
+        /// <param name="offset"></param>
         /// <returns></returns>
-        public static AppFeedNewsResponse GetFeedNews(this XiaoheiheClient xhh,
-            uint offset = 0, string tag = "-1", string recMark = "timeline", string newsListType = "normal", string newsListGroup = "control-group")
+        public static AppFeedNewsResponse GetFeedNews(this XiaoheiheClient xhh, uint offset)
+        {
+            return xhh.GetFeedNews(offset, "-1", "timeline", "normal", "control-group");
+        }
+
+        /// <summary>
+        /// 获取首页新闻流
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="offset"></param>
+        /// <param name="tag"></param>
+        /// <param name="recMark"></param>
+        /// <param name="newsListType"></param>
+        /// <param name="newsListGroup"></param>
+        /// <returns></returns>
+        public static AppFeedNewsResponse GetFeedNews(this XiaoheiheClient xhh, uint offset, string tag, string recMark, string newsListType, string newsListGroup)
         {
             string subPath = "/bbs/app/feeds/news";
 
