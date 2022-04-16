@@ -54,14 +54,24 @@ namespace Xiaoheihe_Core
             return hkey;
         }
 
+        /// <summary>
+        /// 构建请求Url
+        /// </summary>
+        /// <param name="urlPath"></param>
+        /// <returns></returns>
+        public Uri BuildQueryParams(string urlPath)
+        {
+            return BuildQueryParams(urlPath, null);
+        }
+
 
         /// <summary>
-        /// 构建请求URL
+        /// 构建请求Url
         /// </summary>
         /// <param name="urlPath"></param>
         /// <param name="extendParams"></param>
         /// <returns></returns>
-        public Uri BuildQueryParams(string urlPath, Dictionary<string, string>? extendParams = null)
+        public Uri BuildQueryParams(string urlPath, Dictionary<string, string>? extendParams)
         {
             UriBuilder ub = new(XiaoHeiHeAPI);
             ub.Path = urlPath;
@@ -116,7 +126,17 @@ namespace Xiaoheihe_Core
             }
         }
 
-        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams = null, HttpContent? content = null) where T : BasicResponse
+        public T BasicRequest<T>(HttpMethod method, string subPath) where T : BasicResponse
+        {
+            return BasicRequest<T>(method, subPath, null,null);
+        }
+
+        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams) where T : BasicResponse
+        {
+            return BasicRequest<T>(method, subPath, extendParams, null);
+        }
+
+        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams, HttpContent? content) where T : BasicResponse
         {
             Uri uri;
             try

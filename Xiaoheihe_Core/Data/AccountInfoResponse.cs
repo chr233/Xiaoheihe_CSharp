@@ -24,7 +24,7 @@ namespace Xiaoheihe_Core.Data
         public string Career { get; set; } = "";
 
         [JsonPropertyName("gender")]
-        public int Gender { get; set; } = 0;
+        public int Gender { get; set; }
 
         [JsonPropertyName("birthday")]
         public string Birthday { get; set; } = "";

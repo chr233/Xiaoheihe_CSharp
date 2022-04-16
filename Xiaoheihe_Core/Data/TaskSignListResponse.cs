@@ -22,7 +22,7 @@ namespace Xiaoheihe_Core.Data
 
 
         [JsonPropertyName("date")]
-        public long Date { get; set; } = 0;
+        public long Date { get; set; }
 
         [JsonPropertyName("is_sign")]
         public bool IsSign { get; set; } = false;

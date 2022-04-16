@@ -9,13 +9,13 @@ namespace Xiaoheihe_Core.Data
     public sealed class TaskSignResultData : BasicResultData
     {
         [JsonPropertyName("sign_in_exp")]
-        public int SignInExp { get; set; } = 0;
+        public int SignInExp { get; set; }
 
         [JsonPropertyName("sign_in_coin")]
-        public int SignInCoin { get; set; } = 0;
+        public int SignInCoin { get; set; }
 
         [JsonPropertyName("sign_in_streak")]
-        public int SignInStreak { get; set; } = 0;
+        public int SignInStreak { get; set; }
 
         [JsonPropertyName("level_info")]
         public LevelInfoData LevelInfo { get; set; } = new();

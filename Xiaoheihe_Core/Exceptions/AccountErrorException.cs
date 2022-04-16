@@ -21,7 +21,7 @@ namespace Xiaoheihe_Core.Exceptions
         {
         }
 
-        protected AccountErrorException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public AccountErrorException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

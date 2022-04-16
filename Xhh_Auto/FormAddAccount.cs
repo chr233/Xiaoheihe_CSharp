@@ -15,7 +15,7 @@ namespace Xhh_Auto
 {
     public partial class FormAddAccount : Form
     {
-        public FormAddAccount(Account account, bool Add = false)
+        public FormAddAccount(Account account, bool Add)
         {
             InitializeComponent();
 
@@ -26,6 +26,7 @@ namespace Xhh_Auto
             Text = title;
             groupBox2.Text = title;
             txtHeyboxID.Text = account.HeyboxID;
+            btnOK.Text = okBtn;
             txtPkey.Text = account.Pkey;
             txtImei.Text = account.Imei;
             txtOSType.Text = account.OSType;

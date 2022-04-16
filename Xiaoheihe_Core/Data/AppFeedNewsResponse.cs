@@ -25,43 +25,43 @@ namespace Xiaoheihe_Core.Data
         public string Hsrc { get; set; } = "";
 
         [JsonPropertyName("up")]
-        public int Up { get; set; } = 0;
+        public int Up { get; set; }
 
         [JsonPropertyName("comment_num")]
-        public int CommentNum { get; set; } = 0;
+        public int CommentNum { get; set; }
 
         [JsonPropertyName("special_type")]
-        public int SpecialType { get; set; } = 0;
+        public int SpecialType { get; set; }
 
         [JsonPropertyName("link_award_num")]
-        public int LinkAwardNum { get; set; } = 0;
+        public int LinkAwardNum { get; set; }
 
         [JsonPropertyName("content_type")]
-        public int ContentType { get; set; } = 0;
+        public int ContentType { get; set; }
 
         [JsonPropertyName("imgs")]
         public HashSet<string> Imgs { get; set; } = new();
 
         [JsonPropertyName("click")]
-        public int Click { get; set; } = 0;
+        public int Click { get; set; }
 
         [JsonPropertyName("down")]
-        public int Down { get; set; } = 0;
+        public int Down { get; set; }
 
         [JsonPropertyName("forward_num")]
-        public int ForwardNum { get; set; } = 0;
+        public int ForwardNum { get; set; }
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";
 
         [JsonPropertyName("linkid")]
-        public int LinkID { get; set; } = 0;
+        public int LinkID { get; set; }
 
         [JsonPropertyName("userid")]
-        public int UserID { get; set; } = 0;
+        public int UserID { get; set; }
 
         [JsonPropertyName("is_web")]
-        public int IsWeb { get; set; } = 0;
+        public int IsWeb { get; set; }
 
         [JsonPropertyName("share_url")]
         public string ShareUrl { get; set; } = "";
@@ -70,16 +70,16 @@ namespace Xiaoheihe_Core.Data
         public string FormatedTime { get; set; } = "";
 
         [JsonPropertyName("link_tag")]
-        public int LinkTag { get; set; } = 0;
+        public int LinkTag { get; set; }
 
         [JsonPropertyName("has_video")]
-        public int HasVideo { get; set; } = 0;
+        public int HasVideo { get; set; }
 
         [JsonPropertyName("post_tag")]
         public string PostTag { get; set; } = "";
 
         [JsonPropertyName("link_type")]
-        public int LinkType { get; set; } = 0;
+        public int LinkType { get; set; }
 
         [JsonPropertyName("thumbs")]
         public HashSet<string> Thumbs { get; set; } = new();

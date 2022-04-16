@@ -10,26 +10,6 @@ namespace Xiaoheihe_Core
 {
     public static class Utils
     {
-        public static Dictionary<string, string> DefaultParams(
-            string heyboxID, string imei = "", string version = DefaultHBVersion, string device_info = DefaultDevice,
-            string os_type = DefaultOSType, string os_version = DefaultOSVersion, string channal = DefaultChannal
-        )
-        {
-            Account account = new()
-            {
-                HeyboxID = heyboxID,
-                Imei = imei,
-                DeviceInfo = device_info,
-                OSType = os_type,
-                OSVersion = os_version,
-                Channal = channal
-            };
-
-            Dictionary<string, string> paramDict = DefaultParams(account, version);
-
-            return paramDict;
-        }
-
         public static Dictionary<string, string> DefaultParams(Account account, string version = DefaultHBVersion)
         {
             if (string.IsNullOrEmpty(account.Imei)) { account.Imei = RandomImei(); }
