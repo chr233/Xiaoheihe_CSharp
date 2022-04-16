@@ -137,6 +137,8 @@ namespace Xiaoheihe_Core
                     return;
                 case "relogin":
                     throw new AccountErrorException(message: response.Message);
+                case "failed":
+                    throw new AccountErrorException(message: response.Message);
             }
         }
 

@@ -12,7 +12,7 @@ namespace Xiaoheihe_Core.Data
         public ProfileData Profile { get; set; } = new();
 
         [JsonPropertyName("account_detail")]
-        public AccountDetailData AccountDetail { get; set; } = new();
+        public XhhUserData AccountDetail { get; set; } = new();
     }
 
     public sealed class ProfileData
@@ -50,7 +50,7 @@ namespace Xiaoheihe_Core.Data
         }
     }
 
-    public sealed class AccountDetailData
+    public sealed class XhhUserData
     {
         [JsonPropertyName("username")]
         public string UserName { get; set; } = "";

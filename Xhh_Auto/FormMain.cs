@@ -208,7 +208,7 @@ namespace Xhh_Auto
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result1 = xhh.GetMomentsEvents(0);
+                        var result1 = xhh.SentComment(79936851, "Ð´Í¦ºÃ");
 
                         var a = "";
                     }

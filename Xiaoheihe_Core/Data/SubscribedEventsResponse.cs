@@ -23,7 +23,7 @@ namespace Xiaoheihe_Core.Data
         public LinkData Link { get; set; } = new();
 
         [JsonPropertyName("user")]
-        public AccountDetailData User { get; set; } = new();
+        public XhhUserData User { get; set; } = new();
 
         [JsonPropertyName("level_info")]
         public LevelInfoData LevelInfo { get; set; } = new();
