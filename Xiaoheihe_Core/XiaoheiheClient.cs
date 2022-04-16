@@ -12,6 +12,7 @@ namespace Xiaoheihe_Core
     {
         internal string Pkey { get; set; }
         internal string HeyboxID { get; set; }
+        internal string HeyboxVersion { get; set; }
         internal Dictionary<string, string> RequestParams { get; set; }
         internal Dictionary<string, string> HttpHeaders { get; set; }
         internal Uri HkeyServer { get; set; }
@@ -24,6 +25,7 @@ namespace Xiaoheihe_Core
         {
             Pkey = account.Pkey;
             HeyboxID = account.HeyboxID;
+            HeyboxVersion = version;
             RequestParams = Utils.DefaultParams(account, version);
             HttpHeaders = Utils.SetDefaultHttpHeaders(Http, account.Pkey);
             HkeyServer = new Uri(hkeyServer);
@@ -143,5 +145,9 @@ namespace Xiaoheihe_Core
             return result;
         }
 
+        public override string? ToString()
+        {
+            return $"{nameof(XiaoheiheClient)} {HeyboxID} {HeyboxVersion}";
+        }
     }
 }

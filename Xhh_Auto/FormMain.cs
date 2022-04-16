@@ -1,7 +1,7 @@
 using Xhh_Auto.Storage;
 using Xiaoheihe_Core;
 using Xiaoheihe_Core.Data;
-using Xiaoheihe_Core.Request;
+using Xiaoheihe_Core.APIs;
 using static System.Windows.Forms.ListView;
 
 using static Xiaoheihe_Core.StaticValue;
@@ -208,7 +208,12 @@ namespace Xhh_Auto
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result = xhh.TaskSign();
+                        var result = xhh.GetFeedNews(0);
+
+                        var result1 = xhh.TaskSign();
+                        var result2 = xhh.GetTaskList();
+                        var result3 = xhh.GetTaskSignList();
+                        var result4 = xhh.GetAccountInfo();
 
                         var a = "";
                     }
