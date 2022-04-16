@@ -10,7 +10,23 @@ namespace Xiaoheihe_Core
 {
     public static class Utils
     {
-        public static Dictionary<string, string> DefaultParams(Account account, string version = DefaultHBVersion)
+        /// <summary>
+        /// 组装默认参数
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public static Dictionary<string, string> DefaultParams(Account account)
+        {
+            return DefaultParams(account, DefaultHBVersion);
+        }
+
+        /// <summary>
+        /// 组装默认参数
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static Dictionary<string, string> DefaultParams(Account account, string version)
         {
             if (string.IsNullOrEmpty(account.Imei)) { account.Imei = RandomImei(); }
             if (string.IsNullOrEmpty(version)) { version = DefaultHBVersion; }
@@ -46,6 +62,12 @@ namespace Xiaoheihe_Core
             return paramDict;
         }
 
+        /// <summary>
+        /// 设置默认请求头
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="pkey"></param>
+        /// <returns></returns>
         public static Dictionary<string, string> SetDefaultHttpHeaders(HttpClient client, string pkey)
         {
             Dictionary<string, string> headers = new(6)
@@ -67,22 +89,10 @@ namespace Xiaoheihe_Core
             return headers;
         }
 
-
-        public static string PackageParams(Dictionary<string, string> paramsDict)
-        {
-            StringBuilder sb = new();
-
-            foreach (KeyValuePair<string, string> item in paramsDict)
-            {
-                if (!string.IsNullOrEmpty(item.Value))
-                {
-                    sb.Append($"&{item.Key}={item.Value}");
-                }
-            }
-
-            return sb.ToString();
-        }
-
+        /// <summary>
+        /// 生成随机IMEI
+        /// </summary>
+        /// <returns></returns>
         public static string RandomImei()
         {
             string template = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -95,6 +105,10 @@ namespace Xiaoheihe_Core
             return imei.ToString();
         }
 
+        /// <summary>
+        /// 生成随机字符串
+        /// </summary>
+        /// <returns></returns>
         public static string RandomNonce()
         {
             string template = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

@@ -10,17 +10,21 @@ namespace Xiaoheihe_Core
 {
     public class XiaoheiheClient
     {
+        internal static Uri XiaoHeiHeAPI { get; } = new("https://api.xiaoheihe.cn");
         internal string Pkey { get; set; }
         internal string HeyboxID { get; set; }
         internal string HeyboxVersion { get; set; }
         internal Dictionary<string, string> RequestParams { get; set; }
         internal Dictionary<string, string> HttpHeaders { get; set; }
         internal Uri HkeyServer { get; set; }
-
-        internal readonly Uri XiaoHeiHeAPI = new("https://api.xiaoheihe.cn");
-
         internal HttpClient Http { get; private set; } = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip });
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="version"></param>
+        /// <param name="hkeyServer"></param>
         public XiaoheiheClient(Account account, string version, string hkeyServer)
         {
             Pkey = account.Pkey;
@@ -115,7 +119,12 @@ namespace Xiaoheihe_Core
             return ub.Uri;
         }
 
-        private static void CheckMessage(BasicResponse response)
+        /// <summary>
+        /// 检查返回值
+        /// </summary>
+        /// <param name="response"></param>
+        /// <exception cref="AccountErrorException"></exception>
+        private static void CheckResponse(BasicResponse response)
         {
             switch (response.Status.ToLower())
             {
@@ -126,16 +135,42 @@ namespace Xiaoheihe_Core
             }
         }
 
+        /// <summary>
+        /// 基础请求
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="method"></param>
+        /// <param name="subPath"></param>
+        /// <returns></returns>
         public T BasicRequest<T>(HttpMethod method, string subPath) where T : BasicResponse
         {
-            return BasicRequest<T>(method, subPath, null,null);
+            return BasicRequest<T>(method, subPath, null, null);
         }
 
+        /// <summary>
+        /// 基础请求
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="method"></param>
+        /// <param name="subPath"></param>
+        /// <param name="extendParams"></param>
+        /// <returns></returns>
         public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams) where T : BasicResponse
         {
             return BasicRequest<T>(method, subPath, extendParams, null);
         }
 
+        /// <summary>
+        /// 基础请求
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="method"></param>
+        /// <param name="subPath"></param>
+        /// <param name="extendParams"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        /// <exception cref="HkeyServerErrorException"></exception>
+        /// <exception cref="NullResponseException"></exception>
         public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams, HttpContent? content) where T : BasicResponse
         {
             Uri uri;
@@ -160,7 +195,7 @@ namespace Xiaoheihe_Core
 
             if (result == null) { throw new NullResponseException(); }
 
-            CheckMessage(result);
+            CheckResponse(result);
 
             return result;
         }
