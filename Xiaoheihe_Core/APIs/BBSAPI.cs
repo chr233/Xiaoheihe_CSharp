@@ -9,6 +9,7 @@ using static System.Net.WebRequestMethods;
 using Xiaoheihe_Core.Data;
 using System.Reflection;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Xiaoheihe_Core.APIs
 {
@@ -144,7 +145,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
-        public static BasicResponse SentComment(this XiaoheiheClient xhh, uint linkID, string comment)
+        public static SendCommentsResponse SentComment(this XiaoheiheClient xhh, uint linkID, string comment)
         {
             return xhh.SentComment(linkID, 1, comment, -1, -1, false);
         }
@@ -184,7 +185,23 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            SendCommentsResponse response = xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, extendParams,content);
+            SendCommentsResponse response = xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, extendParams, content);
+
+            return response;
+        }
+
+        public static BasicResponse DeleteComment(this XiaoheiheClient xhh, long commentID)
+        {
+            string subPath = "/bbs/app/comment/delete";
+
+            Dictionary<string, string> formData = new(1)
+            {
+                { "comment_id", commentID.ToString() },
+            };
+
+            FormUrlEncodedContent content = new(formData);
+
+            SendCommentsResponse response = xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, content);
 
             return response;
         }

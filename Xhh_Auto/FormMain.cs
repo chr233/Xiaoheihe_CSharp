@@ -210,7 +210,11 @@ namespace Xhh_Auto
 
                         var result1 = xhh.SentComment(79936851, "Ð´Í¦ºÃ");
 
-                        var a = "";
+                        var b = result1.Result!.Comment.Comment.First().Commentid;
+
+                        var result2 = xhh.DeleteComment(b);
+
+                        var _ = "";
                     }
                 }
             }

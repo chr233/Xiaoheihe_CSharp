@@ -162,9 +162,22 @@ namespace Xiaoheihe_Core
         /// <param name="subPath"></param>
         /// <param name="extendParams"></param>
         /// <returns></returns>
-        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams) where T : BasicResponse
+        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extendParams) where T : BasicResponse
         {
             return BasicRequest<T>(method, subPath, extendParams, null);
+        }
+
+        /// <summary>
+        /// 基础请求
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="method"></param>
+        /// <param name="subPath"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        public T BasicRequest<T>(HttpMethod method, string subPath, HttpContent content) where T : BasicResponse
+        {
+            return BasicRequest<T>(method, subPath, null, content);
         }
 
         /// <summary>

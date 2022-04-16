@@ -19,10 +19,10 @@ namespace Xiaoheihe_Core.Data
         }
     }
 
-    public class BasicResponse<T> : BasicResponse where T: BasicResultData
+    public class BasicResponse<T> : BasicResponse where T : BasicResultData
     {
         [JsonPropertyName("result")]
-        public T? Result { get; set; } = default;
+        public T? Result { get; set; }
 
         public override string? ToString()
         {
@@ -30,7 +30,7 @@ namespace Xiaoheihe_Core.Data
         }
     }
 
-    public class BasicResultData
-    { 
+    public abstract class BasicResultData
+    {
     }
 }

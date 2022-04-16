@@ -22,7 +22,7 @@ namespace Xiaoheihe_Core.APIs
             string subPath = "/task/sign_list/";
 
             TaskSignListResponse response = xhh.BasicRequest<TaskSignListResponse>
-                (HttpMethod.Get, subPath, null, null);
+                (HttpMethod.Get, subPath);
 
             return response;
         }
@@ -37,7 +37,7 @@ namespace Xiaoheihe_Core.APIs
             string subPath = "/task/list/";
 
             TaskListResponse response = xhh.BasicRequest<TaskListResponse>
-                (HttpMethod.Get, subPath, null, null);
+                (HttpMethod.Get, subPath);
 
             return response;
         }
@@ -52,7 +52,7 @@ namespace Xiaoheihe_Core.APIs
             string subPath = "/task/sign/";
 
             TaskSignResponse response = xhh.BasicRequest<TaskSignResponse>
-                (HttpMethod.Get, subPath, null, null);
+                (HttpMethod.Get, subPath);
 
             return response;
         }
