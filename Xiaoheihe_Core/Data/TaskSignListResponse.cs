@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Xiaoheihe_Core.Data
 {
@@ -11,7 +6,7 @@ namespace Xiaoheihe_Core.Data
     {
     }
 
-    public sealed class TaskSignListResultData
+    public sealed class TaskSignListResultData : BasicResultData
     {
         [JsonPropertyName("replenish_desc")]
         public string ReplenishDesc { get; set; } = "";
@@ -22,10 +17,19 @@ namespace Xiaoheihe_Core.Data
 
     public sealed class SignListData
     {
+        const string Signed = "已签到";
+        const string Unsigned = "未签到";
+
+
         [JsonPropertyName("date")]
         public long Date { get; set; } = 0;
 
         [JsonPropertyName("is_sign")]
         public bool IsSign { get; set; } = false;
+
+        public override string? ToString()
+        {
+            return $"{Date} {(IsSign ? Signed : Unsigned) }";
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Xiaoheihe_Core.Data
     {
     }
 
-    public sealed class TaskListResultData
+    public sealed class TaskListResultData : BasicResultData
     {
         [JsonPropertyName("task_list")]
         public HashSet<TaskWithTitleData> TaskList { get; set; } = new();
@@ -24,6 +24,11 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";
+
+        public override string? ToString()
+        {
+            return $"{Title} 任务数量: {Tasks.Count}";
+        }
     }
 
 
@@ -52,13 +57,18 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("desc")]
         public string Desc { get; set; } = "";
+
+        public override string? ToString()
+        {
+            return $"{Title} {StateDesc} {Desc}";
+        }
     }
 
 
     public sealed class LevelInfoData
     {
         [JsonPropertyName("max_exp")]
-        public int Max_exp { get; set; } = 0;
+        public int MaxExp { get; set; } = 0;
 
         [JsonPropertyName("coin")]
         public int Coin { get; set; } = 0;
@@ -68,5 +78,10 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("level")]
         public int Level { get; set; } = 0;
+
+        public override string? ToString()
+        {
+            return $"Lv{Level}";
+        }
     }
 }

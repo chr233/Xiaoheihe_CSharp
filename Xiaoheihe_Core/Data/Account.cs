@@ -17,5 +17,10 @@ namespace Xiaoheihe_Core.Data
         public string OSVersion { get; set; } = "";
         public string DeviceInfo { get; set; } = "";
         public string Channal { get; set; } = "";
+
+        public override string? ToString()
+        {
+            return $"[{HeyboxID}] {NickName}";
+        }
     }
 }

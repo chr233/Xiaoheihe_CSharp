@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Xiaoheihe_Core.Data
 {
@@ -11,10 +6,9 @@ namespace Xiaoheihe_Core.Data
     {
     }
 
-    public sealed class AccountInfoResultData
+    public sealed class AccountInfoResultData : BasicResultData
     {
         [JsonPropertyName("profile")]
-
         public ProfileData Profile { get; set; } = new();
 
         [JsonPropertyName("account_detail")]
@@ -49,6 +43,11 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("heybox_id")]
         public string HeyboxID { get; set; } = "";
+
+        public override string? ToString()
+        {
+            return $"[{HeyboxID}] {Nickname}";
+        }
     }
 
     public sealed class AccountDetailData
@@ -68,5 +67,9 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("level_info")]
         public LevelInfoData LevelInfo { get; set; } = new();
 
+        public override string? ToString()
+        {
+            return $"[{UserID}] {LevelInfo} {UserName}";
+        }
     }
 }

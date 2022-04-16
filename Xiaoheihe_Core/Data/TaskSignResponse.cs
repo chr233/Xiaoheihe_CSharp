@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Xiaoheihe_Core.Data
 {
@@ -11,7 +6,7 @@ namespace Xiaoheihe_Core.Data
     {
     }
 
-    public sealed class TaskSignResultData
+    public sealed class TaskSignResultData : BasicResultData
     {
         [JsonPropertyName("sign_in_exp")]
         public int SignInExp { get; set; } = 0;
@@ -27,5 +22,10 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("state")]
         public string State { get; set; } = "";
+
+        public override string? ToString()
+        {
+            return LevelInfo.ToString();
+        }
     }
 }

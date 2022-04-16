@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Xiaoheihe_Core.Data
 {
@@ -19,11 +12,25 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("version")]
         public string Version { get; set; } = "";
+
+        public override string? ToString()
+        {
+            return $"{Status} \"{Message}\" {Version}";
+        }
     }
 
-    public class BasicResponse<T> : BasicResponse
+    public class BasicResponse<T> : BasicResponse where T: BasicResultData
     {
         [JsonPropertyName("result")]
         public T? Result { get; set; } = default;
+
+        public override string? ToString()
+        {
+            return $"{Status} \"{Message}\" {Version} {typeof(T)}";
+        }
+    }
+
+    public class BasicResultData
+    { 
     }
 }
