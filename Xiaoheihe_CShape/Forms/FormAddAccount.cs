@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿
 using Xiaoheihe_Core.Data;
-using Xiaoheihe_CShape.Storage;
 
 namespace Xiaoheihe_CShape.Forms
 {

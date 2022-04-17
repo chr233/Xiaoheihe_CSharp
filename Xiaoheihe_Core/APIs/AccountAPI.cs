@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
-using Xiaoheihe_Core.Data;
+﻿using Xiaoheihe_Core.Data;
 
 namespace Xiaoheihe_Core.APIs
 {
