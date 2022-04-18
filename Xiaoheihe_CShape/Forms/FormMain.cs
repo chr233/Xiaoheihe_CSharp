@@ -233,5 +233,10 @@ namespace Xiaoheihe_CShape.Forms
         {
             SaveCfg();
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

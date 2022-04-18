@@ -30,8 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tPDailyTask = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lVAccounts = new System.Windows.Forms.ListView();
             this.colChecks = new System.Windows.Forms.ColumnHeader();
             this.colHeyboxID = new System.Windows.Forms.ColumnHeader();
@@ -51,79 +50,49 @@
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnEditAccount = new System.Windows.Forms.Button();
             this.btnAddAccount = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.tPDailyTask.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tPDailyTask);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(605, 170);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1104, 676);
+            this.tabControl1.Size = new System.Drawing.Size(340, 292);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tPDailyTask
             // 
-            this.tPDailyTask.Controls.Add(this.splitContainer1);
             this.tPDailyTask.Location = new System.Drawing.Point(4, 26);
             this.tPDailyTask.Name = "tPDailyTask";
             this.tPDailyTask.Padding = new System.Windows.Forms.Padding(3);
-            this.tPDailyTask.Size = new System.Drawing.Size(1096, 646);
+            this.tPDailyTask.Size = new System.Drawing.Size(332, 262);
             this.tPDailyTask.TabIndex = 0;
             this.tPDailyTask.Text = "每日任务";
             this.tPDailyTask.UseVisualStyleBackColor = true;
             // 
-            // splitContainer1
+            // tabPage2
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.panel1);
-            this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(1090, 640);
-            this.splitContainer1.SplitterDistance = 636;
-            this.splitContainer1.TabIndex = 6;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lVAccounts);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(636, 640);
-            this.panel1.TabIndex = 5;
+            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(332, 262);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // lVAccounts
             // 
+            this.lVAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lVAccounts.CheckBoxes = true;
             this.lVAccounts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colChecks,
@@ -135,13 +104,12 @@
             this.colOSVersion,
             this.colDeviceName,
             this.colChannal});
-            this.lVAccounts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lVAccounts.FullRowSelect = true;
             this.lVAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lVAccounts.Location = new System.Drawing.Point(0, 0);
+            this.lVAccounts.Location = new System.Drawing.Point(12, 12);
             this.lVAccounts.MultiSelect = false;
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(636, 640);
+            this.lVAccounts.Size = new System.Drawing.Size(587, 450);
             this.lVAccounts.TabIndex = 0;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
@@ -190,8 +158,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.txtHBVersion);
             this.groupBox2.Controls.Add(this.txtHKeyServer);
@@ -200,16 +167,16 @@
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
             this.groupBox2.Controls.Add(this.btnEditAccount);
             this.groupBox2.Controls.Add(this.btnAddAccount);
-            this.groupBox2.Location = new System.Drawing.Point(0, -3);
+            this.groupBox2.Location = new System.Drawing.Point(605, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(447, 152);
+            this.groupBox2.Size = new System.Drawing.Size(340, 152);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "操作";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(163, 22);
+            this.button1.Location = new System.Drawing.Point(131, 22);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 28);
             this.button1.TabIndex = 7;
@@ -235,7 +202,7 @@
             // 
             // btnImportAccount
             // 
-            this.btnImportAccount.Location = new System.Drawing.Point(341, 22);
+            this.btnImportAccount.Location = new System.Drawing.Point(236, 22);
             this.btnImportAccount.Name = "btnImportAccount";
             this.btnImportAccount.Size = new System.Drawing.Size(99, 28);
             this.btnImportAccount.TabIndex = 1;
@@ -244,7 +211,7 @@
             // 
             // btnExportAccount
             // 
-            this.btnExportAccount.Location = new System.Drawing.Point(341, 56);
+            this.btnExportAccount.Location = new System.Drawing.Point(236, 56);
             this.btnExportAccount.Name = "btnExportAccount";
             this.btnExportAccount.Size = new System.Drawing.Size(99, 28);
             this.btnExportAccount.TabIndex = 1;
@@ -281,79 +248,20 @@
             this.btnAddAccount.UseVisualStyleBackColor = true;
             this.btnAddAccount.Click += new System.EventHandler(this.BtnAddAccount_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.listView2);
-            this.groupBox1.Location = new System.Drawing.Point(0, 155);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 488);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "系统日志";
-            // 
-            // listView2
-            // 
-            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView2.Location = new System.Drawing.Point(6, 22);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(438, 460);
-            this.listView2.TabIndex = 0;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.textBox1);
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1096, 646);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(414, 175);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(198, 23);
-            this.textBox1.TabIndex = 1;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(414, 204);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(198, 39);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "测试 HKey API";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1128, 700);
+            this.ClientSize = new System.Drawing.Size(957, 474);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.lVAccounts);
             this.Controls.Add(this.tabControl1);
             this.Name = "FormMain";
-            this.Text = "Form1";
+            this.Text = "小黑盒 CShape";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.tabControl1.ResumeLayout(false);
-            this.tPDailyTask.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -362,22 +270,16 @@
 
         private TabControl tabControl1;
         private TabPage tPDailyTask;
-        private GroupBox groupBox1;
         private TabPage tabPage2;
         private ListView lVAccounts;
-        private Panel panel1;
         private ColumnHeader colHeyboxID;
         private ColumnHeader colNickName;
         private ColumnHeader colLevel;
         private ColumnHeader colStatus;
-        private SplitContainer splitContainer1;
-        private ListView listView2;
         private GroupBox groupBox2;
         private Button btnExportAccount;
         private Button btnAddAccount;
         private Button btnImportAccount;
-        private TextBox textBox1;
-        private Button button4;
         private TextBox txtHBVersion;
         private TextBox txtHKeyServer;
         private ColumnHeader colChecks;
