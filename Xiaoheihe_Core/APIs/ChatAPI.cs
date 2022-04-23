@@ -1,4 +1,5 @@
 using Xiaoheihe_Core.Data;
+using System.Web;
 
 namespace Xiaoheihe_Core.APIs
 {
@@ -42,6 +43,47 @@ namespace Xiaoheihe_Core.APIs
             return response;
         }
 
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="userID"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static BasicResponse SendMessage(this XiaoheiheClient xhh, uint userID, string text)
+        {
+            return xhh.SendMessage(userID, text, "");
+        }
+
+        /// <summary>
+        /// 发送私聊消息
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="userID"></param>
+        /// <param name="text">消息内容</param>
+        /// <param name="img">图片网址</param>
+        /// <returns></returns>
+        public static BasicResponse SendMessage(this XiaoheiheClient xhh, uint userID, string text, string img)
+        {
+            string subPath = "/chat/send_message/";
+
+            Dictionary<string, string> extendParams = new(1)
+            {
+                { "userid", userID.ToString() },
+            };
+
+            Dictionary<string, string> formData = new(2)
+            {
+                { "text", text },
+                { "img", img },
+            };
+
+            FormUrlEncodedContent content = new(formData);
+
+            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extendParams, content);
+
+            return response;
+        }
 
     }
 }

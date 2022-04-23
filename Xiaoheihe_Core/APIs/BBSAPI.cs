@@ -42,8 +42,7 @@ namespace Xiaoheihe_Core.APIs
 
             };
 
-            AppFeedNewsResponse response = xhh.BasicRequest<AppFeedNewsResponse>
-                (HttpMethod.Get, subPath, extendParams);
+            AppFeedNewsResponse response = xhh.BasicRequest<AppFeedNewsResponse>(HttpMethod.Get, subPath, extendParams);
 
             return response;
         }

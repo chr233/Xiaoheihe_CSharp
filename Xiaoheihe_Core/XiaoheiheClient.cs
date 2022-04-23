@@ -18,7 +18,7 @@ namespace Xiaoheihe_Core
         internal Dictionary<string, string> RequestParams { get; set; }
         internal Dictionary<string, string> HttpHeaders { get; private set; }
         internal Uri HkeyServer { get; private set; }
-        internal HttpClient Http { get; private set; } = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip });
+        internal HttpClient Http { get; private set; } = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
         internal JsonSerializerOptions JsonOptions { get; private set; } = new();
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Xiaoheihe_Core
             UriBuilder ub = new(XiaoHeiHeAPI);
             ub.Path = urlPath;
 
-            var temp = RequestParams.ToDictionary(x => x.Key, x => x.Value);
+            Dictionary<string, string> temp = RequestParams.ToDictionary(x => x.Key, x => x.Value);
 
             if (extendParams != null)
             {
