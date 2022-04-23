@@ -38,7 +38,7 @@ namespace Xiaoheihe_Core.Data
     public class FollowListUserData : XhhUserData
     {
         [JsonPropertyName("is_follow")]
-        public FollowStatus IsFollow { get; set; } = new();
+        public FollowStatus IsFollow { get; set; } = FollowStatus.Unknown;
 
         [JsonPropertyName("follow_at")]
         public DateTime FollowAt { get; set; } = new();

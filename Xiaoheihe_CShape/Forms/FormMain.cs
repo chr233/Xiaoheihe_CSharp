@@ -232,7 +232,7 @@ namespace Xiaoheihe_CShape.Forms
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result1 = xhh.GetUserPostLinks();
+                        var result1 = xhh.GetUserMessageList(20400942);
                         //var result2 = xhh.GetFollowingList();
 
                         int a = 0;

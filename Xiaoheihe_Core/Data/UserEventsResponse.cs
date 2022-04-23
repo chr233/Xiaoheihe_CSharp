@@ -18,7 +18,7 @@ namespace Xiaoheihe_Core.Data
         public DateTime Timestamp { get; set; } = default;
 
         [JsonPropertyName("link")]
-        public LinkData Link { get; set; } = new();
+        public NewsLinkData Link { get; set; } = new();
 
         [JsonPropertyName("user")]
         public XhhUserData User { get; set; } = new();

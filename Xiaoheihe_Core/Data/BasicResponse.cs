@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Xiaoheihe_Core.Data
 {
@@ -26,7 +27,7 @@ namespace Xiaoheihe_Core.Data
     /// 响应基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BasicResponse<T> : BasicResponse where T : BasicResultData
+    public class BasicResponse<T> : BasicResponse
     {
         [JsonPropertyName("result")]
         public T? Result { get; set; }

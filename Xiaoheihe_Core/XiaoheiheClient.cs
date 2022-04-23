@@ -13,8 +13,8 @@ namespace Xiaoheihe_Core
     {
         internal static Uri XiaoHeiHeAPI { get; } = new("https://api.xiaoheihe.cn");
         internal string Pkey { get; set; }
-        internal uint HeyboxID { get; set; }
-        internal string HeyboxVersion { get; set; }
+        public uint HeyboxID { get; private set; }
+        public string HeyboxVersion { get; private set; }
         internal Dictionary<string, string> RequestParams { get; set; }
         internal Dictionary<string, string> HttpHeaders { get; private set; }
         internal Uri HkeyServer { get; private set; }

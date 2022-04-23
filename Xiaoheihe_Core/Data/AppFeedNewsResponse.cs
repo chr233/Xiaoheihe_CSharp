@@ -13,10 +13,10 @@ namespace Xiaoheihe_Core.Data
         public string Group { get; set; } = "";
 
         [JsonPropertyName("links")]
-        public HashSet<LinkData> Links { get; set; } = new();
+        public HashSet<NewsLinkData> Links { get; set; } = new();
     }
 
-    public sealed class LinkData
+    public sealed class NewsLinkData
     {
         [JsonPropertyName("description")]
         public string Description { get; set; } = "";
@@ -36,9 +36,7 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("special_type")]
         public int SpecialType { get; set; }
 
-        /// <summary>
-        /// 点赞数量, 跟Up是一样的
-        /// </summary>
+        /// <summary>点赞数量, 跟Up是一样的</summary>
         [JsonPropertyName("link_award_num")]
         public uint LinkAwardCount { get; set; }
 
@@ -61,7 +59,7 @@ namespace Xiaoheihe_Core.Data
         public int ForwardCount { get; set; }
 
         [JsonPropertyName("follow_status")]
-        public FollowStatus FollowStatus { get; set; }
+        public FollowStatus FollowStatus { get; set; } = FollowStatus.Unknown;
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";

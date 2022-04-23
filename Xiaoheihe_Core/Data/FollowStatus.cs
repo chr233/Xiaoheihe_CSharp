@@ -5,7 +5,7 @@
     /// </summary>
     public enum FollowStatus
     {
-        Error = 0,
+        Unknown = 0,
         /// <summary>主动关注</summary>
         IFollowHe = 1,
         /// <summary>被别人关注</summary>
