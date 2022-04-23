@@ -232,7 +232,7 @@ namespace Xiaoheihe_CShape.Forms
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result1 = xhh.SendMessage(22372123,"Helloworld");
+                        var result1 = xhh.UploadImage(@"C:\Users\chr11\Desktop\Snipaste_2022-04-24_00-54-53.png");
                         //var result2 = xhh.GetFollowingList();
 
                         int a = 0;

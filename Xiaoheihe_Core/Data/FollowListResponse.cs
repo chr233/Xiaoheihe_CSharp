@@ -21,13 +21,13 @@ namespace Xiaoheihe_Core.Data
         /// 粉丝
         /// </summary>
         [JsonPropertyName("fan_num")]
-        public uint FollowerCount { get; set; } = new();
+        public uint FollowerCount { get; set; }
 
         /// <summary>
         /// 关注的人
         /// </summary>
         [JsonPropertyName("follow_num")]
-        public uint FollowingCount { get; set; } = new();
+        public uint FollowingCount { get; set; }
 
         public override string? ToString()
         {
@@ -41,6 +41,6 @@ namespace Xiaoheihe_Core.Data
         public FollowStatus IsFollow { get; set; } = FollowStatus.Unknown;
 
         [JsonPropertyName("follow_at")]
-        public DateTime FollowAt { get; set; } = new();
+        public DateTime FollowAt { get; set; }
     }
 }
