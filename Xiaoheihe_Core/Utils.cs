@@ -29,6 +29,7 @@ namespace Xiaoheihe_Core
 
             Dictionary<string, string> paramDict = new(25)
             {
+                { "userid", "" },
                 { "type", "" },
                 { "h_src", "" },
                 { "index", "" },

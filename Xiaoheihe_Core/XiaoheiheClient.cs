@@ -13,7 +13,7 @@ namespace Xiaoheihe_Core
     {
         internal static Uri XiaoHeiHeAPI { get; } = new("https://api.xiaoheihe.cn");
         internal string Pkey { get; set; }
-        internal string HeyboxID { get; set; }
+        internal uint HeyboxID { get; set; }
         internal string HeyboxVersion { get; set; }
         internal Dictionary<string, string> RequestParams { get; set; }
         internal Dictionary<string, string> HttpHeaders { get; private set; }
@@ -29,8 +29,10 @@ namespace Xiaoheihe_Core
         /// <param name="hkeyServer"></param>
         public XiaoheiheClient(Account account, string version, string hkeyServer)
         {
+            uint heyboxID = uint.Parse(account.HeyboxID);
+
             Pkey = account.Pkey;
-            HeyboxID = account.HeyboxID;
+            HeyboxID = heyboxID;
             HeyboxVersion = version;
             RequestParams = Utils.DefaultParams(account, version);
             HttpHeaders = Utils.SetDefaultHttpHeaders(Http, account.Pkey);
@@ -53,7 +55,7 @@ namespace Xiaoheihe_Core
 
             Uri uri = new(HkeyServer, $"?urlpath={urlPath}&timestamp={timeStamp}&nonce={nonce}");
 
-            HttpRequestMessage request = new(HttpMethod.Post, uri);
+            HttpRequestMessage request = new(HttpMethod.Get, uri);
 
             HttpResponseMessage response = Http.Send(request);
 
