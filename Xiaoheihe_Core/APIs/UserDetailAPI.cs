@@ -2,7 +2,7 @@ using Xiaoheihe_Core.Data;
 
 namespace Xiaoheihe_Core.APIs
 {
-    public static class UserAPI
+    public static class UserDetailAPI
     {
         /// <summary>
         /// 获取自己的关注的人列表
@@ -174,9 +174,9 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh)
+        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, bool onlyArticle)
         {
-            return xhh.GetUserPostLinks(xhh.HeyboxID);
+            return xhh.GetUserPostLinks(xhh.HeyboxID, onlyArticle);
         }
 
 
@@ -186,29 +186,85 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID)
+        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, bool onlyArticle)
         {
-            return xhh.GetUserPostLinks(userID, 0);
+            return xhh.GetUserPostLinks(userID, 0, onlyArticle);
         }
+
 
         /// <summary>
         /// 获取用户发帖列表
         /// </summary>
         /// <param name="xhh"></param>
+        /// <param name="userID"></param>
         /// <param name="offset"></param>
+        /// <param name="onlyArticle">仅显示文章</param>
         /// <returns></returns>
-        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, uint offset)
+        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, uint offset, bool onlyArticle)
         {
             string subPath = "/bbs/app/profile/user/link/list";
 
-            Dictionary<string, string> extendParams = new(3)
+            Dictionary<string, string> extendParams = new(4)
             {
                 { "userid", userID.ToString() },
                 { "offset", offset.ToString() },
                 { "limit", "30" },
             };
 
+            if (onlyArticle)
+            {
+                extendParams.Add("list_type", "article");
+            }
+
             PostLinkResponse response = xhh.BasicRequest<PostLinkResponse>(HttpMethod.Get, subPath, extendParams);
+
+            return response;
+        }
+
+        /// <summary>
+        /// 获取自己的评论列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="onlyCy"></param>
+        /// <returns></returns>
+        public static CommentListResponse GetUserComments(this XiaoheiheClient xhh, bool onlyCy)
+        {
+            return xhh.GetUserComments(xhh.HeyboxID, onlyCy, 0);
+        }
+
+        /// <summary>
+        /// 获取用户评论列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="userID"></param>
+        /// <param name="onlyCy"></param>
+        /// <returns></returns>
+        public static CommentListResponse GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy)
+        {
+            return xhh.GetUserComments(userID, onlyCy, 0);
+        }
+
+        /// <summary>
+        /// 获取用户评论列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="userID"></param>
+        /// <param name="onlyCy">是否插眼</param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static CommentListResponse GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy, uint offset)
+        {
+            string subPath = "/bbs/app/profile/bbs/comment/list";
+
+            Dictionary<string, string> extendParams = new(4)
+            {
+                { "userid", userID.ToString() },
+                { "offset", offset.ToString() },
+                { "limit", "30" },
+                { "only_cy", onlyCy ? "1" : "0" },
+            };
+
+            CommentListResponse response = xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extendParams);
 
             return response;
         }

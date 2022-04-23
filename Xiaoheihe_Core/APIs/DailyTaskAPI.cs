@@ -2,7 +2,7 @@
 
 namespace Xiaoheihe_Core.APIs
 {
-    public static class TaskAPI
+    public static class DailyTaskAPI
     {
         /// <summary>
         /// 获取签到日历
