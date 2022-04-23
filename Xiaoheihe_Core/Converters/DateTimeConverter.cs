@@ -9,7 +9,15 @@ namespace Xiaoheihe_Core.Converters
         {
             if (reader.TokenType == JsonTokenType.Number)
             {
-                DateTimeOffset offset = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64());
+                DateTimeOffset offset;
+                try
+                {
+                    offset = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64());
+                }
+                catch (FormatException)
+                {
+                    offset = DateTimeOffset.FromUnixTimeSeconds((uint)reader.GetSingle());
+                }
                 return offset.LocalDateTime;
             }
             else if (reader.TokenType == JsonTokenType.String)
