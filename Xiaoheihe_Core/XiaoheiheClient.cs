@@ -139,7 +139,9 @@ namespace Xiaoheihe_Core
                 case "relogin":
                     throw new AccountErrorException(message: response.Message);
                 case "failed":
-                    throw new AccountErrorException(message: response.Message);
+                    throw new XhhCSBaseException(message: response.Message);
+                default:
+                    throw new UnknownException(message: response.Message);
             }
         }
 

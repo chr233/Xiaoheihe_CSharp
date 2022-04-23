@@ -15,4 +15,8 @@
     <Exec Command="powershell -Command &quot;&amp;'$(SolutionDir)scripts\Pre-Build.ps1' '$(ProjectDir)'&quot;" />
   </Target>
 
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
 </Project>
