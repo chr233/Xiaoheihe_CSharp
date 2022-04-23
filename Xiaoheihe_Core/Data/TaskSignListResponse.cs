@@ -24,7 +24,7 @@ namespace Xiaoheihe_Core.Data
         public long Date { get; set; }
 
         [JsonPropertyName("is_sign")]
-        public bool IsSign { get; set; } = false;
+        public bool IsSign { get; set; }
 
         public override string? ToString()
         {

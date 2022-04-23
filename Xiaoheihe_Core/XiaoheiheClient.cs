@@ -18,7 +18,9 @@ namespace Xiaoheihe_Core
         internal Dictionary<string, string> RequestParams { get; set; }
         internal Dictionary<string, string> HttpHeaders { get; private set; }
         internal Uri HkeyServer { get; private set; }
-        internal HttpClient Http { get; private set; } = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
+        internal HttpClient Http { get; private set; } = new(new HttpClientHandler() { 
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate 
+        });
         internal JsonSerializerOptions JsonOptions { get; private set; } = new();
 
         /// <summary>
