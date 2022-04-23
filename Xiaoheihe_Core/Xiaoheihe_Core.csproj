@@ -4,6 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageProjectUrl>https://github.com/chr233/Xiaoheihe_CShape</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>AGPLv3</PackageLicenseExpression>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="powershell -Command &quot;&amp;'$(SolutionDir)scripts\Pre-Build.ps1' '$(ProjectDir)'&quot;" />
+  </Target>
 
 </Project>
