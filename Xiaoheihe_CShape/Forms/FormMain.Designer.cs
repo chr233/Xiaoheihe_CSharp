@@ -42,6 +42,7 @@
             this.colDeviceName = new System.Windows.Forms.ColumnHeader();
             this.colChannal = new System.Windows.Forms.ColumnHeader();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtHBVersion = new System.Windows.Forms.TextBox();
             this.txtHKeyServer = new System.Windows.Forms.TextBox();
@@ -60,10 +61,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tPDailyTask);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(605, 170);
+            this.tabControl1.Location = new System.Drawing.Point(626, 153);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(340, 292);
+            this.tabControl1.Size = new System.Drawing.Size(340, 321);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -73,7 +74,7 @@
             this.tPDailyTask.Location = new System.Drawing.Point(4, 26);
             this.tPDailyTask.Name = "tPDailyTask";
             this.tPDailyTask.Padding = new System.Windows.Forms.Padding(3);
-            this.tPDailyTask.Size = new System.Drawing.Size(332, 262);
+            this.tPDailyTask.Size = new System.Drawing.Size(332, 291);
             this.tPDailyTask.TabIndex = 0;
             this.tPDailyTask.Text = "每日任务";
             this.tPDailyTask.UseVisualStyleBackColor = true;
@@ -83,7 +84,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(332, 262);
+            this.tabPage2.Size = new System.Drawing.Size(332, 291);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -93,6 +94,7 @@
             this.lVAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lVAccounts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lVAccounts.CheckBoxes = true;
             this.lVAccounts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colChecks,
@@ -106,10 +108,10 @@
             this.colChannal});
             this.lVAccounts.FullRowSelect = true;
             this.lVAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lVAccounts.Location = new System.Drawing.Point(12, 12);
+            this.lVAccounts.Location = new System.Drawing.Point(1, 0);
             this.lVAccounts.MultiSelect = false;
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(587, 450);
+            this.lVAccounts.Size = new System.Drawing.Size(619, 474);
             this.lVAccounts.TabIndex = 0;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
@@ -123,7 +125,7 @@
             // colHeyboxID
             // 
             this.colHeyboxID.Text = "HeyboxID";
-            this.colHeyboxID.Width = 100;
+            this.colHeyboxID.Width = 90;
             // 
             // colNickName
             // 
@@ -138,7 +140,7 @@
             // colStatus
             // 
             this.colStatus.Text = "状态";
-            this.colStatus.Width = 100;
+            this.colStatus.Width = 80;
             // 
             // colOS
             // 
@@ -159,6 +161,7 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.txtHBVersion);
             this.groupBox2.Controls.Add(this.txtHKeyServer);
@@ -167,16 +170,26 @@
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
             this.groupBox2.Controls.Add(this.btnEditAccount);
             this.groupBox2.Controls.Add(this.btnAddAccount);
-            this.groupBox2.Location = new System.Drawing.Point(605, 12);
+            this.groupBox2.Location = new System.Drawing.Point(626, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(340, 152);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "操作";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(129, 89);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(99, 28);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "测试";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(131, 22);
+            this.button1.Location = new System.Drawing.Point(129, 22);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 28);
             this.button1.TabIndex = 7;
@@ -190,7 +203,7 @@
             this.txtHBVersion.Name = "txtHBVersion";
             this.txtHBVersion.Size = new System.Drawing.Size(99, 23);
             this.txtHBVersion.TabIndex = 6;
-            this.txtHBVersion.Text = "1.3.214";
+            this.txtHBVersion.Text = "1.3.217";
             // 
             // txtHKeyServer
             // 
@@ -252,7 +265,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(957, 474);
+            this.ClientSize = new System.Drawing.Size(968, 474);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lVAccounts);
             this.Controls.Add(this.tabControl1);
@@ -290,5 +303,6 @@
         private Button btnDeleteAccount;
         private Button btnEditAccount;
         private Button button1;
+        private Button button2;
     }
 }

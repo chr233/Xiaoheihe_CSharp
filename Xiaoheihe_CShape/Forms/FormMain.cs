@@ -190,33 +190,7 @@ namespace Xiaoheihe_CShape.Forms
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
 
-            if (checkedItems.Count == 0)
-            {
-                MessageBox.Show("未勾选任何条目", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                foreach (ListViewItem item in checkedItems)
-                {
-                    string heyboxID = item.SubItems[1].Text;
-                    if (Accounts.ContainsKey(heyboxID))
-                    {
-                        Account account = Accounts[heyboxID];
-
-                        XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
-
-                        var result1 = xhh.SentComment(79936851, "写挺好");
-
-                        var b = result1.Result!.Comment.Comment.First().Commentid;
-
-                        var result2 = xhh.DeleteComment(b);
-
-                        var _ = "";
-                    }
-                }
-            }
         }
 
         private void LVAccounts_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -237,6 +211,34 @@ namespace Xiaoheihe_CShape.Forms
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
+
+            if (checkedItems.Count == 0)
+            {
+                MessageBox.Show("未勾选任何条目", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                foreach (ListViewItem item in checkedItems)
+                {
+                    string heyboxID = item.SubItems[1].Text;
+                    if (Accounts.ContainsKey(heyboxID))
+                    {
+                        Account account = Accounts[heyboxID];
+
+                        XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
+
+                        var result1 = xhh.GetUserPostLinks();
+                        //var result2 = xhh.GetFollowingList();
+
+                        int a = 0;
+                    }
+                }
+            }
         }
     }
 }

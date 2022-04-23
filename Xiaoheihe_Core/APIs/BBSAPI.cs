@@ -97,11 +97,21 @@ namespace Xiaoheihe_Core.APIs
         /// 获取动态
         /// </summary>
         /// <param name="xhh"></param>
+        /// <returns></returns>
+        public static UserEventsResponse GetSubscribedEvents(this XiaoheiheClient xhh)
+        {
+            return xhh.GetSubscribedEvents(0);
+        }
+
+        /// <summary>
+        /// 获取动态
+        /// </summary>
+        /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static SubscribedEventsResponse GetMomentsEvents(this XiaoheiheClient xhh, uint offset)
+        public static UserEventsResponse GetSubscribedEvents(this XiaoheiheClient xhh, uint offset)
         {
-            return xhh.GetMomentsEvents(offset, "post_link|game_comment|roll_room|followed_event");
+            return xhh.GetSubscribedEvents(offset, "post_link|game_comment|roll_room|followed_event");
         }
 
         /// <summary>
@@ -111,7 +121,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="offset"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static SubscribedEventsResponse GetMomentsEvents(this XiaoheiheClient xhh, uint offset, string filter)
+        public static UserEventsResponse GetSubscribedEvents(this XiaoheiheClient xhh, uint offset, string filter)
         {
             string subPath = "/bbs/app/profile/subscribed/events";
 
@@ -122,7 +132,7 @@ namespace Xiaoheihe_Core.APIs
                 { "filters", filter },
             };
 
-            SubscribedEventsResponse response = xhh.BasicRequest<SubscribedEventsResponse>(HttpMethod.Get, subPath, extendParams);
+            UserEventsResponse response = xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extendParams);
 
             return response;
         }
@@ -179,6 +189,12 @@ namespace Xiaoheihe_Core.APIs
             return response;
         }
 
+        /// <summary>
+        /// 删除评论
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="commentID"></param>
+        /// <returns></returns>
         public static BasicResponse DeleteComment(this XiaoheiheClient xhh, long commentID)
         {
             string subPath = "/bbs/app/comment/delete";
@@ -190,10 +206,9 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            SendCommentsResponse response = xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, content);
+            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, content);
 
             return response;
         }
-
     }
 }

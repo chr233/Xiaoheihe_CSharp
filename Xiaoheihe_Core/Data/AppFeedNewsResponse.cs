@@ -25,10 +25,10 @@ namespace Xiaoheihe_Core.Data
         public string Hsrc { get; set; } = "";
 
         [JsonPropertyName("up")]
-        public int Up { get; set; }
+        public uint Up { get; set; }
 
         [JsonPropertyName("comment_num")]
-        public int CommentNum { get; set; }
+        public uint CommentCount { get; set; }
 
         [JsonPropertyName("create_at")]
         public DateTime CreateAt { get; set; }
@@ -36,8 +36,11 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("special_type")]
         public int SpecialType { get; set; }
 
+        /// <summary>
+        /// 点赞数量, 跟Up是一样的
+        /// </summary>
         [JsonPropertyName("link_award_num")]
-        public int LinkAwardNum { get; set; }
+        public uint LinkAwardCount { get; set; }
 
         [JsonPropertyName("content_type")]
         public int ContentType { get; set; }
@@ -49,28 +52,28 @@ namespace Xiaoheihe_Core.Data
         public DateTime ModifyAt { get; set; }
 
         [JsonPropertyName("click")]
-        public int Click { get; set; }
+        public uint Click { get; set; }
 
         [JsonPropertyName("down")]
-        public int Down { get; set; }
+        public uint Down { get; set; }
 
         [JsonPropertyName("forward_num")]
-        public int ForwardNum { get; set; }
+        public int ForwardCount { get; set; }
 
         [JsonPropertyName("follow_status")]
-        public int FollowStatus { get; set; }
+        public FollowStatus FollowStatus { get; set; }
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";
 
         [JsonPropertyName("linkid")]
-        public int LinkID { get; set; }
+        public ulong LinkID { get; set; }
 
         [JsonPropertyName("userid")]
-        public int UserID { get; set; }
+        public uint UserID { get; set; }
 
         [JsonPropertyName("is_web")]
-        public int IsWeb { get; set; }
+        public byte IsWeb { get; set; }
 
         [JsonPropertyName("share_url")]
         public string ShareUrl { get; set; } = "";
@@ -82,7 +85,7 @@ namespace Xiaoheihe_Core.Data
         public int LinkTag { get; set; }
 
         [JsonPropertyName("has_video")]
-        public int HasVideo { get; set; }
+        public byte HasVideo { get; set; }
 
         [JsonPropertyName("post_tag")]
         public string PostTag { get; set; } = "";

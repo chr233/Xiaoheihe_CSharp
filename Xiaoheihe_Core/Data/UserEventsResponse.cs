@@ -2,17 +2,15 @@
 
 namespace Xiaoheihe_Core.Data
 {
-    public sealed class SubscribedEventsResponse : BasicResponse<SubscribedEventsResult>
+    public sealed class UserEventsResponse : BasicResponse<UserEventsResult>
     {
     }
 
-    public sealed class SubscribedEventsResult : BasicResultData
+    public sealed class UserEventsResult : BasicResultData
     {
         [JsonPropertyName("moments")]
         public HashSet<MonentData> Moments { get; set; } = new();
     }
-
-
 
     public sealed class MonentData
     {
@@ -32,7 +30,7 @@ namespace Xiaoheihe_Core.Data
         public string ContentType { get; set; } = "";
 
         [JsonPropertyName("group_id")]
-        public long GroupId { get; set; }
+        public ulong GroupId { get; set; }
 
         [JsonPropertyName("group_type")]
         public string GroupType { get; set; } = "";

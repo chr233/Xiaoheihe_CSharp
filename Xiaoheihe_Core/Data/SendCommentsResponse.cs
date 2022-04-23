@@ -24,40 +24,40 @@ namespace Xiaoheihe_Core.Data
     public sealed class CommentData
     {
         [JsonPropertyName("is_support")]
-        public int IsSupport { get; set; }
+        public byte IsSupport { get; set; }
 
         [JsonPropertyName("replyuser")]
         public XhhUserData? ReplyUser { get; set; }
 
         [JsonPropertyName("has_more")]
-        public int HasMore { get; set; }
+        public byte HasMore { get; set; }
 
         [JsonPropertyName("text")]
         public string Text { get; set; } = "";
 
         [JsonPropertyName("floor_num")]
-        public int FloorNum { get; set; }
+        public uint Floor { get; set; }
 
         [JsonPropertyName("up")]
-        public int Up { get; set; }
+        public uint Up { get; set; }
 
         [JsonPropertyName("create_at")]
         public DateTime CreateAt { get; set; } = default;
 
         [JsonPropertyName("is_link_owner")]
-        public int IsLinkOwner { get; set; }
+        public byte IsLinkOwner { get; set; }
 
         [JsonPropertyName("user")]
         public XhhUserData User { get; set; } = new();
 
         [JsonPropertyName("commentid")]
-        public long Commentid { get; set; }
+        public ulong Commentid { get; set; }
 
         [JsonPropertyName("child_num")]
-        public int ChildNum { get; set; }
+        public uint ChildCount { get; set; }
 
         [JsonPropertyName("is_cy")]
-        public int IsCy { get; set; }
+        public byte IsCy { get; set; }
 
         public override string? ToString()
         {

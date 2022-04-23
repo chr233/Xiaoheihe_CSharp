@@ -2,6 +2,9 @@
 
 namespace Xiaoheihe_Core.Data
 {
+    /// <summary>
+    /// 响应基类
+    /// </summary>
     public class BasicResponse
     {
         [JsonPropertyName("status")]
@@ -19,6 +22,10 @@ namespace Xiaoheihe_Core.Data
         }
     }
 
+    /// <summary>
+    /// 响应基类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BasicResponse<T> : BasicResponse where T : BasicResultData
     {
         [JsonPropertyName("result")]
@@ -30,6 +37,9 @@ namespace Xiaoheihe_Core.Data
         }
     }
 
+    /// <summary>
+    /// 响应Result基类
+    /// </summary>
     public abstract class BasicResultData
     {
     }

@@ -17,9 +17,8 @@ namespace Xiaoheihe_Core.Data
 
     public sealed class SignListData
     {
-        const string Signed = "已签到";
-        const string Unsigned = "未签到";
-
+        private const string Signed = "已签到";
+        private const string Unsigned = "未签到";
 
         [JsonPropertyName("date")]
         public long Date { get; set; }
@@ -29,7 +28,7 @@ namespace Xiaoheihe_Core.Data
 
         public override string? ToString()
         {
-            return $"{Date} {(IsSign ? Signed : Unsigned) }";
+            return $"{Date} {(IsSign ? Signed : Unsigned)}";
         }
     }
 }

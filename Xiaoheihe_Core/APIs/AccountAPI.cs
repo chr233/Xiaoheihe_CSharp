@@ -13,8 +13,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/account/info/";
 
-            AccountInfoResponse response = xhh.BasicRequest<AccountInfoResponse>
-                (HttpMethod.Get, subPath);
+            AccountInfoResponse response = xhh.BasicRequest<AccountInfoResponse>(HttpMethod.Get, subPath);
 
             return response;
         }

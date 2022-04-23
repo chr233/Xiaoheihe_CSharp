@@ -33,7 +33,7 @@ namespace Xiaoheihe_Core.Data
         public string Title { get; set; } = "";
 
         [JsonPropertyName("award_coin")]
-        public int AwardCoin { get; set; }
+        public uint AwardCoin { get; set; }
 
         [JsonPropertyName("state_desc")]
         public string StateDesc { get; set; } = "";
@@ -42,7 +42,7 @@ namespace Xiaoheihe_Core.Data
         public string State { get; set; } = "";
 
         [JsonPropertyName("award_exp")]
-        public int AwardExp { get; set; }
+        public uint AwardExp { get; set; }
 
         [JsonPropertyName("icon")]
         public string Icon { get; set; } = "";
@@ -63,16 +63,16 @@ namespace Xiaoheihe_Core.Data
     public sealed class LevelInfoData
     {
         [JsonPropertyName("max_exp")]
-        public int MaxExp { get; set; }
+        public uint MaxExp { get; set; }
 
         [JsonPropertyName("coin")]
-        public int Coin { get; set; }
+        public uint Coin { get; set; }
 
         [JsonPropertyName("exp")]
-        public int Exp { get; set; }
+        public uint Exp { get; set; }
 
         [JsonPropertyName("level")]
-        public int Level { get; set; }
+        public uint Level { get; set; }
 
         public override string? ToString()
         {
