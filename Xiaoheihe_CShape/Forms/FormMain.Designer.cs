@@ -42,7 +42,7 @@
             this.colDeviceName = new System.Windows.Forms.ColumnHeader();
             this.colChannal = new System.Windows.Forms.ColumnHeader();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtHBVersion = new System.Windows.Forms.TextBox();
             this.txtHKeyServer = new System.Windows.Forms.TextBox();
@@ -67,7 +67,6 @@
             this.tabControl1.Size = new System.Drawing.Size(340, 321);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tPDailyTask
             // 
@@ -161,7 +160,7 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.btnTest);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.txtHBVersion);
             this.groupBox2.Controls.Add(this.txtHKeyServer);
@@ -177,15 +176,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "操作";
             // 
-            // button2
+            // btnTest
             // 
-            this.button2.Location = new System.Drawing.Point(129, 89);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 28);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "测试";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnTest.Location = new System.Drawing.Point(129, 89);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(99, 28);
+            this.btnTest.TabIndex = 8;
+            this.btnTest.Text = "测试";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.BtnTest_Click);
             // 
             // button1
             // 
@@ -303,6 +302,6 @@
         private Button btnDeleteAccount;
         private Button btnEditAccount;
         private Button button1;
-        private Button button2;
+        private Button btnTest;
     }
 }
