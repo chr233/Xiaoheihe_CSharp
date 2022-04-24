@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Drawing.Imaging;
+﻿using System.Drawing;
 using COSXML;
 using COSXML.Auth;
-using COSXML.Model.Object;
-using COSXML.Model.Bucket;
-using COSXML.CosException;
-
-using Xiaoheihe_Core.Data;
 using COSXML.Transfer;
+using Xiaoheihe_Core.Data;
 
 namespace Xiaoheihe_Core.APIs
 {
     public static class ImageAPI
     {
-        internal static CosXmlConfig config { get; } = new CosXmlConfig.Builder()
+        internal static CosXmlConfig CosConfig { get; } = new CosXmlConfig.Builder()
             .IsHttps(true).SetRegion("ap-shanghai").SetDebugLog(false).Build();
 
         /// <summary>
@@ -93,7 +83,7 @@ namespace Xiaoheihe_Core.APIs
         }
 
         /// <summary>
-        /// 上传图片
+        /// 上传图片, 成功返回图片Uri, 失败返回null
         /// </summary>
         /// <param name="xhh"></param>
         /// <param name="imgPath"></param>
@@ -120,7 +110,7 @@ namespace Xiaoheihe_Core.APIs
 
             QCloudCredentialProvider cosCredentialProvider = new DefaultSessionQCloudCredentialProvider(credentials.TmpSecretId, credentials.TmpSecretKey, timeStamp, credentials.SessionToken);
 
-            CosXml cosXml = new CosXmlServer(config, cosCredentialProvider);
+            CosXml cosXml = new CosXmlServer(CosConfig, cosCredentialProvider);
 
             TransferManager transferManager = new(cosXml, new TransferConfig());
 
