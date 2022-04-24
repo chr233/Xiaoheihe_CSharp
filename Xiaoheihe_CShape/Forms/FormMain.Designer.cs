@@ -43,7 +43,7 @@
             this.colChannal = new System.Windows.Forms.ColumnHeader();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnTest = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnDailyTask = new System.Windows.Forms.Button();
             this.txtHBVersion = new System.Windows.Forms.TextBox();
             this.txtHKeyServer = new System.Windows.Forms.TextBox();
             this.btnImportAccount = new System.Windows.Forms.Button();
@@ -161,7 +161,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.btnTest);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnDailyTask);
             this.groupBox2.Controls.Add(this.txtHBVersion);
             this.groupBox2.Controls.Add(this.txtHKeyServer);
             this.groupBox2.Controls.Add(this.btnImportAccount);
@@ -186,15 +186,14 @@
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.BtnTest_Click);
             // 
-            // button1
+            // btnDailyTask
             // 
-            this.button1.Location = new System.Drawing.Point(129, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 28);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "每日任务";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.btnDailyTask.Location = new System.Drawing.Point(129, 22);
+            this.btnDailyTask.Name = "btnDailyTask";
+            this.btnDailyTask.Size = new System.Drawing.Size(99, 28);
+            this.btnDailyTask.TabIndex = 7;
+            this.btnDailyTask.Text = "每日任务";
+            this.btnDailyTask.UseVisualStyleBackColor = true;
             // 
             // txtHBVersion
             // 
@@ -301,7 +300,7 @@
         private ColumnHeader colChannal;
         private Button btnDeleteAccount;
         private Button btnEditAccount;
-        private Button button1;
+        private Button btnDailyTask;
         private Button btnTest;
     }
 }

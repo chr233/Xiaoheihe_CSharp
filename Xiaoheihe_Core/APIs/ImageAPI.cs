@@ -8,7 +8,7 @@ namespace Xiaoheihe_Core.APIs
 {
     public static class ImageAPI
     {
-        internal static CosXmlConfig CosConfig { get; } = new CosXmlConfig.Builder()
+        private static CosXmlConfig CosConfig { get; } = new CosXmlConfig.Builder()
             .IsHttps(true).SetRegion("ap-shanghai").SetDebugLog(false).Build();
 
         /// <summary>

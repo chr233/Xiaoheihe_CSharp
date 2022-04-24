@@ -33,7 +33,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -48,7 +48,7 @@
             this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnLogin);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -97,17 +97,16 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "手机";
             // 
-            // button1
+            // btnLogin
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnLogin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(6, 158);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(300, 28);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "尝试登录并获取Pkey";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnLogin.Location = new System.Drawing.Point(6, 158);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(300, 28);
+            this.btnLogin.TabIndex = 3;
+            this.btnLogin.Text = "尝试登录并获取Pkey";
+            this.btnLogin.UseVisualStyleBackColor = true;
             // 
             // textBox2
             // 
@@ -153,7 +152,7 @@
         private TextBox textBox3;
         private Label label2;
         private Label label1;
-        private Button button1;
+        private Button btnLogin;
         private TextBox textBox2;
         private TextBox textBox1;
     }

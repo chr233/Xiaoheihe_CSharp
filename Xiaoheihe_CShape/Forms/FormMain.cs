@@ -1,5 +1,6 @@
 using Xiaoheihe_Core;
 using Xiaoheihe_Core.Data;
+using Xiaoheihe_Core.APIs;
 using Xiaoheihe_CShape.Storage;
 using static System.Windows.Forms.ListView;
 using static Xiaoheihe_Core.StaticValue;
@@ -185,11 +186,6 @@ namespace Xiaoheihe_CShape.Forms
                 }
                 SaveAndReload();
             }
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void LVAccounts_ItemChecked(object sender, ItemCheckedEventArgs e)

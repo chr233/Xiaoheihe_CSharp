@@ -96,7 +96,7 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static async Task<FavourTopicResponse> »ñ(this XiaoheiheClient xhh)
+        public static async Task<FavourTopicResponse> GetFavourTopics(this XiaoheiheClient xhh)
         {
             string subPath = "/maxnews/app/setup/favour";
 

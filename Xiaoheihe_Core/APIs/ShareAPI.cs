@@ -26,7 +26,7 @@ namespace Xiaoheihe_Core.APIs
                     { "index", index.ToString() },
                 };
 
-                BasicResponse _ = await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+                await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
                 return;
             }
@@ -41,7 +41,7 @@ namespace Xiaoheihe_Core.APIs
                     { "shared_type", "normal" },
                 };
 
-                BasicResponse _ = await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+                await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
                 return;
             }

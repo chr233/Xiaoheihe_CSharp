@@ -29,7 +29,10 @@ namespace Xiaoheihe_Core
         /// <param name="hkeyServer"></param>
         public XiaoheiheClient(Account account, string version, string hkeyServer)
         {
-            Http = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
+            Http = new(new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            });
 
             uint heyboxID = uint.Parse(account.HeyboxID);
 

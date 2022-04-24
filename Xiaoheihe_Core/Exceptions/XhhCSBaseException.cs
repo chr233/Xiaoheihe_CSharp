@@ -2,6 +2,9 @@
 
 namespace Xiaoheihe_Core.Exceptions
 {
+    /// <summary>
+    /// XhhCS错误基类
+    /// </summary>
     public class XhhCSBaseException : ApplicationException
     {
         public XhhCSBaseException()
