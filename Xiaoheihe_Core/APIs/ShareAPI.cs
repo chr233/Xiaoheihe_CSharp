@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xiaoheihe_Core.Data;
-using Xiaoheihe_Core;
+﻿using Xiaoheihe_Core.Data;
 
 namespace Xiaoheihe_Core.APIs
 {

@@ -175,7 +175,7 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, bool onlyArticle)
+        public static UserPostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, bool onlyArticle)
         {
             return xhh.GetUserPostLinks(xhh.HeyboxID, onlyArticle);
         }
@@ -187,7 +187,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, bool onlyArticle)
+        public static UserPostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, bool onlyArticle)
         {
             return xhh.GetUserPostLinks(userID, 0, onlyArticle);
         }
@@ -201,7 +201,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="offset"></param>
         /// <param name="onlyArticle">╫Жотй╬ндуб</param>
         /// <returns></returns>
-        public static PostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, uint offset, bool onlyArticle)
+        public static UserPostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, uint offset, bool onlyArticle)
         {
             string subPath = "/bbs/app/profile/user/link/list";
 
@@ -217,7 +217,7 @@ namespace Xiaoheihe_Core.APIs
                 extraParams.Add("list_type", "article");
             }
 
-            PostLinkResponse response = xhh.BasicRequest<PostLinkResponse>(HttpMethod.Get, subPath, extraParams);
+            UserPostLinkResponse response = xhh.BasicRequest<UserPostLinkResponse>(HttpMethod.Get, subPath, extraParams);
 
             return response;
         }
