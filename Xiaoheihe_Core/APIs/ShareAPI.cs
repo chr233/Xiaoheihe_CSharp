@@ -15,7 +15,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string hSrc = Utils.Base64Encode($"news_feeds_-1__link_id__{linkID}");
 
-            BasicResponse ShareClick()
+            void ShareClick()
             {
                 string subPath = "/bbs/app/link/share/click";
 
@@ -26,12 +26,12 @@ namespace Xiaoheihe_Core.APIs
                     { "index", index.ToString() },
                 };
 
-                BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams);
+                BasicResponse _ = xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams);
 
-                return response;
+                return;
             }
 
-            BasicResponse ShareCheck()
+            void ShareCheck()
             {
                 string subPath = "/task/shared/";
 
@@ -41,9 +41,9 @@ namespace Xiaoheihe_Core.APIs
                     { "shared_type", "normal" },
                 };
 
-                BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams);
+                BasicResponse _ = xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams);
 
-                return response;
+                return;
             }
 
             try
