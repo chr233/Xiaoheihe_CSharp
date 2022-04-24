@@ -82,18 +82,18 @@ namespace Xiaoheihe_Core
         /// 构建请求Url
         /// </summary>
         /// <param name="urlPath"></param>
-        /// <param name="extendParams"></param>
+        /// <param name="extraParams"></param>
         /// <returns></returns>
-        public Uri BuildQueryParams(string urlPath, Dictionary<string, string>? extendParams)
+        public Uri BuildQueryParams(string urlPath, Dictionary<string, string>? extraParams)
         {
             UriBuilder ub = new(XiaoHeiHeAPI);
             ub.Path = urlPath;
 
             Dictionary<string, string> temp = RequestParams.ToDictionary(x => x.Key, x => x.Value);
 
-            if (extendParams != null)
+            if (extraParams != null)
             {
-                foreach (KeyValuePair<string, string> item in extendParams)
+                foreach (KeyValuePair<string, string> item in extraParams)
                 {
                     string key = item.Key;
                     if (temp.ContainsKey(key))
@@ -170,11 +170,11 @@ namespace Xiaoheihe_Core
         /// <typeparam name="T"></typeparam>
         /// <param name="method"></param>
         /// <param name="subPath"></param>
-        /// <param name="extendParams"></param>
+        /// <param name="extraParams"></param>
         /// <returns></returns>
-        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extendParams) where T : BasicResponse
+        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extraParams) where T : BasicResponse
         {
-            return BasicRequest<T>(method, subPath, extendParams, null);
+            return BasicRequest<T>(method, subPath, extraParams, null);
         }
 
         /// <summary>
@@ -196,17 +196,17 @@ namespace Xiaoheihe_Core
         /// <typeparam name="T"></typeparam>
         /// <param name="method"></param>
         /// <param name="subPath"></param>
-        /// <param name="extendParams"></param>
+        /// <param name="extraParams"></param>
         /// <param name="content"></param>
         /// <returns></returns>
         /// <exception cref="HkeyServerErrorException"></exception>
         /// <exception cref="NullResponseException"></exception>
-        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extendParams, HttpContent? content) where T : BasicResponse
+        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content) where T : BasicResponse
         {
             Uri uri;
             try
             {
-                uri = BuildQueryParams(subPath, extendParams);
+                uri = BuildQueryParams(subPath, extraParams);
             }
             catch (Exception ex)
             {

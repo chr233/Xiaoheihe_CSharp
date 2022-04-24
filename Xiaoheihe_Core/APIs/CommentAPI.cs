@@ -33,7 +33,7 @@ namespace Xiaoheihe_Core.APIs
 
             string hSrc = Utils.Base64Encode($"news_feeds_-1__link_id__{linkID}");
 
-            Dictionary<string, string> extendParams = new(2)
+            Dictionary<string, string> extraParams = new(2)
             {
                 { "h_src", hSrc },
                 { "index", index.ToString() }
@@ -51,7 +51,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            SendCommentsResponse response = xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, extendParams, content);
+            SendCommentsResponse response = xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, extraParams, content);
 
             return response;
         }

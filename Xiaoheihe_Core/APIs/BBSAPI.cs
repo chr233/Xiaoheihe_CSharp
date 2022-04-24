@@ -30,7 +30,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/bbs/app/feeds/news";
 
-            Dictionary<string, string> extendParams = new(5)
+            Dictionary<string, string> extraParams = new(5)
             {
                 { "offset", offset.ToString() },
                 { "limit", "30" },
@@ -42,7 +42,7 @@ namespace Xiaoheihe_Core.APIs
 
             };
 
-            AppFeedNewsResponse response = xhh.BasicRequest<AppFeedNewsResponse>(HttpMethod.Get, subPath, extendParams);
+            AppFeedNewsResponse response = xhh.BasicRequest<AppFeedNewsResponse>(HttpMethod.Get, subPath, extraParams);
 
             return response;
         }
@@ -79,14 +79,14 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/bbs/app/profile/subscribed/events";
 
-            Dictionary<string, string> extendParams = new(3)
+            Dictionary<string, string> extraParams = new(3)
             {
                 { "offset", offset.ToString() },
                 { "limit", "30" },
                 { "filters", filter },
             };
 
-            UserEventsResponse response = xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extendParams);
+            UserEventsResponse response = xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams);
 
             return response;
         }

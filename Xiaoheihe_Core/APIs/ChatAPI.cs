@@ -27,17 +27,17 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/chat/get_message_list/";
 
-            Dictionary<string, string> extendParams = new(2)
+            Dictionary<string, string> extraParams = new(2)
             {
                 { "userid", userID.ToString() },
             };
 
             if (pointer != 0)
             {
-                extendParams.Add(isNewer ? "newer" : "older", pointer.ToString());
+                extraParams.Add(isNewer ? "newer" : "older", pointer.ToString());
             }
 
-            UserMessageResponse response = xhh.BasicRequest<UserMessageResponse>(HttpMethod.Get, subPath, extendParams);
+            UserMessageResponse response = xhh.BasicRequest<UserMessageResponse>(HttpMethod.Get, subPath, extraParams);
 
             return response;
         }
@@ -66,7 +66,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/chat/send_message/";
 
-            Dictionary<string, string> extendParams = new(1)
+            Dictionary<string, string> extraParams = new(1)
             {
                 { "userid", userID.ToString() },
             };
@@ -79,7 +79,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extendParams, content);
+            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content);
 
             return response;
         }

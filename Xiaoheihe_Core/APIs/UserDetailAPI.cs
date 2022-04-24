@@ -158,14 +158,14 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/bbs/app/profile/events";
 
-            Dictionary<string, string> extendParams = new(3)
+            Dictionary<string, string> extraParams = new(3)
             {
                 { "userid", userID.ToString() },
                 { "offset", offset.ToString() },
                 { "limit", "30" },
             };
 
-            UserEventsResponse response = xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extendParams);
+            UserEventsResponse response = xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams);
 
             return response;
         }
@@ -205,7 +205,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/bbs/app/profile/user/link/list";
 
-            Dictionary<string, string> extendParams = new(4)
+            Dictionary<string, string> extraParams = new(4)
             {
                 { "userid", userID.ToString() },
                 { "offset", offset.ToString() },
@@ -214,10 +214,10 @@ namespace Xiaoheihe_Core.APIs
 
             if (onlyArticle)
             {
-                extendParams.Add("list_type", "article");
+                extraParams.Add("list_type", "article");
             }
 
-            PostLinkResponse response = xhh.BasicRequest<PostLinkResponse>(HttpMethod.Get, subPath, extendParams);
+            PostLinkResponse response = xhh.BasicRequest<PostLinkResponse>(HttpMethod.Get, subPath, extraParams);
 
             return response;
         }
@@ -257,7 +257,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/bbs/app/profile/bbs/comment/list";
 
-            Dictionary<string, string> extendParams = new(4)
+            Dictionary<string, string> extraParams = new(4)
             {
                 { "userid", userID.ToString() },
                 { "offset", offset.ToString() },
@@ -265,7 +265,7 @@ namespace Xiaoheihe_Core.APIs
                 { "only_cy", onlyCy ? "1" : "0" },
             };
 
-            CommentListResponse response = xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extendParams);
+            CommentListResponse response = xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extraParams);
 
             return response;
         }
