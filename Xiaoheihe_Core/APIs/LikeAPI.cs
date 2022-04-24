@@ -210,9 +210,6 @@ namespace Xiaoheihe_Core.APIs
             return xhh.LikeCommentAction(linkID, commentID, index, SupportType.Cancel);
         }
 
-
-
-
         /// <summary>
         /// 点赞或者取消点赞游戏评测
         /// </summary>
