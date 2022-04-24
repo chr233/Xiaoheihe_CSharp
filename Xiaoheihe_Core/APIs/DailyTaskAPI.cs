@@ -9,11 +9,11 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static TaskSignListResponse GetTaskSignList(this XiaoheiheClient xhh)
+        public static async Task<TaskSignListResponse> GetTaskSignList(this XiaoheiheClient xhh)
         {
             string subPath = "/task/sign_list/";
 
-            TaskSignListResponse response = xhh.BasicRequest<TaskSignListResponse>(HttpMethod.Get, subPath);
+            TaskSignListResponse response = await xhh.BasicRequest<TaskSignListResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }
@@ -23,11 +23,11 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static TaskListResponse GetTaskList(this XiaoheiheClient xhh)
+        public static async Task<TaskListResponse> GetTaskList(this XiaoheiheClient xhh)
         {
             string subPath = "/task/list/";
 
-            TaskListResponse response = xhh.BasicRequest<TaskListResponse>(HttpMethod.Get, subPath);
+            TaskListResponse response = await xhh.BasicRequest<TaskListResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }
@@ -37,11 +37,11 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static TaskSignResponse TaskSign(this XiaoheiheClient xhh)
+        public static async Task<TaskSignResponse> TaskSign(this XiaoheiheClient xhh)
         {
             string subPath = "/task/sign/";
 
-            TaskSignResponse response = xhh.BasicRequest<TaskSignResponse>(HttpMethod.Get, subPath);
+            TaskSignResponse response = await xhh.BasicRequest<TaskSignResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }

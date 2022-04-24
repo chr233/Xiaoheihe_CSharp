@@ -11,23 +11,23 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="comment"></param>
         /// <returns></returns>
-        public static SendCommentsResponse SentComment(this XiaoheiheClient xhh, uint linkID, string comment)
+        public static async Task<SendCommentsResponse> SentComment(this XiaoheiheClient xhh, uint linkID, string comment)
         {
-            return xhh.SentComment(linkID, 1, comment, -1, -1, false);
+            return await xhh.SentComment(linkID, 1, comment, -1, -1, false).ConfigureAwait(false);
         }
 
         /// <summary>
         /// 发布评论
         /// </summary>
         /// <param name="xhh"></param>
-        /// <param name="linkID"></param>
-        /// <param name="index"></param>
-        /// <param name="comment"></param>
+        /// <param name="linkID">文章ID</param>
+        /// <param name="index">主页索引</param>
+        /// <param name="comment">评论内容</param>
         /// <param name="roomID"></param>
-        /// <param name="replyID"></param>
-        /// <param name="isCy"></param>
+        /// <param name="replyID">楼中楼主楼ID</param>
+        /// <param name="isCy">是否有插眼</param>
         /// <returns></returns>
-        public static SendCommentsResponse SentComment(this XiaoheiheClient xhh, uint linkID, uint index, string comment, int roomID, int replyID, bool isCy)
+        public static async Task<SendCommentsResponse> SentComment(this XiaoheiheClient xhh, uint linkID, uint index, string comment, int roomID, int replyID, bool isCy)
         {
             string subPath = "/bbs/app/comment/create";
 
@@ -51,7 +51,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            SendCommentsResponse response = xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, extraParams, content);
+            SendCommentsResponse response = await xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
 
             return response;
         }
@@ -62,7 +62,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="commentID"></param>
         /// <returns></returns>
-        public static BasicResponse DeleteComment(this XiaoheiheClient xhh, long commentID)
+        public static async Task<BasicResponse> DeleteComment(this XiaoheiheClient xhh, long commentID)
         {
             string subPath = "/bbs/app/comment/delete";
 
@@ -73,7 +73,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, content);
+            BasicResponse response =await xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }

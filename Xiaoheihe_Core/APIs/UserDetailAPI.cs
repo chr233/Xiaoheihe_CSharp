@@ -9,9 +9,9 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static FollowListResponse GetFollowingList(this XiaoheiheClient xhh)
+        public static async Task<FollowListResponse> GetFollowingList(this XiaoheiheClient xhh)
         {
-            return xhh.GetFollowingList(xhh.HeyboxID, 0);
+            return await xhh.GetFollowingList(xhh.HeyboxID, 0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -20,9 +20,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public static FollowListResponse GetFollowingList(this XiaoheiheClient xhh, uint userID)
+        public static async Task<FollowListResponse> GetFollowingList(this XiaoheiheClient xhh, uint userID)
         {
-            return xhh.GetFollowingList(userID, 0);
+            return await xhh.GetFollowingList(userID, 0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="userID"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static FollowListResponse GetFollowingList(this XiaoheiheClient xhh, uint userID, uint offset)
+        public static async Task<FollowListResponse> GetFollowingList(this XiaoheiheClient xhh, uint userID, uint offset)
         {
             string subPath = "/bbs/app/profile/following/list";
 
@@ -43,7 +43,7 @@ namespace Xiaoheihe_Core.APIs
                 { "limit", "30" },
             };
 
-            FollowListResponse response = xhh.BasicRequest<FollowListResponse>(HttpMethod.Get, subPath, extraParams);
+            FollowListResponse response = await xhh.BasicRequest<FollowListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -53,9 +53,9 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static FollowListResponse GetFollowerList(this XiaoheiheClient xhh)
+        public static async Task<FollowListResponse> GetFollowerList(this XiaoheiheClient xhh)
         {
-            return xhh.GetFollowerList(xhh.HeyboxID, 0);
+            return await xhh.GetFollowerList(xhh.HeyboxID, 0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public static FollowListResponse GetFollowerList(this XiaoheiheClient xhh, uint userID)
+        public static async Task<FollowListResponse> GetFollowerList(this XiaoheiheClient xhh, uint userID)
         {
-            return xhh.GetFollowerList(userID, 0);
+            return await xhh.GetFollowerList(userID, 0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="userID"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static FollowListResponse GetFollowerList(this XiaoheiheClient xhh, uint userID, uint offset)
+        public static async Task<FollowListResponse> GetFollowerList(this XiaoheiheClient xhh, uint userID, uint offset)
         {
             string subPath = "/bbs/app/profile/follower/list";
 
@@ -87,7 +87,7 @@ namespace Xiaoheihe_Core.APIs
                 { "limit", "30" },
             };
 
-            FollowListResponse response = xhh.BasicRequest<FollowListResponse>(HttpMethod.Get, subPath, extraParams);
+            FollowListResponse response = await xhh.BasicRequest<FollowListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -99,7 +99,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="userID"></param>
         /// <param name="isFollow"></param>
         /// <returns></returns>
-        private static BasicResponse FollowAction(this XiaoheiheClient xhh, uint userID, bool isFollow)
+        private static async Task<BasicResponse> FollowAction(this XiaoheiheClient xhh, uint userID, bool isFollow)
         {
             string subPath = isFollow ? "/bbs/app/profile/follow/user" : "/bbs/app/profile/follow/user/cancel";
 
@@ -110,7 +110,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            FollowListResponse response = xhh.BasicRequest<FollowListResponse>(HttpMethod.Post, subPath, content);
+            FollowListResponse response = await xhh.BasicRequest<FollowListResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }
@@ -121,9 +121,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public static BasicResponse FollowUser(this XiaoheiheClient xhh, uint userID)
+        public static async Task<BasicResponse> FollowUser(this XiaoheiheClient xhh, uint userID)
         {
-            return xhh.FollowAction(userID, true);
+            return await xhh.FollowAction(userID, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -132,9 +132,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public static BasicResponse UnfollowUser(this XiaoheiheClient xhh, uint userID)
+        public static async Task<BasicResponse> UnfollowUser(this XiaoheiheClient xhh, uint userID)
         {
-            return xhh.FollowAction(userID, false);
+            return await xhh.FollowAction(userID, false).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -143,9 +143,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public static UserEventsResponse GetUserEvents(this XiaoheiheClient xhh, uint userID)
+        public static async Task<UserEventsResponse> GetUserEvents(this XiaoheiheClient xhh, uint userID)
         {
-            return xhh.GetUserEvents(userID, 0);
+            return await xhh.GetUserEvents(userID, 0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static UserEventsResponse GetUserEvents(this XiaoheiheClient xhh, uint userID, uint offset)
+        public static async Task<UserEventsResponse> GetUserEvents(this XiaoheiheClient xhh, uint userID, uint offset)
         {
             string subPath = "/bbs/app/profile/events";
 
@@ -165,7 +165,7 @@ namespace Xiaoheihe_Core.APIs
                 { "limit", "30" },
             };
 
-            UserEventsResponse response = xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams);
+            UserEventsResponse response = await xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -175,9 +175,9 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static UserPostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, bool onlyArticle)
+        public static async Task<UserPostLinkResponse> GetUserPostLinks(this XiaoheiheClient xhh, bool onlyArticle)
         {
-            return xhh.GetUserPostLinks(xhh.HeyboxID, onlyArticle);
+            return await xhh.GetUserPostLinks(xhh.HeyboxID, onlyArticle).ConfigureAwait(false);
         }
 
 
@@ -187,9 +187,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static UserPostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, bool onlyArticle)
+        public static async Task<UserPostLinkResponse> GetUserPostLinks(this XiaoheiheClient xhh, uint userID, bool onlyArticle)
         {
-            return xhh.GetUserPostLinks(userID, 0, onlyArticle);
+            return await xhh.GetUserPostLinks(userID, 0, onlyArticle).ConfigureAwait(false);
         }
 
 
@@ -201,7 +201,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="offset"></param>
         /// <param name="onlyArticle">仅显示文章</param>
         /// <returns></returns>
-        public static UserPostLinkResponse GetUserPostLinks(this XiaoheiheClient xhh, uint userID, uint offset, bool onlyArticle)
+        public static async Task<UserPostLinkResponse> GetUserPostLinks(this XiaoheiheClient xhh, uint userID, uint offset, bool onlyArticle)
         {
             string subPath = "/bbs/app/profile/user/link/list";
 
@@ -217,7 +217,7 @@ namespace Xiaoheihe_Core.APIs
                 extraParams.Add("list_type", "article");
             }
 
-            UserPostLinkResponse response = xhh.BasicRequest<UserPostLinkResponse>(HttpMethod.Get, subPath, extraParams);
+            UserPostLinkResponse response = await xhh.BasicRequest<UserPostLinkResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -228,9 +228,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="onlyCy"></param>
         /// <returns></returns>
-        public static CommentListResponse GetUserComments(this XiaoheiheClient xhh, bool onlyCy)
+        public static async Task<CommentListResponse> GetUserComments(this XiaoheiheClient xhh, bool onlyCy)
         {
-            return xhh.GetUserComments(xhh.HeyboxID, onlyCy, 0);
+            return await xhh.GetUserComments(xhh.HeyboxID, onlyCy, 0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -240,9 +240,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="userID"></param>
         /// <param name="onlyCy"></param>
         /// <returns></returns>
-        public static CommentListResponse GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy)
+        public static async Task<CommentListResponse> GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy)
         {
-            return xhh.GetUserComments(userID, onlyCy, 0);
+            return await xhh.GetUserComments(userID, onlyCy, 0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="onlyCy">是否插眼</param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static CommentListResponse GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy, uint offset)
+        public static async Task<CommentListResponse> GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy, uint offset)
         {
             string subPath = "/bbs/app/profile/bbs/comment/list";
 
@@ -265,11 +265,9 @@ namespace Xiaoheihe_Core.APIs
                 { "only_cy", onlyCy ? "1" : "0" },
             };
 
-            CommentListResponse response = xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extraParams);
+            CommentListResponse response = await xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
-
-
     }
 }

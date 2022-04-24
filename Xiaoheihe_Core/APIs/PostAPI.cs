@@ -9,7 +9,7 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static PostLinkResponse PostEvent(this XiaoheiheClient xhh)
+        public static async Task<PostLinkResponse> PostEvent(this XiaoheiheClient xhh)
         {
             string subPath = "/bbs/app/api/link/post";
 
@@ -26,7 +26,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            PostLinkResponse response = xhh.BasicRequest<PostLinkResponse>(HttpMethod.Post, subPath, content);
+            PostLinkResponse response = await xhh.BasicRequest<PostLinkResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }

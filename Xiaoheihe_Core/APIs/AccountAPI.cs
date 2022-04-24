@@ -9,11 +9,11 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static AccountInfoResponse GetAccountInfo(this XiaoheiheClient xhh)
+        public static async Task<AccountInfoResponse> GetAccountInfo(this XiaoheiheClient xhh)
         {
             string subPath = "/account/info/";
 
-            AccountInfoResponse response = xhh.BasicRequest<AccountInfoResponse>(HttpMethod.Get, subPath);
+            AccountInfoResponse response = await xhh.BasicRequest<AccountInfoResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }

@@ -11,9 +11,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static BasicResponse LikeNewsAction(this XiaoheiheClient xhh, uint linkID, AwardType like)
+        private static async Task<BasicResponse> LikeNewsAction(this XiaoheiheClient xhh, uint linkID, AwardType like)
         {
-            return xhh.LikeNewsAction(linkID, -1, like);
+            return await xhh.LikeNewsAction(linkID, -1, like).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="index"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static BasicResponse LikeNewsAction(this XiaoheiheClient xhh, uint linkID, int index, AwardType like)
+        private static async Task<BasicResponse> LikeNewsAction(this XiaoheiheClient xhh, uint linkID, int index, AwardType like)
         {
             string subPath = "/bbs/app/profile/award/link";
 
@@ -44,7 +44,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content);
+            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
 
             return response;
         }
@@ -55,9 +55,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static BasicResponse LikeNews(this XiaoheiheClient xhh, uint linkID)
+        public static async Task<BasicResponse> LikeNews(this XiaoheiheClient xhh, uint linkID)
         {
-            return xhh.LikeNewsAction(linkID, AwardType.Like);
+            return await xhh.LikeNewsAction(linkID, AwardType.Like).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static BasicResponse LikeNews(this XiaoheiheClient xhh, uint linkID, int index)
+        public static async Task<BasicResponse> LikeNews(this XiaoheiheClient xhh, uint linkID, int index)
         {
-            return xhh.LikeNewsAction(linkID, index, AwardType.Like);
+            return await xhh.LikeNewsAction(linkID, index, AwardType.Like).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static BasicResponse DislikeNews(this XiaoheiheClient xhh, uint linkID)
+        public static async Task<BasicResponse> DislikeNews(this XiaoheiheClient xhh, uint linkID)
         {
-            return xhh.LikeNewsAction(linkID, AwardType.Cancel);
+            return await xhh.LikeNewsAction(linkID, AwardType.Cancel).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -90,9 +90,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static BasicResponse DislikeNews(this XiaoheiheClient xhh, uint linkID, int index)
+        public static async Task<BasicResponse> DislikeNews(this XiaoheiheClient xhh, uint linkID, int index)
         {
-            return xhh.LikeNewsAction(linkID, index, AwardType.Cancel);
+            return await xhh.LikeNewsAction(linkID, index, AwardType.Cancel).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -103,9 +103,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="commentID"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static BasicResponse LikeCommentAction(this XiaoheiheClient xhh, uint linkID, uint commentID, SupportType like)
+        private static async Task<BasicResponse> LikeCommentAction(this XiaoheiheClient xhh, uint linkID, uint commentID, SupportType like)
         {
-            return xhh.LikeCommentAction(linkID, commentID, -1, like);
+            return await xhh.LikeCommentAction(linkID, commentID, -1, like).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="index"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static BasicResponse LikeCommentAction(this XiaoheiheClient xhh, uint linkID, uint commentID, int index, SupportType like)
+        private static async Task<BasicResponse> LikeCommentAction(this XiaoheiheClient xhh, uint linkID, uint commentID, int index, SupportType like)
         {
             string subPath = "/bbs/app/comment/support";
 
@@ -136,7 +136,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content);
+            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
 
             return response;
         }
@@ -147,9 +147,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static BasicResponse LikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID)
+        public static async Task<BasicResponse> LikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID)
         {
-            return xhh.LikeCommentAction(linkID, commentID, SupportType.Like);
+            return await xhh.LikeCommentAction(linkID, commentID, SupportType.Like).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -159,9 +159,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static BasicResponse LikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID, int index)
+        public static async Task<BasicResponse> LikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID, int index)
         {
-            return xhh.LikeCommentAction(linkID, commentID, index, SupportType.Like);
+            return await xhh.LikeCommentAction(linkID, commentID, index, SupportType.Like).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -170,9 +170,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static BasicResponse DislikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID)
+        public static async Task<BasicResponse> DislikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID)
         {
-            return xhh.LikeCommentAction(linkID, commentID, SupportType.Dislike);
+            return await xhh.LikeCommentAction(linkID, commentID, SupportType.Dislike).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -182,9 +182,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static BasicResponse DislikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID, int index)
+        public static async Task<BasicResponse> DislikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID, int index)
         {
-            return xhh.LikeCommentAction(linkID, commentID, index, SupportType.Dislike);
+            return await xhh.LikeCommentAction(linkID, commentID, index, SupportType.Dislike).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -193,9 +193,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static BasicResponse CanclelikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID)
+        public static async Task<BasicResponse> CanclelikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID)
         {
-            return xhh.LikeCommentAction(linkID, commentID, SupportType.Cancel);
+            return await xhh.LikeCommentAction(linkID, commentID, SupportType.Cancel).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -205,9 +205,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static BasicResponse CanclelikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID, int index)
+        public static async Task<BasicResponse> CanclelikeComment(this XiaoheiheClient xhh, uint linkID, uint commentID, int index)
         {
-            return xhh.LikeCommentAction(linkID, commentID, index, SupportType.Cancel);
+            return await xhh.LikeCommentAction(linkID, commentID, index, SupportType.Cancel).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static BasicResponse LikeGameCommentAction(this XiaoheiheClient xhh, uint linkID, AwardType like)
+        private static async Task<BasicResponse> LikeGameCommentAction(this XiaoheiheClient xhh, uint linkID, AwardType like)
         {
             string subPath = "/bbs/app/link/game/comment/up";
 
@@ -232,7 +232,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, content);
+            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }
@@ -243,9 +243,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static BasicResponse LikeGameComment(this XiaoheiheClient xhh, uint linkID)
+        public static async Task<BasicResponse> LikeGameComment(this XiaoheiheClient xhh, uint linkID)
         {
-            return xhh.LikeGameCommentAction(linkID, AwardType.Like);
+            return await xhh.LikeGameCommentAction(linkID, AwardType.Like).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -254,9 +254,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static BasicResponse DislikeGameComment(this XiaoheiheClient xhh, uint linkID)
+        public static async Task<BasicResponse> DislikeGameComment(this XiaoheiheClient xhh, uint linkID)
         {
-            return xhh.LikeGameCommentAction(linkID, AwardType.Cancel);
+            return await xhh.LikeGameCommentAction(linkID, AwardType.Cancel).ConfigureAwait(false);
         }
     }
 }

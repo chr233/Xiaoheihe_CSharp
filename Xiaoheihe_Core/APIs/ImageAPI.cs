@@ -44,7 +44,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="imgPath"></param>
         /// <returns></returns>
-        private static ImageUploadInfoResponse? GetUploadImageInfo(this XiaoheiheClient xhh, string imgPath)
+        private static async Task<ImageUploadInfoResponse?> GetUploadImageInfo(this XiaoheiheClient xhh, string imgPath)
         {
             string subPath = "/bbs/app/api/qcloud/cos/upload/info";
 
@@ -63,7 +63,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            ImageUploadInfoResponse response = xhh.BasicRequest<ImageUploadInfoResponse>(HttpMethod.Post, subPath, content);
+            ImageUploadInfoResponse response =await xhh.BasicRequest<ImageUploadInfoResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }
@@ -73,11 +73,11 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        private static ImageUploadTokenResponse GetUploadCosToken(this XiaoheiheClient xhh)
+        private static async Task<ImageUploadTokenResponse> GetUploadCosToken(this XiaoheiheClient xhh)
         {
             string subPath = "/bbs/app/api/qcloud/cos/upload/token";
 
-            ImageUploadTokenResponse response = xhh.BasicRequest<ImageUploadTokenResponse>(HttpMethod.Get, subPath);
+            ImageUploadTokenResponse response = await xhh.BasicRequest<ImageUploadTokenResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }
@@ -88,16 +88,16 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="imgPath"></param>
         /// <returns></returns>
-        public static string? UploadImage(this XiaoheiheClient xhh, string imgPath)
+        public static async Task<string?> UploadImage(this XiaoheiheClient xhh, string imgPath)
         {
             if (!File.Exists(imgPath))
             {
                 return null;
             }
 
-            ImageUploadInfoResponse? uploadInfo = xhh.GetUploadImageInfo(imgPath);
+            ImageUploadInfoResponse? uploadInfo = await xhh.GetUploadImageInfo(imgPath).ConfigureAwait(false);
 
-            ImageUploadTokenResponse cosToken = xhh.GetUploadCosToken();
+            ImageUploadTokenResponse cosToken = await xhh.GetUploadCosToken().ConfigureAwait(false);
 
             if (uploadInfo == null || uploadInfo.Result == null || uploadInfo.Result.Keys.Count == 0 || cosToken.Result == null)
             {
@@ -124,7 +124,7 @@ namespace Xiaoheihe_Core.APIs
 
             try
             {
-                COSXMLUploadTask.UploadTaskResult result = transferManager.UploadAsync(uploadTask).Result;
+                COSXMLUploadTask.UploadTaskResult result = await transferManager.UploadAsync(uploadTask).ConfigureAwait(false);
                 if (result.httpCode == 200)
                 {
                     string dstUri = uploadInfo.Result.Host + cosPath;

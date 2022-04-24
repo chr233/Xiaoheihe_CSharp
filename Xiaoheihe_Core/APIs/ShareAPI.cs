@@ -11,11 +11,11 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static bool ShareNews(this XiaoheiheClient xhh, uint linkID, int index)
+        public static async Task<bool> ShareNews(this XiaoheiheClient xhh, uint linkID, int index)
         {
             string hSrc = Utils.Base64Encode($"news_feeds_-1__link_id__{linkID}");
 
-            void ShareClick()
+            async Task ShareClick()
             {
                 string subPath = "/bbs/app/link/share/click";
 
@@ -26,12 +26,12 @@ namespace Xiaoheihe_Core.APIs
                     { "index", index.ToString() },
                 };
 
-                BasicResponse _ = xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams);
+                BasicResponse _ = await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
                 return;
             }
 
-            void ShareCheck()
+            async Task ShareCheck()
             {
                 string subPath = "/task/shared/";
 
@@ -41,15 +41,15 @@ namespace Xiaoheihe_Core.APIs
                     { "shared_type", "normal" },
                 };
 
-                BasicResponse _ = xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams);
+                BasicResponse _ = await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
                 return;
             }
 
             try
             {
-                ShareClick();
-                ShareCheck();
+                await ShareClick().ConfigureAwait(false);
+                await ShareCheck().ConfigureAwait(false);
                 return true;
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static BasicResponse ShareComment(this XiaoheiheClient xhh)
+        public static async Task<BasicResponse> ShareComment(this XiaoheiheClient xhh)
         {
             string subPath = "/task/shared/";
 
@@ -73,7 +73,7 @@ namespace Xiaoheihe_Core.APIs
                 { "shared_type", "BBSComment" },
             };
 
-            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams);
+            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }

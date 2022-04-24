@@ -29,6 +29,8 @@ namespace Xiaoheihe_Core
         /// <param name="hkeyServer"></param>
         public XiaoheiheClient(Account account, string version, string hkeyServer)
         {
+            Http = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
+
             uint heyboxID = uint.Parse(account.HeyboxID);
 
             Pkey = account.Pkey;
@@ -39,10 +41,7 @@ namespace Xiaoheihe_Core
             HkeyServer = new Uri(hkeyServer);
 
             JsonOptions.Converters.Add(new DateTimeConverter());
-
-            Http = new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate });
         }
-
 
         /// <summary>
         /// 计算Hkey
@@ -51,7 +50,7 @@ namespace Xiaoheihe_Core
         /// <param name="nonce"></param>
         /// <param name="timeStamp"></param>
         /// <returns></returns>
-        private string CallHkeyServer(string urlPath, string nonce, string timeStamp)
+        private async Task<string> CallHkeyServer(string urlPath, string nonce, string timeStamp)
         {
             if (!urlPath.EndsWith("/")) { urlPath += "/"; }
 
@@ -61,7 +60,7 @@ namespace Xiaoheihe_Core
 
             HttpResponseMessage response = Http.Send(request);
 
-            string hkey = response.Content.ReadAsStringAsync().Result;
+            string hkey = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             return hkey;
         }
@@ -71,11 +70,10 @@ namespace Xiaoheihe_Core
         /// </summary>
         /// <param name="urlPath"></param>
         /// <returns></returns>
-        public Uri BuildQueryParams(string urlPath)
+        public async Task<Uri> BuildQueryParams(string urlPath)
         {
-            return BuildQueryParams(urlPath, null);
+            return await BuildQueryParamsAsync(urlPath, null).ConfigureAwait(false);
         }
-
 
         /// <summary>
         /// 构建请求Url
@@ -83,10 +81,10 @@ namespace Xiaoheihe_Core
         /// <param name="urlPath"></param>
         /// <param name="extraParams"></param>
         /// <returns></returns>
-        public Uri BuildQueryParams(string urlPath, Dictionary<string, string>? extraParams)
+        public async Task<Uri> BuildQueryParamsAsync(string urlPath, Dictionary<string, string>? extraParams)
         {
-            UriBuilder ub = new(XiaoHeiHeAPI);
-            ub.Path = urlPath;
+            UriBuilder urlBuilder = new(XiaoHeiHeAPI);
+            urlBuilder.Path = urlPath;
 
             Dictionary<string, string> temp = RequestParams.ToDictionary(x => x.Key, x => x.Value);
 
@@ -105,14 +103,14 @@ namespace Xiaoheihe_Core
             string nonce = Utils.RandomNonce();
             string timeStamp = DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
 
-            string hkey = CallHkeyServer(urlPath, nonce, timeStamp);
+            string hkey = await CallHkeyServer(urlPath, nonce, timeStamp).ConfigureAwait(false);
 
             temp["_time"] = timeStamp;
             temp["time_"] = timeStamp;
             temp["nonce"] = nonce;
             temp["hkey"] = hkey;
 
-            NameValueCollection query = HttpUtility.ParseQueryString(ub.Query);
+            NameValueCollection query = HttpUtility.ParseQueryString(urlBuilder.Query);
             foreach (KeyValuePair<string, string> item in temp)
             {
                 string value = item.Value;
@@ -122,9 +120,9 @@ namespace Xiaoheihe_Core
                 }
             }
 
-            ub.Query = query.ToString();
+            urlBuilder.Query = query.ToString();
 
-            return ub.Uri;
+            return urlBuilder.Uri;
         }
 
         /// <summary>
@@ -158,9 +156,9 @@ namespace Xiaoheihe_Core
         /// <param name="method"></param>
         /// <param name="subPath"></param>
         /// <returns></returns>
-        public T BasicRequest<T>(HttpMethod method, string subPath) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath) where T : BasicResponse
         {
-            return BasicRequest<T>(method, subPath, null, null);
+            return await BasicRequest<T>(method, subPath, null, null);
         }
 
         /// <summary>
@@ -171,9 +169,9 @@ namespace Xiaoheihe_Core
         /// <param name="subPath"></param>
         /// <param name="extraParams"></param>
         /// <returns></returns>
-        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extraParams) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extraParams) where T : BasicResponse
         {
-            return BasicRequest<T>(method, subPath, extraParams, null);
+            return await BasicRequest<T>(method, subPath, extraParams, null).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -184,9 +182,9 @@ namespace Xiaoheihe_Core
         /// <param name="subPath"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public T BasicRequest<T>(HttpMethod method, string subPath, HttpContent content) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, HttpContent content) where T : BasicResponse
         {
-            return BasicRequest<T>(method, subPath, null, content);
+            return await BasicRequest<T>(method, subPath, null, content).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -200,12 +198,12 @@ namespace Xiaoheihe_Core
         /// <returns></returns>
         /// <exception cref="HkeyServerErrorException"></exception>
         /// <exception cref="NullResponseException"></exception>
-        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content) where T : BasicResponse
         {
             Uri uri;
             try
             {
-                uri = BuildQueryParams(subPath, extraParams);
+                uri = await BuildQueryParamsAsync(subPath, extraParams).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -216,7 +214,7 @@ namespace Xiaoheihe_Core
 
             HttpResponseMessage response = Http.Send(request);
 
-            Stream receiveStream = response.Content.ReadAsStreamAsync().Result;
+            Stream receiveStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             StreamReader readStream = new(receiveStream, Encoding.UTF8);
             string strJson = readStream.ReadToEnd();
 

@@ -11,9 +11,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static AppFeedNewsResponse GetFeedNews(this XiaoheiheClient xhh, uint offset)
+        public static async Task<AppFeedNewsResponse> GetFeedNews(this XiaoheiheClient xhh, uint offset)
         {
-            return xhh.GetFeedNews(offset, "-1", "timeline", "normal", "control-group");
+            return await xhh.GetFeedNews(offset, "-1", "timeline", "normal", "control-group").ConfigureAwait(false);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="newsListType"></param>
         /// <param name="newsListGroup"></param>
         /// <returns></returns>
-        public static AppFeedNewsResponse GetFeedNews(this XiaoheiheClient xhh, uint offset, string tag, string recMark, string newsListType, string newsListGroup)
+        public static async Task<AppFeedNewsResponse> GetFeedNews(this XiaoheiheClient xhh, uint offset, string tag, string recMark, string newsListType, string newsListGroup)
         {
             string subPath = "/bbs/app/feeds/news";
 
@@ -42,7 +42,7 @@ namespace Xiaoheihe_Core.APIs
 
             };
 
-            AppFeedNewsResponse response = xhh.BasicRequest<AppFeedNewsResponse>(HttpMethod.Get, subPath, extraParams);
+            AppFeedNewsResponse response = await xhh.BasicRequest<AppFeedNewsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -52,9 +52,9 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <returns></returns>
-        public static UserEventsResponse GetSubscribedEvents(this XiaoheiheClient xhh)
+        public static async Task<UserEventsResponse> GetSubscribedEvents(this XiaoheiheClient xhh)
         {
-            return xhh.GetSubscribedEvents(0);
+            return await xhh.GetSubscribedEvents(0).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -63,9 +63,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static UserEventsResponse GetSubscribedEvents(this XiaoheiheClient xhh, uint offset)
+        public static async Task<UserEventsResponse> GetSubscribedEvents(this XiaoheiheClient xhh, uint offset)
         {
-            return xhh.GetSubscribedEvents(offset, "post_link|game_comment|roll_room|followed_event");
+            return await xhh.GetSubscribedEvents(offset, "post_link|game_comment|roll_room|followed_event").ConfigureAwait(false);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="offset"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static UserEventsResponse GetSubscribedEvents(this XiaoheiheClient xhh, uint offset, string filter)
+        public static async Task<UserEventsResponse> GetSubscribedEvents(this XiaoheiheClient xhh, uint offset, string filter)
         {
             string subPath = "/bbs/app/profile/subscribed/events";
 
@@ -86,7 +86,7 @@ namespace Xiaoheihe_Core.APIs
                 { "filters", filter },
             };
 
-            UserEventsResponse response = xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams);
+            UserEventsResponse response = await xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }

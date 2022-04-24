@@ -10,9 +10,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public static UserMessageResponse GetUserMessageList(this XiaoheiheClient xhh, uint userID)
+        public static async Task<UserMessageResponse> GetUserMessageList(this XiaoheiheClient xhh, uint userID)
         {
-            return xhh.GetUserMessageList(userID, 0, false);
+            return await xhh.GetUserMessageList(userID, 0, false).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="pointer">时间指针</param>
         /// <param name="isNewer">是不是newer, 否则为older</param>
         /// <returns></returns>
-        public static UserMessageResponse GetUserMessageList(this XiaoheiheClient xhh, uint userID, uint pointer, bool isNewer)
+        public static async Task<UserMessageResponse> GetUserMessageList(this XiaoheiheClient xhh, uint userID, uint pointer, bool isNewer)
         {
             string subPath = "/chat/get_message_list/";
 
@@ -37,7 +37,7 @@ namespace Xiaoheihe_Core.APIs
                 extraParams.Add(isNewer ? "newer" : "older", pointer.ToString());
             }
 
-            UserMessageResponse response = xhh.BasicRequest<UserMessageResponse>(HttpMethod.Get, subPath, extraParams);
+            UserMessageResponse response = await xhh.BasicRequest<UserMessageResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -49,9 +49,9 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="userID"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static BasicResponse SendMessage(this XiaoheiheClient xhh, uint userID, string text)
+        public static async Task<BasicResponse> SendMessage(this XiaoheiheClient xhh, uint userID, string text)
         {
-            return xhh.SendMessage(userID, text, "");
+            return await xhh.SendMessage(userID, text, "").ConfigureAwait(false);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="text">消息内容</param>
         /// <param name="img">图片网址</param>
         /// <returns></returns>
-        public static BasicResponse SendMessage(this XiaoheiheClient xhh, uint userID, string text, string img)
+        public static async Task<BasicResponse> SendMessage(this XiaoheiheClient xhh, uint userID, string text, string img)
         {
             string subPath = "/chat/send_message/";
 
@@ -79,7 +79,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content);
+            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
 
             return response;
         }
