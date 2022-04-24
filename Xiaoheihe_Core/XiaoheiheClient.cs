@@ -220,7 +220,7 @@ namespace Xiaoheihe_Core
 
             Stream receiveStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             StreamReader readStream = new(receiveStream, Encoding.UTF8);
-            string strJson = readStream.ReadToEnd();
+            string strJson = await readStream.ReadToEndAsync().ConfigureAwait(false);
 
             T? result = JsonSerializer.Deserialize<T>(strJson, JsonOptions);
 

@@ -9,7 +9,6 @@ namespace Xiaoheihe_Core.Data
     public sealed class AppFeedNewsResultData : BasicResultData
     {
         [JsonPropertyName("group")]
-
         public string Group { get; set; } = "";
 
         [JsonPropertyName("links")]

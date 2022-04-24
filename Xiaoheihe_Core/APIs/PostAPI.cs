@@ -26,6 +26,8 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
+            throw new NotImplementedException();
+
             PostLinkResponse response = await xhh.BasicRequest<PostLinkResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;

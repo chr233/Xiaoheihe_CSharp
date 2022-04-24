@@ -33,24 +33,10 @@ namespace Xiaoheihe_Core.Data
     public sealed class FriendFilterData
     {
         [JsonPropertyName("values")]
-        public HashSet<FilterValueData> Values { get; set; } = new();
+        public HashSet<KeyValueData> Values { get; set; } = new();
         public override string? ToString()
         {
             return Values.ToString();
-        }
-    }
-
-
-    public sealed class FilterValueData
-    {
-        [JsonPropertyName("key")]
-        public string Key { get; set; } = "";
-
-        [JsonPropertyName("value")]
-        public string Value { get; set; } = "";
-        public override string? ToString()
-        {
-            return $"{Key} : {Value}";
         }
     }
 

@@ -27,7 +27,7 @@ namespace Xiaoheihe_Core
             if (string.IsNullOrEmpty(account.Imei)) { account.Imei = RandomImei(); }
             if (string.IsNullOrEmpty(version)) { version = DefaultHBVersion; }
 
-            Dictionary<string, string> paramDict = new(31)
+            Dictionary<string, string> paramDict = new(35)
             {
                 { "userid", "" },
                 { "type", "" },
@@ -46,6 +46,8 @@ namespace Xiaoheihe_Core
                 { "news_list_type", "" },
                 { "is_first", "" },
                 { "news_list_group", "" },
+                { "appid", "" },
+                { "platf", "" },
                 { "time_", "" },
                 { "heybox_id", account.HeyboxID },
                 { "imei", account.Imei },

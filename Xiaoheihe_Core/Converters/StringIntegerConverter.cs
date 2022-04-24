@@ -7,7 +7,11 @@ namespace Xiaoheihe_Core.Converters
     {
         public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.TokenType == JsonTokenType.Number)
+            if (reader.TokenType == JsonTokenType.String)
+            {
+                return reader.GetString() ?? "";
+            }
+            else if (reader.TokenType == JsonTokenType.Number)
             {
                 try
                 {
@@ -18,11 +22,8 @@ namespace Xiaoheihe_Core.Converters
                     return reader.GetSingle().ToString();
                 }
             }
-            else if (reader.TokenType == JsonTokenType.String)
-            {
-                return reader.GetString() ?? "";
-            }
-            throw new JsonException($"{reader.GetString()} 无法转换为 {typeof(DateTime)}");
+
+            throw new JsonException($"{reader.GetString()} 无法转换为 {typeof(string)}");
         }
 
         public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
