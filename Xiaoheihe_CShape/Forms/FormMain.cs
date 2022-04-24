@@ -234,7 +234,6 @@ namespace Xiaoheihe_CShape.Forms
 
                         var result1 = xhh.UploadImage(@"C:\Users\chr11\Desktop\Snipaste_2022-04-24_00-54-53.png");
                         //var result2 = xhh.GetFollowingList();
-
                         int a = 0;
                     }
                 }

@@ -92,15 +92,17 @@ namespace Xiaoheihe_Core.APIs
             return response;
         }
 
+
         /// <summary>
-        /// 关注用户
+        /// 关注或者取关用户
         /// </summary>
         /// <param name="xhh"></param>
         /// <param name="userID"></param>
+        /// <param name="isFollow"></param>
         /// <returns></returns>
-        public static BasicResponse FollowUser(this XiaoheiheClient xhh, uint userID)
+        private static BasicResponse FollowAction(this XiaoheiheClient xhh, uint userID, bool isFollow)
         {
-            string subPath = "/bbs/app/profile/follow/user";
+            string subPath = isFollow ? "/bbs/app/profile/follow/user" : "/bbs/app/profile/follow/user/cancel";
 
             Dictionary<string, string> formData = new(1)
             {
@@ -115,6 +117,17 @@ namespace Xiaoheihe_Core.APIs
         }
 
         /// <summary>
+        /// 关注用户
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public static BasicResponse FollowUser(this XiaoheiheClient xhh, uint userID)
+        {
+            return xhh.FollowAction(userID, true);
+        }
+
+        /// <summary>
         /// 取关用户
         /// </summary>
         /// <param name="xhh"></param>
@@ -122,18 +135,7 @@ namespace Xiaoheihe_Core.APIs
         /// <returns></returns>
         public static BasicResponse UnfollowUser(this XiaoheiheClient xhh, uint userID)
         {
-            string subPath = "/bbs/app/profile/follow/user/cancel";
-
-            Dictionary<string, string> formData = new(1)
-            {
-                { "following_id", userID.ToString() },
-            };
-
-            FormUrlEncodedContent content = new(formData);
-
-            FollowListResponse response = xhh.BasicRequest<FollowListResponse>(HttpMethod.Post, subPath, content);
-
-            return response;
+            return xhh.FollowAction(userID, false);
         }
 
         /// <summary>

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Xiaoheihe_Core.Data
 {
-    public class ImageUploadResponse : BasicResponse<ImageUploadResultData>
+    public class ImageUploadInfoResponse : BasicResponse<ImageUploadInfoResultData>
     {
     }
 
-    public class ImageUploadResultData : BasicResultData
+    public class ImageUploadInfoResultData : BasicResultData
     {
         [JsonPropertyName("keys")]
         public HashSet<string> Keys { get; set; } = new();
