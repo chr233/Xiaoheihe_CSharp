@@ -2,7 +2,7 @@
 
 namespace Xiaoheihe_Core.Data
 {
-    internal class ImageInfo
+    internal sealed class ImageInfo
     {
         internal string ImageType { get; set; } = "jpeg";
         internal int Width { get; set; }

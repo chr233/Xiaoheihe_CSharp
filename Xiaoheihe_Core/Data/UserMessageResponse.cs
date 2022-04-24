@@ -9,13 +9,13 @@ namespace Xiaoheihe_Core.Data
     public sealed class UserMessageResultData : BasicResultData
     {
         [JsonPropertyName("recipient")]
-        public XhhUserData Receiver { get; set; } = new();
+        public HeyboxUserData Receiver { get; set; } = new();
 
         [JsonPropertyName("list")]
         public HashSet<MessageData> MessageList { get; set; } = new();
 
         [JsonPropertyName("sender")]
-        public XhhUserData Sender { get; set; } = new();
+        public HeyboxUserData Sender { get; set; } = new();
 
         [JsonPropertyName("newer")]
         public uint Newer { get; set; }

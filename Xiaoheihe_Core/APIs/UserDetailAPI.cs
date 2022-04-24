@@ -269,5 +269,51 @@ namespace Xiaoheihe_Core.APIs
 
             return response;
         }
+
+        /// <summary>
+        /// 获取自己的Steam好友列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <returns></returns>
+        public static async Task<FriendListResponse> GetSteamFriendList(this XiaoheiheClient xhh)
+        {
+            return await xhh.GetSteamFriendList(xhh.HeyboxID).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取Steam好友列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public static async Task<FriendListResponse> GetSteamFriendList(this XiaoheiheClient xhh, uint userID)
+        {
+            return await xhh.GetSteamFriendList(userID, 0);
+        }
+
+        /// <summary>
+        /// 获取Steam好友列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="userID"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        public static async Task<FriendListResponse> GetSteamFriendList(this XiaoheiheClient xhh, uint userID, uint offset)
+        {
+            string subPath = "/account/friend_list_v2/";
+
+            Dictionary<string, string> extraParams = new(5)
+            {
+                { "key", "online" },
+                { "userid", userID.ToString() },
+                { "offset", offset.ToString() },
+                { "limit", "30" },
+                { "type_filter", "following" },
+            };
+
+            FriendListResponse response = await xhh.BasicRequest<FriendListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+
+            return response;
+        }
     }
 }

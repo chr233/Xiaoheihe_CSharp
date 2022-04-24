@@ -2,19 +2,19 @@
 
 namespace Xiaoheihe_Core.Data
 {
-    public class UserPostLinkResponse : BasicResponse
+    public sealed class UserPostLinkResponse : BasicResponse
     {
         [JsonPropertyName("post_links")]
         public HashSet<PostLinkData> PostLinks { get; set; } = new();
 
         [JsonPropertyName("user")]
-        public XhhUserDetailData User { get; set; } = new();
+        public HeyboxUserDetailData User { get; set; } = new();
 
         [JsonPropertyName("total_page")]
         public uint TotalPage { get; set; }
     }
 
-    public class PostLinkData
+    public sealed class PostLinkData
     {
         [JsonPropertyName("description")]
         public string Description { get; set; } = "";

@@ -63,7 +63,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            ImageUploadInfoResponse response =await xhh.BasicRequest<ImageUploadInfoResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
+            ImageUploadInfoResponse response = await xhh.BasicRequest<ImageUploadInfoResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }

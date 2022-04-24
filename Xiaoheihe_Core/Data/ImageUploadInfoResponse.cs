@@ -2,11 +2,11 @@
 
 namespace Xiaoheihe_Core.Data
 {
-    public class ImageUploadInfoResponse : BasicResponse<ImageUploadInfoResultData>
+    public sealed class ImageUploadInfoResponse : BasicResponse<ImageUploadInfoResultData>
     {
     }
 
-    public class ImageUploadInfoResultData : BasicResultData
+    public sealed class ImageUploadInfoResultData : BasicResultData
     {
         [JsonPropertyName("keys")]
         public HashSet<string> Keys { get; set; } = new();

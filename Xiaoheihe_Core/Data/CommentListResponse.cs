@@ -8,7 +8,7 @@ namespace Xiaoheihe_Core.Data
         public uint TotalPage { get; set; }
 
         [JsonPropertyName("user")]
-        public XhhUserDetailData User { get; set; } = new();
+        public HeyboxUserDetailData User { get; set; } = new();
 
     }
 

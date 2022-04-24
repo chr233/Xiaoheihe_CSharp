@@ -90,5 +90,27 @@ namespace Xiaoheihe_Core.APIs
 
             return response;
         }
+
+        /// <summary>
+        /// 获取分区标签信息
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <returns></returns>
+        public static async Task<FavourTopicResponse> 获(this XiaoheiheClient xhh)
+        {
+            string subPath = "/maxnews/app/setup/favour";
+
+            Dictionary<string, string> extraParams = new(2)
+            {
+                { "news_list_group", "control-group" },
+                { "news_list_type", "normal" },
+            };
+
+            FavourTopicResponse response = await xhh.BasicRequest<FavourTopicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+
+            return response;
+        }
+
+
     }
 }

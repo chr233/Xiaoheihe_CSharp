@@ -21,7 +21,7 @@ namespace Xiaoheihe_Core.Data
         public NewsLinkData Link { get; set; } = new();
 
         [JsonPropertyName("user")]
-        public XhhUserData User { get; set; } = new();
+        public HeyboxUserData User { get; set; } = new();
 
         [JsonPropertyName("level_info")]
         public LevelInfoData LevelInfo { get; set; } = new();

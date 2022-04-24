@@ -13,34 +13,23 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("summary_url")]
         public HashSet<string> SummaryUrl { get; set; } = new();
 
-    }
-
-    public sealed class FollowCountData
-    {
-        /// <summary>
-        /// 粉丝
-        /// </summary>
-        [JsonPropertyName("fan_num")]
-        public uint FollowerCount { get; set; }
-
-        /// <summary>
-        /// 关注的人
-        /// </summary>
-        [JsonPropertyName("follow_num")]
-        public uint FollowingCount { get; set; }
-
         public override string? ToString()
         {
-            return $"粉丝:{FollowerCount} 关注:{FollowingCount}";
+            return FollowSum.ToString();
         }
     }
 
-    public class FollowListUserData : XhhUserData
+    public class FollowListUserData : HeyboxUserData
     {
         [JsonPropertyName("is_follow")]
         public FollowStatus IsFollow { get; set; } = FollowStatus.Unknown;
 
         [JsonPropertyName("follow_at")]
         public DateTime FollowAt { get; set; }
+
+        public override string? ToString()
+        {
+            return $"{IsFollow} {FollowAt}";
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace Xiaoheihe_Core.Data
     /// <summary>
     /// 一般响应中返回的用户信息
     /// </summary>
-    public class XhhUserData
+    public class HeyboxUserData
     {
         [JsonPropertyName("username")]
         public string UserName { get; set; } = "";
@@ -31,7 +31,7 @@ namespace Xiaoheihe_Core.Data
     /// <summary>
     /// 用户详情页响应返回的用户信息
     /// </summary>
-    public sealed class XhhUserDetailData : XhhUserData
+    public sealed class HeyboxUserDetailData : HeyboxUserData
     {
         /// <summary>获赞数量</summary>
         [JsonPropertyName("awarded_num")]
@@ -70,5 +70,11 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("moments_num")]
         public uint MomentsCount { get; set; }
+    }
+
+    public sealed class HeyboxUserFriendListData : HeyboxUserData
+    {
+        [JsonPropertyName("is_follow")]
+        public FollowStatus FollowStatus { get; set; } = FollowStatus.Unknown;
     }
 }

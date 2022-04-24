@@ -12,7 +12,7 @@ namespace Xiaoheihe_Core.Data
         public ProfileData Profile { get; set; } = new();
 
         [JsonPropertyName("account_detail")]
-        public XhhUserData AccountDetail { get; set; } = new();
+        public HeyboxUserData AccountDetail { get; set; } = new();
     }
 
     public sealed class ProfileData

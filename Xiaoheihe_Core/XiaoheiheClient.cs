@@ -41,6 +41,7 @@ namespace Xiaoheihe_Core
             HkeyServer = new Uri(hkeyServer);
 
             JsonOptions.Converters.Add(new DateTimeConverter());
+            JsonOptions.Converters.Add(new StringIntegerConverter());
         }
 
         /// <summary>

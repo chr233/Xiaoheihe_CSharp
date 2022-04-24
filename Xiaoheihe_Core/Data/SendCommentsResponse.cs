@@ -27,7 +27,7 @@ namespace Xiaoheihe_Core.Data
         public byte IsSupport { get; set; }
 
         [JsonPropertyName("replyuser")]
-        public XhhUserData? ReplyUser { get; set; }
+        public HeyboxUserData? ReplyUser { get; set; }
 
         [JsonPropertyName("has_more")]
         public byte HasMore { get; set; }
@@ -48,7 +48,7 @@ namespace Xiaoheihe_Core.Data
         public byte IsLinkOwner { get; set; }
 
         [JsonPropertyName("user")]
-        public XhhUserData User { get; set; } = new();
+        public HeyboxUserData User { get; set; } = new();
 
         [JsonPropertyName("commentid")]
         public ulong Commentid { get; set; }

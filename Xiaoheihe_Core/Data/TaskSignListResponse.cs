@@ -21,7 +21,7 @@ namespace Xiaoheihe_Core.Data
         private const string Unsigned = "未签到";
 
         [JsonPropertyName("date")]
-        public long Date { get; set; }
+        public DateTime Date { get; set; }
 
         [JsonPropertyName("is_sign")]
         public bool IsSign { get; set; }

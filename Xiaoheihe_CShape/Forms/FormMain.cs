@@ -1,5 +1,4 @@
 using Xiaoheihe_Core;
-using Xiaoheihe_Core.APIs;
 using Xiaoheihe_Core.Data;
 using Xiaoheihe_CShape.Storage;
 using static System.Windows.Forms.ListView;
@@ -227,8 +226,7 @@ namespace Xiaoheihe_CShape.Forms
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result1 = xhh.LikeComment(80320147, 188187887).Result;
-                        var result2 = xhh.DislikeComment(80320147, 188187887).Result;
+                        var result1 = xhh.GetFavourTopics().Result;
                         //var result2 = xhh.GetFollowingList();
                         int a = 0;
                     }
