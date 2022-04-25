@@ -19,6 +19,9 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("signature")]
         public string Signature { get; set; } = "";
 
+        [JsonPropertyName("battery")]
+        public uint Battery { get; set; }
+
         [JsonPropertyName("level_info")]
         public LevelInfoData LevelInfo { get; set; } = new();
 

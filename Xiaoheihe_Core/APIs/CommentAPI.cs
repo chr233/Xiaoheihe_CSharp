@@ -77,5 +77,42 @@ namespace Xiaoheihe_Core.APIs
 
             return response;
         }
+
+
+        /// <summary>
+        /// 获取评论列表(Bug)
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <param name="index"></param>
+        /// <param name="page"></param>
+        /// <param name="sortType"></param>
+        /// <param name="hideCy"></param>
+        /// <param name="authorOnly"></param>
+        /// <returns></returns>
+        public static async Task<CommentListResponse> GetNewsCommentList(this XiaoheiheClient xhh, uint linkID, uint index, uint page, SortFilter sortType, bool hideCy, bool authorOnly)
+        {
+            string subPath = "/bbs/app/link/tree";
+
+            string hSrc = Utils.Base64Encode($"news_feeds_-1__link_id__{linkID}");
+
+            Dictionary<string, string> extraParams = new(9)
+            {
+                { "h_src", hSrc },
+                { "link_id", linkID.ToString() },
+                { "page", page.ToString() },
+                { "limit", "30" },
+                { "is_first", index == 1 ? "1" : "0" },
+                { "sort_filter", sortType.ToString().ToLower() },
+                { "owner_only", authorOnly ? "1" : "0" },
+                { "hide_cy", hideCy ? "1" : "0" },
+                { "index", index.ToString() },
+            };
+
+            CommentListResponse response = await xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+
+            return response;
+        }
+
     }
 }

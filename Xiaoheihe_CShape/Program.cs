@@ -8,7 +8,7 @@ namespace Xiaoheihe_CShape
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        internal static void Main()
         {
             ApplicationConfiguration.Initialize();
             Application.Run(new FormMain());

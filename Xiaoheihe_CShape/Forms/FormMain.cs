@@ -222,7 +222,7 @@ namespace Xiaoheihe_CShape.Forms
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result1 = xhh.GetGameDetail(730).Result;
+                        var result1 = xhh.GetNewsCommentList(80401122,2,1,SortFilter.hot,false,false).Result;
                         //var result2 = xhh.GetFollowingList();
                         int a = 0;
                     }

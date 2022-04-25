@@ -228,7 +228,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="onlyCy"></param>
         /// <returns></returns>
-        public static async Task<CommentListResponse> GetUserComments(this XiaoheiheClient xhh, bool onlyCy)
+        public static async Task<UserCommentListResponse> GetUserComments(this XiaoheiheClient xhh, bool onlyCy)
         {
             return await xhh.GetUserComments(xhh.HeyboxID, onlyCy, 0).ConfigureAwait(false);
         }
@@ -240,7 +240,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="userID"></param>
         /// <param name="onlyCy"></param>
         /// <returns></returns>
-        public static async Task<CommentListResponse> GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy)
+        public static async Task<UserCommentListResponse> GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy)
         {
             return await xhh.GetUserComments(userID, onlyCy, 0).ConfigureAwait(false);
         }
@@ -253,7 +253,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="onlyCy"> «∑Ò≤Â—€</param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        public static async Task<CommentListResponse> GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy, uint offset)
+        public static async Task<UserCommentListResponse> GetUserComments(this XiaoheiheClient xhh, uint userID, bool onlyCy, uint offset)
         {
             string subPath = "/bbs/app/profile/bbs/comment/list";
 
@@ -265,7 +265,7 @@ namespace Xiaoheihe_Core.APIs
                 { "only_cy", onlyCy ? "1" : "0" },
             };
 
-            CommentListResponse response = await xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            UserCommentListResponse response = await xhh.BasicRequest<UserCommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
