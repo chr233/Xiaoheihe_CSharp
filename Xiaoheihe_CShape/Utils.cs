@@ -7,6 +7,12 @@ namespace Xiaoheihe_CShape
 {
     public static class Utils
     {
+        public static Config GlobalConfig { get; private set; } = new();
+
+        /// <summary>
+        /// 读取配置路径
+        /// </summary>
+        /// <returns></returns>
         public static string GetConfigFilePath()
         {
             string appFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -21,13 +27,20 @@ namespace Xiaoheihe_CShape
             return filePath;
         }
 
-        public static void SaveConfig(Config config)
+        /// <summary>
+        /// 读取配置
+        /// </summary>
+        public static void SaveConfig()
         {
             string filePath = GetConfigFilePath();
-            SaveConfig(config, filePath);
+            SaveConfig(filePath);
         }
 
-        public static void SaveConfig(Config config, string filePath)
+        /// <summary>
+        /// 读取配置
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void SaveConfig(string filePath)
         {
 
             JsonSerializerOptions options = new()
@@ -35,32 +48,47 @@ namespace Xiaoheihe_CShape
                 WriteIndented = true,
             };
 
-            string strConfig = JsonSerializer.Serialize(config, options);
+            string strConfig = JsonSerializer.Serialize(GlobalConfig, options);
 
             File.WriteAllText(filePath, strConfig, Encoding.UTF8);
         }
 
-        public static Config LoadConfig()
+        /// <summary>
+        /// 加载配置
+        /// </summary>
+        public static void LoadConfig()
         {
             string filePath = GetConfigFilePath();
 
-            return LoadConfig(filePath);
+            LoadConfig(filePath);
         }
 
-        public static Config LoadConfig(string filePath)
+        /// <summary>
+        /// 加载配置
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void LoadConfig(string filePath)
         {
-            Config? config = null;
             if (File.Exists(filePath))
             {
                 string strConfig = File.ReadAllText(filePath, Encoding.UTF8);
-                config = JsonSerializer.Deserialize<Config>(strConfig ?? "");
+                GlobalConfig = JsonSerializer.Deserialize<Config>(strConfig ?? "") ?? new();
             }
             else
             {
-                config = new();
-                SaveConfig(config, filePath);
+                GlobalConfig = new();
+                SaveConfig(filePath);
             }
-            return config ?? new();
+        }
+
+        /// <summary>
+        /// 布尔转字符串
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string B2S(bool value)
+        {
+            return value ? "√" : "×";
         }
     }
 }

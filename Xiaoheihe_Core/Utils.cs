@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography;
+using System.Text;
 using Xiaoheihe_Core.Data;
 using static Xiaoheihe_Core.StaticValue;
 
@@ -99,15 +100,16 @@ namespace Xiaoheihe_Core
         }
 
         /// <summary>
-        /// 生成随机IMEI
+        /// 生成随机字符串
         /// </summary>
+        /// <param name="length"></param>
         /// <returns></returns>
-        public static string RandomImei()
+        private static string RandomString(int length)
         {
-            string template = "0123456789abcdefghijklmnopqrstuvwxyz";
+            string template = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
             Random rand = new();
             StringBuilder imei = new();
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < length; i++)
             {
                 imei.Append(template.AsSpan(rand.Next(0, template.Length - 1), 1));
             }
@@ -115,22 +117,47 @@ namespace Xiaoheihe_Core
         }
 
         /// <summary>
-        /// 生成随机字符串
+        /// 生成随机IMEI
+        /// </summary>
+        /// <returns></returns>
+        public static string RandomImei()
+        {
+            string randImei = RandomString(16).ToLowerInvariant();
+
+            return randImei;
+        }
+
+        /// <summary>
+        /// 生成随机Nonce
         /// </summary>
         /// <returns></returns>
         public static string RandomNonce()
         {
-            string template = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            Random rand = new();
-            StringBuilder imei = new();
-            for (int i = 0; i < 32; i++)
-            {
-                imei.Append(template.AsSpan(rand.Next(0, template.Length - 1), 1));
-            }
-            return imei.ToString();
+            return RandomString(32);
         }
 
+        /// <summary>
+        /// 生成随机DES密钥
+        /// </summary>
+        /// <returns></returns>
+        public static string RandomDesKey()
+        {
+            return RandomString(8);
+        }
 
+        public static string DEs()
+        {
+            DES DESalg = DES.Create();
+
+            DESalg.CreateEncryptor();
+            return "";
+        }
+
+        /// <summary>
+        /// Base64编码
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string Base64Encode(string text)
         {
             byte[] inArray = Encoding.UTF8.GetBytes(text);

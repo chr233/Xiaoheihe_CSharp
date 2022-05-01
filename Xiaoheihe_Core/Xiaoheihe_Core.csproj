@@ -9,6 +9,13 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageLicenseExpression>AGPLv3</PackageLicenseExpression>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<SignAssembly>False</SignAssembly>
+		<UserSecretsId>57970ddd-abae-4412-867a-6212b11a308d</UserSecretsId>
+		<Company>$(AssemblyCompany)</Company>
+		<Authors>$(AssemblyName)</Authors>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/chr233/Xiaoheihe_CShape</RepositoryUrl>
   </PropertyGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
@@ -18,6 +25,13 @@
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.29" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

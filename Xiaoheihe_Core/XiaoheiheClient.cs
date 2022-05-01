@@ -110,7 +110,7 @@ namespace Xiaoheihe_Core
             string hkey = await CallHkeyServer(urlPath, nonce, timeStamp).ConfigureAwait(false);
 
             temp["_time"] = timeStamp;
-            temp["time_"] = timeStamp;
+            //temp["time_"] = timeStamp;
             temp["nonce"] = nonce;
             temp["hkey"] = hkey;
 
@@ -226,7 +226,14 @@ namespace Xiaoheihe_Core
 
             if (result == null) { throw new NullResponseException(); }
 
-            CheckResponse(result);
+            try
+            {
+                CheckResponse(result);
+            }
+            catch
+            {
+                throw;
+            }
 
             return result;
         }

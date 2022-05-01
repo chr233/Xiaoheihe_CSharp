@@ -26,7 +26,7 @@ namespace Xiaoheihe_Core.Data
     /// 响应基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BasicResponse<T> : BasicResponse
+    public abstract class BasicResponse<T> : BasicResponse
     {
         [JsonPropertyName("result")]
         public T? Result { get; set; }

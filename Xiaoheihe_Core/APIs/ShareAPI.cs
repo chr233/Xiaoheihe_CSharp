@@ -9,9 +9,20 @@ namespace Xiaoheihe_Core.APIs
         /// </summary>
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
+        /// <returns></returns>
+        public static async Task<bool> ShareNews(this XiaoheiheClient xhh, ulong linkID)
+        {
+            return await xhh.ShareNews(linkID, 1).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 分享新闻
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static async Task<bool> ShareNews(this XiaoheiheClient xhh, uint linkID, int index)
+        public static async Task<bool> ShareNews(this XiaoheiheClient xhh, ulong linkID, int index)
         {
             string hSrc = Utils.Base64Encode($"news_feeds_-1__link_id__{linkID}");
 

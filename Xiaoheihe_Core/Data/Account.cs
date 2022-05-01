@@ -1,4 +1,6 @@
-﻿namespace Xiaoheihe_Core.Data
+﻿using System.Text.Json.Serialization;
+
+namespace Xiaoheihe_Core.Data
 {
     public sealed class Account
     {
@@ -11,6 +13,12 @@
         public string OSVersion { get; set; } = "";
         public string DeviceInfo { get; set; } = "";
         public string Channal { get; set; } = "";
+
+        [JsonIgnore]
+        public string Tasks { get; set; } = "";
+
+        [JsonIgnore]
+        public string Status { get; set; } = "";
 
         public override string? ToString()
         {

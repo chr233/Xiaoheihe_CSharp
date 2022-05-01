@@ -9,6 +9,16 @@ namespace Xiaoheihe_Core.APIs
         /// 获取首页新闻流
         /// </summary>
         /// <param name="xhh"></param>
+        /// <returns></returns>
+        public static async Task<AppFeedNewsResponse> GetFeedNews(this XiaoheiheClient xhh)
+        {
+            return await xhh.GetFeedNews(0).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取首页新闻流
+        /// </summary>
+        /// <param name="xhh"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
         public static async Task<AppFeedNewsResponse> GetFeedNews(this XiaoheiheClient xhh, uint offset)

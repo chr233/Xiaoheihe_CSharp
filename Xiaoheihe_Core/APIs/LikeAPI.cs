@@ -11,7 +11,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static async Task<BasicResponse> LikeNewsAction(this XiaoheiheClient xhh, uint linkID, AwardType like)
+        private static async Task<BasicResponse> LikeNewsAction(this XiaoheiheClient xhh, ulong linkID, AwardType like)
         {
             return await xhh.LikeNewsAction(linkID, -1, like).ConfigureAwait(false);
         }
@@ -24,7 +24,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="index"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static async Task<BasicResponse> LikeNewsAction(this XiaoheiheClient xhh, uint linkID, int index, AwardType like)
+        private static async Task<BasicResponse> LikeNewsAction(this XiaoheiheClient xhh, ulong linkID, int index, AwardType like)
         {
             string subPath = "/bbs/app/profile/award/link";
 
@@ -55,7 +55,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static async Task<BasicResponse> LikeNews(this XiaoheiheClient xhh, uint linkID)
+        public static async Task<BasicResponse> LikeNews(this XiaoheiheClient xhh, ulong linkID)
         {
             return await xhh.LikeNewsAction(linkID, AwardType.Like).ConfigureAwait(false);
         }
@@ -67,7 +67,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static async Task<BasicResponse> LikeNews(this XiaoheiheClient xhh, uint linkID, int index)
+        public static async Task<BasicResponse> LikeNews(this XiaoheiheClient xhh, ulong linkID, int index)
         {
             return await xhh.LikeNewsAction(linkID, index, AwardType.Like).ConfigureAwait(false);
         }
@@ -78,7 +78,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <returns></returns>
-        public static async Task<BasicResponse> DislikeNews(this XiaoheiheClient xhh, uint linkID)
+        public static async Task<BasicResponse> DislikeNews(this XiaoheiheClient xhh, ulong linkID)
         {
             return await xhh.LikeNewsAction(linkID, AwardType.Cancel).ConfigureAwait(false);
         }
@@ -90,7 +90,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static async Task<BasicResponse> DislikeNews(this XiaoheiheClient xhh, uint linkID, int index)
+        public static async Task<BasicResponse> DislikeNews(this XiaoheiheClient xhh, ulong linkID, int index)
         {
             return await xhh.LikeNewsAction(linkID, index, AwardType.Cancel).ConfigureAwait(false);
         }
@@ -103,7 +103,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="commentID"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static async Task<BasicResponse> LikeCommentAction(this XiaoheiheClient xhh, uint linkID, uint commentID, SupportType like)
+        private static async Task<BasicResponse> LikeCommentAction(this XiaoheiheClient xhh, ulong linkID, uint commentID, SupportType like)
         {
             return await xhh.LikeCommentAction(linkID, commentID, -1, like).ConfigureAwait(false);
         }
@@ -116,7 +116,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="index"></param>
         /// <param name="like"></param>
         /// <returns></returns>
-        private static async Task<BasicResponse> LikeCommentAction(this XiaoheiheClient xhh, uint linkID, uint commentID, int index, SupportType like)
+        private static async Task<BasicResponse> LikeCommentAction(this XiaoheiheClient xhh, ulong linkID, uint commentID, int index, SupportType like)
         {
             string subPath = "/bbs/app/comment/support";
 

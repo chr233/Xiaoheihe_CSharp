@@ -1,6 +1,6 @@
 using Xiaoheihe_Core;
-using Xiaoheihe_Core.Data;
 using Xiaoheihe_Core.APIs;
+using Xiaoheihe_Core.Data;
 using Xiaoheihe_CShape.Storage;
 using static System.Windows.Forms.ListView;
 using static Xiaoheihe_Core.StaticValue;
@@ -9,9 +9,10 @@ namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormMain : Form
     {
-        private readonly Dictionary<string, Account> Accounts = new();
+        private readonly Dictionary<string, Account> AccountsDict = new();
 
-        private HashSet<string> ChecledItems = new();
+        private static HashSet<string> ChecledItems => Utils.GlobalConfig.CheckedItems;
+
 
         public FormMain()
         {
@@ -32,31 +33,27 @@ namespace Xiaoheihe_CShape.Forms
 
         private void SaveCfg()
         {
-            Config config = new()
-            {
-                HkeyServer = txtHKeyServer.Text,
-                XhhVersion = txtHBVersion.Text,
-                Accounts = Accounts.Values.ToHashSet(),
-                CheckedItems = ChecledItems,
-            };
+            Utils.GlobalConfig.HkeyServer = txtHKeyServer.Text;
+            Utils.GlobalConfig.XhhVersion = txtHBVersion.Text;
+            Utils.GlobalConfig.Accounts = AccountsDict.Values.ToHashSet();
 
-            Utils.SaveConfig(config);
+            Utils.SaveConfig();
         }
 
         private void LoadCfg()
         {
+            Utils.LoadConfig();
 
-            Config config = Utils.LoadConfig();
+            Config config = Utils.GlobalConfig;
 
             txtHKeyServer.Text = config.HkeyServer;
             txtHBVersion.Text = config.XhhVersion;
 
-            Accounts.Clear();
+            AccountsDict.Clear();
             foreach (Account account in config.Accounts)
             {
-                Accounts[account.HeyboxID] = account;
+                AccountsDict[account.HeyboxID] = account;
             }
-            ChecledItems = config.CheckedItems;
 
             UpdateAccountList();
         }
@@ -66,16 +63,14 @@ namespace Xiaoheihe_CShape.Forms
             lVAccounts.BeginUpdate();
             lVAccounts.Items.Clear();
 
-            foreach (Account account in Accounts.Values)
+            foreach (Account account in AccountsDict.Values)
             {
                 ListViewItem item = new("");
 
                 item.SubItems.Add(account.HeyboxID);
                 item.SubItems.Add(account.NickName);
                 item.SubItems.Add(account.Level);
-                item.SubItems.Add("");
-                item.SubItems.Add(account.OSType);
-                item.SubItems.Add(account.OSVersion);
+                item.SubItems.Add($"{account.OSType} {account.OSVersion}");
                 item.SubItems.Add(account.DeviceInfo);
                 item.SubItems.Add(account.Channal);
 
@@ -114,12 +109,12 @@ namespace Xiaoheihe_CShape.Forms
 
                 frmAdd.Dispose();
 
-                if (Accounts.ContainsKey(heyboxID))
+                if (AccountsDict.ContainsKey(heyboxID))
                 {
                     DialogResult result = MessageBox.Show("该 Heybox ID 已存在, 是否替换原先的项目?", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result != DialogResult.Yes) { return; }
                 }
-                Accounts[account.HeyboxID] = account;
+                AccountsDict[account.HeyboxID] = account;
                 SaveAndReload();
             }
 
@@ -136,9 +131,9 @@ namespace Xiaoheihe_CShape.Forms
             {
                 string heyboxID = selectedItems[0].SubItems[1].Text;
 
-                if (Accounts.ContainsKey(heyboxID))
+                if (AccountsDict.ContainsKey(heyboxID))
                 {
-                    Account account = Accounts[heyboxID];
+                    Account account = AccountsDict[heyboxID];
 
                     FormAddAccount frmAdd = new(account, false);
 
@@ -154,7 +149,7 @@ namespace Xiaoheihe_CShape.Forms
                         account.DeviceInfo = frmAdd.txtDeviceInfo.Text;
                         account.Channal = frmAdd.txtChannal.Text;
 
-                        Accounts[account.HeyboxID] = account;
+                        AccountsDict[account.HeyboxID] = account;
                     }
                     frmAdd.Dispose();
                 }
@@ -179,9 +174,9 @@ namespace Xiaoheihe_CShape.Forms
                 foreach (ListViewItem item in checkedItems)
                 {
                     string heyboxID = item.SubItems[1].Text;
-                    if (Accounts.ContainsKey(heyboxID))
+                    if (AccountsDict.ContainsKey(heyboxID))
                     {
-                        Accounts.Remove(heyboxID);
+                        AccountsDict.Remove(heyboxID);
                     }
                 }
                 SaveAndReload();
@@ -216,17 +211,57 @@ namespace Xiaoheihe_CShape.Forms
                 foreach (ListViewItem item in checkedItems)
                 {
                     string heyboxID = item.SubItems[1].Text;
-                    if (Accounts.ContainsKey(heyboxID))
+                    if (AccountsDict.ContainsKey(heyboxID))
                     {
-                        Account account = Accounts[heyboxID];
+                        Account account = AccountsDict[heyboxID];
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result1 = xhh.GetNewsCommentList(80401122,2,1,SortFilter.hot,false,false).Result;
+                        var result1 = xhh.GetFeedNews().Result;
                         //var result2 = xhh.GetFollowingList();
                         int a = 0;
                     }
                 }
+            }
+        }
+
+        private void toolStripComboBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lVAccounts_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void btnDailyTask_Click(object sender, EventArgs e)
+        {
+            FormCollection collection = Application.OpenForms;
+
+            Form? formDailyTask = null;
+
+            foreach (Form form in collection)
+            {
+                if (form is FormDailyTask)
+                {
+                    formDailyTask = form;
+                    break;
+                }
+            }
+
+            if (formDailyTask == null)
+            {
+                formDailyTask = new FormDailyTask();
+
+
+
+
+                formDailyTask.Show();
+            }
+            else
+            {
+                formDailyTask.Focus();
             }
         }
     }
