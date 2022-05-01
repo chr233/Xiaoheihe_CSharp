@@ -135,28 +135,28 @@ namespace Xiaoheihe_CShape.Forms
                     {
                         foreach (TaskDetailData? task in taskWithTitle.Tasks)
                         {
-                            switch (task.Type)
+                            if (task.Type == "sign")
                             {
-                                case "sign":
-                                    sign = task.State == "finish";
-                                    break;
-                                case "goto_tab":
-                                    if (task.Title.Contains("分享"))
+                                sign = task.State == "finish";
+                                break;
+                            }
+                            else if (task.Type == "goto_tab")
+                            {
+                                if (task.Title.Contains("分享"))
+                                {
+                                    if (!task.Title.Contains("评论"))
                                     {
-                                        if (!task.Title.Contains("评论"))
-                                        {
-                                            share1 = task.State == "finish";
-                                        }
-                                        else
-                                        {
-                                            share2 = task.State == "finish";
-                                        }
+                                        share1 = task.State == "finish";
                                     }
                                     else
                                     {
-                                        like = task.State == "finish";
+                                        share2 = task.State == "finish";
                                     }
-                                    break;
+                                }
+                                else
+                                {
+                                    like = task.State == "finish";
+                                }
                             }
                         }
                     }
@@ -284,7 +284,7 @@ namespace Xiaoheihe_CShape.Forms
 
                 item.SubItems.Add(account.HeyboxID);
                 item.SubItems.Add(account.NickName);
-                item.SubItems.Add(account.Level ?? "0");
+                item.SubItems.Add(account.Level);
                 item.SubItems.Add(account.Tasks);
                 item.SubItems.Add(account.Status);
 

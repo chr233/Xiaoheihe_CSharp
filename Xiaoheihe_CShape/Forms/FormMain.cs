@@ -217,22 +217,12 @@ namespace Xiaoheihe_CShape.Forms
 
                         XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
 
-                        var result1 = xhh.GetFeedNews().Result;
+                        //var result1 = xhh.GetFeedNews().Result;
                         //var result2 = xhh.GetFollowingList();
-                        int a = 0;
+                        //int a = 0;
                     }
                 }
             }
-        }
-
-        private void toolStripComboBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lVAccounts_MouseClick(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void btnDailyTask_Click(object sender, EventArgs e)

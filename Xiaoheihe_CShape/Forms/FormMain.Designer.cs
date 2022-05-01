@@ -87,7 +87,6 @@
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
             this.lVAccounts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.LVAccounts_ItemChecked);
-            this.lVAccounts.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lVAccounts_MouseClick);
             // 
             // colChecks
             // 
