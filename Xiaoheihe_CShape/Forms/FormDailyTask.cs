@@ -9,6 +9,7 @@ namespace Xiaoheihe_CShape.Forms
     {
         private static HashSet<string> ChecledItems => Utils.GlobalConfig.CheckedItems;
         private static uint DailyTaskThread => Utils.GlobalConfig.DailyTaskThread;
+        private static uint DailyTaskDelay => Utils.GlobalConfig.DailyTaskDelay;
         private static string HkeyServer => Utils.GlobalConfig.HkeyServer;
         private static string XhhVersion => Utils.GlobalConfig.XhhVersion;
 
@@ -26,20 +27,37 @@ namespace Xiaoheihe_CShape.Forms
             UpdateAccountList();
 
             tSTxtThread.Text = DailyTaskThread.ToString();
+            tSTxtDelay.Text = DailyTaskDelay.ToString();
         }
 
         private void TSBtnStartTask_Click(object sender, EventArgs e)
         {
-
             if (uint.TryParse(tSTxtThread.Text, out uint thread) && thread > 0)
             {
-                Utils.GlobalConfig.DailyTaskThread = thread;
-                Utils.SaveConfig();
+                if (uint.TryParse(tSTxtDelay.Text, out uint delay))
+                {
+                    Utils.GlobalConfig.DailyTaskThread = thread;
+                    Utils.GlobalConfig.DailyTaskDelay = delay;
+                    Utils.SaveConfig();
 
-                tSBtnStartTask.Enabled = false;
-                tSLblStatus.Text = "状态: 执行中";
+                    if (lVAccounts.CheckedItems.Count > 0)
+                    {
+                        tSBtnStartTask.Enabled = false;
+                        tSLblStatus.Text = "状态: 执行中";
 
-                Task.Run(StartTask);
+                        Task.Run(StartTask);
+                    }
+                    else
+                    {
+                        MessageBox.Show("尚未勾选任何账号", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("延迟时间非法", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tSTxtDelay.SelectAll();
+                    tSTxtDelay.Focus();
+                }
             }
             else
             {
@@ -51,13 +69,22 @@ namespace Xiaoheihe_CShape.Forms
 
         private async Task StartTask()
         {
+            HashSet<Account> selectedAccounts = new();
+            foreach (string heyboxID in lVAccounts.CheckedItems)
+            {
+                if (AccountsDict.ContainsKey(heyboxID))
+                {
+                    selectedAccounts.Add(AccountsDict[heyboxID]);
+                }
+            }
+
             SemaphoreSlim semaphore = new((int)DailyTaskThread);
 
-            Task[] tasks = new Task[AccountsDict.Count];
+            Task[] tasks = new Task[selectedAccounts.Count];
 
             int i = 0;
 
-            foreach (Account account in AccountsDict.Values)
+            foreach (Account account in selectedAccounts)
             {
                 tasks[i++] = Task.Run(async () => {
                     account.Tasks = "待更新";
@@ -67,8 +94,10 @@ namespace Xiaoheihe_CShape.Forms
                 });
             }
 
-            // 等待task执行完成.
-            await Task.WhenAll(tasks).ConfigureAwait(false);
+            if (tasks.Length > 0)
+            {
+                await Task.WhenAll(tasks).ConfigureAwait(false);
+            }
 
             Invoke(() => {
                 tSBtnStartTask.Enabled = true;
@@ -189,7 +218,7 @@ namespace Xiaoheihe_CShape.Forms
                                 share1 = true;
                             }
 
-                            await Task.Delay(500);
+                            await Task.Delay((int)DailyTaskDelay);
 
                             if (!share2)
                             {
@@ -199,14 +228,14 @@ namespace Xiaoheihe_CShape.Forms
                                 share2 = true;
                             }
 
-                            await Task.Delay(500);
+                            await Task.Delay((int)DailyTaskDelay);
 
                             if (likes < likesMax)
                             {
                                 account.Status = $"点赞文章任务 {likes++}/{likesMax}";
                                 UpdateAccountListAsync();
                                 await xhh.LikeNews(news.LinkID, index);
-                                await Task.Delay(500);
+                                await Task.Delay((int)DailyTaskDelay);
                             }
                         }
 
@@ -267,14 +296,37 @@ namespace Xiaoheihe_CShape.Forms
             lVAccounts.EndUpdate();
         }
 
-        private void FormDailyTask_Load(object sender, EventArgs e)
+        private void TSBtnAll_Click(object sender, EventArgs e)
         {
-
+            ListView.ListViewItemCollection items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = true;
+            }
+            lVAccounts.EndUpdate();
         }
 
-        private void lVAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        private void TSBtnNone_Click(object sender, EventArgs e)
         {
+            ListView.ListViewItemCollection items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = false;
+            }
+            lVAccounts.EndUpdate();
+        }
 
+        private void TSBtnNot_Click(object sender, EventArgs e)
+        {
+            ListView.ListViewItemCollection items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = !item.Checked;
+            }
+            lVAccounts.EndUpdate();
         }
     }
 

@@ -10,5 +10,7 @@ namespace Xiaoheihe_CShape.Storage
         public HashSet<Account> Accounts { get; set; } = new();
         public HashSet<string> CheckedItems { get; set; } = new();
         public uint DailyTaskThread { get; set; } = 1;
+        public uint DailyTaskDelay { get; set; } = 500;
+
     }
 }

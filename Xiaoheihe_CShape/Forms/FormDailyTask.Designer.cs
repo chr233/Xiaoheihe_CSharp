@@ -39,13 +39,15 @@
             this.tSControl = new System.Windows.Forms.ToolStrip();
             this.tSBtnStartTask = new System.Windows.Forms.ToolStripButton();
             this.tSS1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tSBtnMulitSelect = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSBtnAll = new System.Windows.Forms.ToolStripButton();
+            this.tSBtnNone = new System.Windows.Forms.ToolStripButton();
+            this.tSBtnNot = new System.Windows.Forms.ToolStripButton();
             this.tSS2 = new System.Windows.Forms.ToolStripSeparator();
             this.tSLbl1 = new System.Windows.Forms.ToolStripLabel();
             this.tSTxtThread = new System.Windows.Forms.ToolStripTextBox();
+            this.tSS3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSLbl2 = new System.Windows.Forms.ToolStripLabel();
+            this.tSTxtDelay = new System.Windows.Forms.ToolStripTextBox();
             this.tSLblStatus = new System.Windows.Forms.ToolStripLabel();
             this.tSControl.SuspendLayout();
             this.SuspendLayout();
@@ -69,11 +71,10 @@
             this.lVAccounts.Location = new System.Drawing.Point(0, 28);
             this.lVAccounts.MultiSelect = false;
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(574, 331);
+            this.lVAccounts.Size = new System.Drawing.Size(560, 333);
             this.lVAccounts.TabIndex = 1;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
-            this.lVAccounts.SelectedIndexChanged += new System.EventHandler(this.lVAccounts_SelectedIndexChanged);
             // 
             // colChecks
             // 
@@ -111,14 +112,19 @@
             this.tSControl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSBtnStartTask,
             this.tSS1,
-            this.tSBtnMulitSelect,
+            this.tSBtnAll,
+            this.tSBtnNone,
+            this.tSBtnNot,
             this.tSS2,
             this.tSLbl1,
             this.tSTxtThread,
+            this.tSS3,
+            this.tSLbl2,
+            this.tSTxtDelay,
             this.tSLblStatus});
             this.tSControl.Location = new System.Drawing.Point(0, 0);
             this.tSControl.Name = "tSControl";
-            this.tSControl.Size = new System.Drawing.Size(574, 25);
+            this.tSControl.Size = new System.Drawing.Size(560, 25);
             this.tSControl.TabIndex = 3;
             this.tSControl.Text = "toolStrip1";
             // 
@@ -137,36 +143,35 @@
             this.tSS1.Name = "tSS1";
             this.tSS1.Size = new System.Drawing.Size(6, 25);
             // 
-            // tSBtnMulitSelect
+            // tSBtnAll
             // 
-            this.tSBtnMulitSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tSBtnMulitSelect.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3});
-            this.tSBtnMulitSelect.Image = ((System.Drawing.Image)(resources.GetObject("tSBtnMulitSelect.Image")));
-            this.tSBtnMulitSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSBtnMulitSelect.Name = "tSBtnMulitSelect";
-            this.tSBtnMulitSelect.Size = new System.Drawing.Size(45, 22);
-            this.tSBtnMulitSelect.Text = "多选";
+            this.tSBtnAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSBtnAll.Image = ((System.Drawing.Image)(resources.GetObject("tSBtnAll.Image")));
+            this.tSBtnAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSBtnAll.Name = "tSBtnAll";
+            this.tSBtnAll.Size = new System.Drawing.Size(36, 22);
+            this.tSBtnAll.Text = "全选";
+            this.tSBtnAll.Click += new System.EventHandler(this.TSBtnAll_Click);
             // 
-            // toolStripMenuItem1
+            // tSBtnNone
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
-            this.toolStripMenuItem1.Text = "全选";
+            this.tSBtnNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSBtnNone.Image = ((System.Drawing.Image)(resources.GetObject("tSBtnNone.Image")));
+            this.tSBtnNone.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSBtnNone.Name = "tSBtnNone";
+            this.tSBtnNone.Size = new System.Drawing.Size(48, 22);
+            this.tSBtnNone.Text = "全不选";
+            this.tSBtnNone.Click += new System.EventHandler(this.TSBtnNone_Click);
             // 
-            // toolStripMenuItem2
+            // tSBtnNot
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(112, 22);
-            this.toolStripMenuItem2.Text = "全不选";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(112, 22);
-            this.toolStripMenuItem3.Text = "反选";
+            this.tSBtnNot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSBtnNot.Image = ((System.Drawing.Image)(resources.GetObject("tSBtnNot.Image")));
+            this.tSBtnNot.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSBtnNot.Name = "tSBtnNot";
+            this.tSBtnNot.Size = new System.Drawing.Size(36, 22);
+            this.tSBtnNot.Text = "反选";
+            this.tSBtnNot.Click += new System.EventHandler(this.TSBtnNot_Click);
             // 
             // tSS2
             // 
@@ -181,10 +186,30 @@
             // 
             // tSTxtThread
             // 
+            this.tSTxtThread.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tSTxtThread.Name = "tSTxtThread";
             this.tSTxtThread.Size = new System.Drawing.Size(50, 25);
             this.tSTxtThread.Text = "1";
             this.tSTxtThread.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tSS3
+            // 
+            this.tSS3.Name = "tSS3";
+            this.tSS3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tSLbl2
+            // 
+            this.tSLbl2.Name = "tSLbl2";
+            this.tSLbl2.Size = new System.Drawing.Size(64, 22);
+            this.tSLbl2.Text = "延时(毫秒)";
+            // 
+            // tSTxtDelay
+            // 
+            this.tSTxtDelay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tSTxtDelay.Name = "tSTxtDelay";
+            this.tSTxtDelay.Size = new System.Drawing.Size(50, 25);
+            this.tSTxtDelay.Text = "500";
+            this.tSTxtDelay.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tSLblStatus
             // 
@@ -197,14 +222,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(574, 359);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(560, 361);
             this.Controls.Add(this.tSControl);
             this.Controls.Add(this.lVAccounts);
             this.MinimumSize = new System.Drawing.Size(550, 300);
             this.Name = "FormDailyTask";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "每日任务";
-            this.Load += new System.EventHandler(this.FormDailyTask_Load);
             this.tSControl.ResumeLayout(false);
             this.tSControl.PerformLayout();
             this.ResumeLayout(false);
@@ -226,12 +251,14 @@
         private ToolStripSeparator tSS1;
         private ToolStripLabel tSLblStatus;
         private ToolStripSeparator tSS2;
-        private ToolStripDropDownButton tSBtnMulitSelect;
-        private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem toolStripMenuItem2;
-        private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripButton tSBtnStopTask;
         private ToolStripLabel tSLbl1;
         private ToolStripTextBox tSTxtThread;
+        private ToolStripSeparator tSS3;
+        private ToolStripLabel tSLbl2;
+        private ToolStripTextBox tSTxtDelay;
+        private ToolStripButton tSBtnAll;
+        private ToolStripButton tSBtnNone;
+        private ToolStripButton tSBtnNot;
     }
 }
