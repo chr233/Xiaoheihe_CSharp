@@ -2,7 +2,7 @@
 using Xiaoheihe_Core.APIs;
 using Xiaoheihe_Core.Data;
 using Xiaoheihe_Core.Exceptions;
-using Xiaoheihe_CShape.Storage;
+using Xiaoheihe_CShape.Data;
 
 namespace Xiaoheihe_CShape.Forms
 {
@@ -14,7 +14,7 @@ namespace Xiaoheihe_CShape.Forms
         private static string HkeyServer => Utils.GlobalConfig.HkeyServer;
         private static string XhhVersion => Utils.GlobalConfig.XhhVersion;
 
-        private readonly Dictionary<string, MyAccount> AccountsDict = new();
+        private readonly Dictionary<string, KeyValuePair<Account, DailyTaskData>> AccountsDict = new();
 
         public FormDailyTask()
         {
@@ -22,21 +22,7 @@ namespace Xiaoheihe_CShape.Forms
 
             foreach (Account account in Utils.GlobalConfig.Accounts)
             {
-                AccountsDict[account.HeyboxID] = new()
-                {
-                    NickName = account.NickName,
-                    HeyboxID = account.HeyboxID,
-                    Imei = account.Imei,
-                    DeviceInfo = account.DeviceInfo,
-                    OSType = account.OSType,
-                    OSVersion = account.OSVersion,
-                    Channal = account.Channal,
-                    Experience = account.Experience,
-                    Level = account.Level,
-                    Pkey = account.Pkey,
-                    DailyStatus = "",
-                    DailyTasks = " - ",
-                };
+                AccountsDict[account.HeyboxID] = new(account, new DailyTaskData());
             }
 
             UpdateAccountList();
@@ -57,7 +43,7 @@ namespace Xiaoheihe_CShape.Forms
 
                     ListView.CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
 
-                    HashSet<MyAccount> selectedAccounts = new();
+                    HashSet<KeyValuePair<Account, DailyTaskData>> selectedAccounts = new();
 
                     foreach (ListViewItem item in checkedItems)
                     {
@@ -71,6 +57,8 @@ namespace Xiaoheihe_CShape.Forms
                     if (selectedAccounts.Count > 0)
                     {
                         tSBtnStartTask.Enabled = false;
+                        tSTxtDelay.Enabled = false;
+                        tSTxtThread.Enabled = false;
                         tSLblStatus.Text = "状态: 执行中";
 
 
@@ -96,7 +84,7 @@ namespace Xiaoheihe_CShape.Forms
             }
         }
 
-        private async Task StartTask(HashSet<MyAccount> accounts)
+        private async Task StartTask(HashSet<KeyValuePair<Account, DailyTaskData>> accounts)
         {
             SemaphoreSlim semaphore = new((int)DailyTaskThread);
 
@@ -104,12 +92,14 @@ namespace Xiaoheihe_CShape.Forms
 
             int i = 0;
 
-            foreach (MyAccount account in accounts)
+            foreach (KeyValuePair<Account, DailyTaskData> pair in accounts)
             {
                 tasks[i++] = Task.Run(async () => {
-                    account.DailyTasks = "待更新";
-                    account.DailyStatus = "等待执行";
-                    await DoDailyTask(account, semaphore);
+                    Account account = pair.Key;
+                    DailyTaskData data = pair.Value;
+                    data.Tasks = "待更新";
+                    data.Status = "等待执行";
+                    await DoDailyTask(account, data, semaphore);
 
                 });
             }
@@ -121,18 +111,20 @@ namespace Xiaoheihe_CShape.Forms
 
             Invoke(() => {
                 tSBtnStartTask.Enabled = true;
+                tSTxtDelay.Enabled = true;
+                tSTxtThread.Enabled = true;
                 tSLblStatus.Text = "状态: 结束";
                 Utils.SaveConfig();
             });
         }
 
-        private async Task DoDailyTask(MyAccount account, SemaphoreSlim semaphore)
+        private async Task DoDailyTask(Account account, DailyTaskData data, SemaphoreSlim semaphore)
         {
             await semaphore.WaitAsync();
 
             XiaoheiheClient xhh = new(account, XhhVersion, HkeyServer);
 
-            account.DailyStatus = "开始执行";
+            data.Status = "开始执行";
             UpdateAccountListAsync();
 
             bool sign = false, share1 = false, share2 = false, like = false;
@@ -143,7 +135,7 @@ namespace Xiaoheihe_CShape.Forms
 
                 if (taskListResponse == null || taskListResponse.Result == null)
                 {
-                    account.DailyStatus = "读取任务出错 响应为空";
+                    data.Status = "读取任务出错 响应为空";
                     return;
                 }
 
@@ -184,8 +176,8 @@ namespace Xiaoheihe_CShape.Forms
                     }
                 }
 
-                account.DailyTasks = $"签到{Utils.B2S(sign)}分享{Utils.B2S(share1)}|{Utils.B2S(share2)}点赞{Utils.B2S(like)}";
-                account.DailyStatus = "读取任务状态";
+                data.Tasks = $"签到{Utils.B2S(sign)}分享{Utils.B2S(share1)}|{Utils.B2S(share2)}点赞{Utils.B2S(like)}";
+                data.Status = "读取任务状态";
                 UpdateAccountListAsync();
             }
 
@@ -195,7 +187,7 @@ namespace Xiaoheihe_CShape.Forms
 
                 if (taskListResponse == null || taskListResponse.Result == null)
                 {
-                    account.DailyStatus = "读取任务出错 响应为空";
+                    data.Status = "读取任务出错 响应为空";
                     return;
                 }
 
@@ -203,7 +195,7 @@ namespace Xiaoheihe_CShape.Forms
 
                 if (!sign)
                 {
-                    account.DailyStatus = "签到任务";
+                    data.Status = "签到任务";
                     UpdateAccountListAsync();
 
                     await xhh.TaskSign();
@@ -211,13 +203,13 @@ namespace Xiaoheihe_CShape.Forms
 
                 if (!share1 || !share2 || !like)
                 {
-                    account.DailyStatus = "读取新闻列表";
+                    data.Status = "读取新闻列表";
                     UpdateAccountListAsync();
 
                     AppFeedNewsResponse appFeedNews = await xhh.GetFeedNews(0);
                     if (appFeedNews == null || appFeedNews.Result == null)
                     {
-                        account.DailyStatus = "读取新闻列表 响应为空";
+                        data.Status = "读取新闻列表 响应为空";
                         return;
                     }
 
@@ -234,7 +226,7 @@ namespace Xiaoheihe_CShape.Forms
                         {
                             if (!share1)
                             {
-                                account.DailyStatus = "分享新闻任务";
+                                data.Status = "分享新闻任务";
                                 UpdateAccountListAsync();
                                 await xhh.ShareNews(news.LinkID, index).ConfigureAwait(false);
                                 share1 = true;
@@ -244,7 +236,7 @@ namespace Xiaoheihe_CShape.Forms
 
                             if (!share2)
                             {
-                                account.DailyStatus = "分享评论任务";
+                                data.Status = "分享评论任务";
                                 UpdateAccountListAsync();
                                 await xhh.ShareComment().ConfigureAwait(false);
                                 share2 = true;
@@ -254,7 +246,7 @@ namespace Xiaoheihe_CShape.Forms
 
                             if (likes < likesMax)
                             {
-                                account.DailyStatus = $"点赞文章任务 {likes++}/{likesMax}";
+                                data.Status = $"点赞文章任务 {likes++}/{likesMax}";
                                 UpdateAccountListAsync();
                                 await xhh.LikeNews(news.LinkID, index);
                                 await Task.Delay((int)DailyTaskDelay);
@@ -269,12 +261,12 @@ namespace Xiaoheihe_CShape.Forms
                     await CheckTask().ConfigureAwait(false);
                 }
 
-                account.DailyStatus = (sign && share1 && share2 && like) ? "每日任务全部完成" : "每日任务未全部完成";
+                data.Status = (sign && share1 && share2 && like) ? "每日任务全部完成" : "每日任务未全部完成";
                 UpdateAccountListAsync();
             }
             catch (XhhCSBaseException ex)
             {
-                account.DailyStatus = ex.Message;
+                data.Status = ex.Message;
             }
             finally
             {
@@ -293,16 +285,19 @@ namespace Xiaoheihe_CShape.Forms
             lVAccounts.BeginUpdate();
             lVAccounts.Items.Clear();
 
-            foreach (MyAccount account in AccountsDict.Values)
+            foreach (KeyValuePair<Account, DailyTaskData> pair in AccountsDict.Values)
             {
                 ListViewItem item = new("");
+
+                Account account = pair.Key;
+                DailyTaskData data = pair.Value;
 
                 item.SubItems.Add(account.HeyboxID);
                 item.SubItems.Add(account.NickName);
                 item.SubItems.Add(account.Level);
                 item.SubItems.Add(account.Experience);
-                item.SubItems.Add(account.DailyTasks);
-                item.SubItems.Add(account.DailyStatus);
+                item.SubItems.Add(data.Tasks);
+                item.SubItems.Add(data.Status);
 
                 item.Checked = ChecledItems.Contains(account.HeyboxID);
 
@@ -345,5 +340,4 @@ namespace Xiaoheihe_CShape.Forms
             lVAccounts.EndUpdate();
         }
     }
-
 }

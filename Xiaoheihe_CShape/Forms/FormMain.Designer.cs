@@ -44,21 +44,26 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnEditAccount = new System.Windows.Forms.Button();
             this.btnAddAccount = new System.Windows.Forms.Button();
-            this.btnTest = new System.Windows.Forms.Button();
             this.btnDailyTask = new System.Windows.Forms.Button();
             this.txtHBVersion = new System.Windows.Forms.TextBox();
             this.txtHKeyServer = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.btnTopupThread = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cMenuAccount.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // lVAccounts
@@ -82,7 +87,7 @@
             this.lVAccounts.Location = new System.Drawing.Point(0, 0);
             this.lVAccounts.MultiSelect = false;
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(540, 422);
+            this.lVAccounts.Size = new System.Drawing.Size(522, 393);
             this.lVAccounts.TabIndex = 0;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
@@ -153,19 +158,20 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnTest);
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
             this.groupBox2.Controls.Add(this.btnEditAccount);
             this.groupBox2.Controls.Add(this.btnAddAccount);
-            this.groupBox2.Location = new System.Drawing.Point(546, 0);
+            this.groupBox2.Location = new System.Drawing.Point(528, 1);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(314, 125);
+            this.groupBox2.Size = new System.Drawing.Size(256, 125);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "账号编辑";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(129, 56);
+            this.button2.Location = new System.Drawing.Point(134, 56);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(117, 28);
             this.button2.TabIndex = 2;
@@ -174,12 +180,22 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(129, 22);
+            this.button1.Location = new System.Drawing.Point(134, 22);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(117, 28);
             this.button1.TabIndex = 1;
             this.button1.Text = "测试勾选账号";
             this.button1.UseVisualStyleBackColor = true;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(134, 90);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(117, 28);
+            this.btnTest.TabIndex = 8;
+            this.btnTest.Text = "测试";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.BtnTest_Click);
             // 
             // btnDeleteAccount
             // 
@@ -211,16 +227,6 @@
             this.btnAddAccount.UseVisualStyleBackColor = true;
             this.btnAddAccount.Click += new System.EventHandler(this.BtnAddAccount_Click);
             // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(129, 22);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(117, 28);
-            this.btnTest.TabIndex = 8;
-            this.btnTest.Text = "测试";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.BtnTest_Click);
-            // 
             // btnDailyTask
             // 
             this.btnDailyTask.Location = new System.Drawing.Point(7, 22);
@@ -229,80 +235,113 @@
             this.btnDailyTask.TabIndex = 7;
             this.btnDailyTask.Text = "&T. 每日任务";
             this.btnDailyTask.UseVisualStyleBackColor = true;
-            this.btnDailyTask.Click += new System.EventHandler(this.btnDailyTask_Click);
+            this.btnDailyTask.Click += new System.EventHandler(this.BtnDailyTask_Click);
             // 
             // txtHBVersion
             // 
-            this.txtHBVersion.Location = new System.Drawing.Point(111, 50);
+            this.txtHBVersion.Location = new System.Drawing.Point(7, 22);
             this.txtHBVersion.Name = "txtHBVersion";
-            this.txtHBVersion.Size = new System.Drawing.Size(196, 23);
+            this.txtHBVersion.Size = new System.Drawing.Size(244, 23);
             this.txtHBVersion.TabIndex = 6;
             this.txtHBVersion.Text = "1.3.218";
             // 
             // txtHKeyServer
             // 
-            this.txtHKeyServer.Location = new System.Drawing.Point(111, 22);
+            this.txtHKeyServer.Location = new System.Drawing.Point(7, 22);
             this.txtHKeyServer.Name = "txtHKeyServer";
-            this.txtHKeyServer.Size = new System.Drawing.Size(196, 23);
+            this.txtHKeyServer.Size = new System.Drawing.Size(244, 23);
             this.txtHKeyServer.TabIndex = 5;
             this.txtHKeyServer.Text = "http://localhost:9000/encode";
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtHKeyServer);
             this.groupBox1.Controls.Add(this.txtHBVersion);
-            this.groupBox1.Location = new System.Drawing.Point(546, 343);
+            this.groupBox1.Location = new System.Drawing.Point(528, 274);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(314, 79);
+            this.groupBox1.Size = new System.Drawing.Size(256, 56);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "全局设置";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 17);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "模拟小黑盒版本";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 17);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "HkeyServer地址";
+            this.groupBox1.Text = "模拟小黑盒版本";
             // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.btnTest);
+            this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.btnDailyTask);
-            this.groupBox3.Location = new System.Drawing.Point(546, 131);
+            this.groupBox3.Location = new System.Drawing.Point(528, 133);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(314, 56);
+            this.groupBox3.Size = new System.Drawing.Size(256, 56);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "集成工具";
+            this.groupBox3.Text = "基础功能";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(134, 22);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(117, 28);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "&C. 模拟客户端";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // btnTopupThread
+            // 
+            this.btnTopupThread.Location = new System.Drawing.Point(7, 22);
+            this.btnTopupThread.Name = "btnTopupThread";
+            this.btnTopupThread.Size = new System.Drawing.Size(117, 28);
+            this.btnTopupThread.TabIndex = 7;
+            this.btnTopupThread.Text = "&U. 顶贴工具";
+            this.btnTopupThread.UseVisualStyleBackColor = true;
+            this.btnTopupThread.Click += new System.EventHandler(this.BtnTopupThread_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.btnTopupThread);
+            this.groupBox4.Location = new System.Drawing.Point(528, 196);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(256, 56);
+            this.groupBox4.TabIndex = 9;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "特殊功能";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(134, 22);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(117, 28);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "&P. 发帖工具";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.txtHKeyServer);
+            this.groupBox5.Location = new System.Drawing.Point(528, 337);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(256, 56);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "HkeyServer";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(867, 422);
+            this.ClientSize = new System.Drawing.Size(791, 393);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lVAccounts);
-            this.MinimumSize = new System.Drawing.Size(800, 320);
+            this.MinimumSize = new System.Drawing.Size(800, 420);
             this.Name = "FormMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "小黑盒 CShape";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.cMenuAccount.ResumeLayout(false);
@@ -310,6 +349,9 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -336,10 +378,13 @@
         private ToolStripSeparator toolStripMenuItem1;
         private ToolStripMenuItem 编辑当前账号ToolStripMenuItem;
         private GroupBox groupBox1;
-        private Label label2;
-        private Label label1;
         private GroupBox groupBox3;
         private Button button2;
         private Button button1;
+        private Button btnTopupThread;
+        private GroupBox groupBox4;
+        private Button button3;
+        private Button button4;
+        private GroupBox groupBox5;
     }
 }

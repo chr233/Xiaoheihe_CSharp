@@ -224,7 +224,7 @@ namespace Xiaoheihe_CShape.Forms
             }
         }
 
-        private void btnDailyTask_Click(object sender, EventArgs e)
+        private void BtnDailyTask_Click(object sender, EventArgs e)
         {
             FormCollection collection = Application.OpenForms;
 
@@ -242,16 +242,31 @@ namespace Xiaoheihe_CShape.Forms
             if (formDailyTask == null)
             {
                 formDailyTask = new FormDailyTask();
-
-
-
-
                 formDailyTask.Show();
             }
             else
             {
                 formDailyTask.Focus();
             }
+        }
+
+        private void BtnTopupThread_Click(object sender, EventArgs e)
+        {
+
+
+            Form formTopupThread = new FormTopupThread();
+            formTopupThread.Show();
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

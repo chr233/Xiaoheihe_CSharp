@@ -38,17 +38,17 @@
             this.colTask = new System.Windows.Forms.ColumnHeader();
             this.colLog = new System.Windows.Forms.ColumnHeader();
             this.tSControl = new System.Windows.Forms.ToolStrip();
-            this.tSBtnStartTask = new System.Windows.Forms.ToolStripButton();
-            this.tSS1 = new System.Windows.Forms.ToolStripSeparator();
             this.tSBtnAll = new System.Windows.Forms.ToolStripButton();
             this.tSBtnNone = new System.Windows.Forms.ToolStripButton();
             this.tSBtnNot = new System.Windows.Forms.ToolStripButton();
-            this.tSS2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSS1 = new System.Windows.Forms.ToolStripSeparator();
             this.tSLbl1 = new System.Windows.Forms.ToolStripLabel();
             this.tSTxtThread = new System.Windows.Forms.ToolStripTextBox();
-            this.tSS3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSS2 = new System.Windows.Forms.ToolStripSeparator();
             this.tSLbl2 = new System.Windows.Forms.ToolStripLabel();
             this.tSTxtDelay = new System.Windows.Forms.ToolStripTextBox();
+            this.tSBtnStartTask = new System.Windows.Forms.ToolStripButton();
+            this.tSS3 = new System.Windows.Forms.ToolStripSeparator();
             this.tSLblStatus = new System.Windows.Forms.ToolStripLabel();
             this.tSControl.SuspendLayout();
             this.SuspendLayout();
@@ -70,10 +70,10 @@
             this.colLog});
             this.lVAccounts.FullRowSelect = true;
             this.lVAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lVAccounts.Location = new System.Drawing.Point(0, 28);
+            this.lVAccounts.Location = new System.Drawing.Point(0, 25);
             this.lVAccounts.MultiSelect = false;
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(671, 333);
+            this.lVAccounts.Size = new System.Drawing.Size(671, 336);
             this.lVAccounts.TabIndex = 1;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
@@ -117,38 +117,23 @@
             // 
             this.tSControl.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tSControl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tSBtnStartTask,
-            this.tSS1,
             this.tSBtnAll,
             this.tSBtnNone,
             this.tSBtnNot,
-            this.tSS2,
+            this.tSS1,
             this.tSLbl1,
             this.tSTxtThread,
-            this.tSS3,
+            this.tSS2,
             this.tSLbl2,
             this.tSTxtDelay,
+            this.tSBtnStartTask,
+            this.tSS3,
             this.tSLblStatus});
             this.tSControl.Location = new System.Drawing.Point(0, 0);
             this.tSControl.Name = "tSControl";
             this.tSControl.Size = new System.Drawing.Size(671, 25);
             this.tSControl.TabIndex = 3;
             this.tSControl.Text = "toolStrip1";
-            // 
-            // tSBtnStartTask
-            // 
-            this.tSBtnStartTask.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tSBtnStartTask.Image = ((System.Drawing.Image)(resources.GetObject("tSBtnStartTask.Image")));
-            this.tSBtnStartTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSBtnStartTask.Name = "tSBtnStartTask";
-            this.tSBtnStartTask.Size = new System.Drawing.Size(60, 22);
-            this.tSBtnStartTask.Text = "开始任务";
-            this.tSBtnStartTask.Click += new System.EventHandler(this.TSBtnStartTask_Click);
-            // 
-            // tSS1
-            // 
-            this.tSS1.Name = "tSS1";
-            this.tSS1.Size = new System.Drawing.Size(6, 25);
             // 
             // tSBtnAll
             // 
@@ -180,43 +165,62 @@
             this.tSBtnNot.Text = "反选";
             this.tSBtnNot.Click += new System.EventHandler(this.TSBtnNot_Click);
             // 
-            // tSS2
+            // tSS1
             // 
-            this.tSS2.Name = "tSS2";
-            this.tSS2.Size = new System.Drawing.Size(6, 25);
+            this.tSS1.Name = "tSS1";
+            this.tSS1.Size = new System.Drawing.Size(6, 25);
             // 
             // tSLbl1
             // 
             this.tSLbl1.Name = "tSLbl1";
             this.tSLbl1.Size = new System.Drawing.Size(44, 22);
             this.tSLbl1.Text = "线程数";
+            this.tSLbl1.ToolTipText = "工作线程数量";
             // 
             // tSTxtThread
             // 
-            this.tSTxtThread.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tSTxtThread.Name = "tSTxtThread";
             this.tSTxtThread.Size = new System.Drawing.Size(50, 25);
             this.tSTxtThread.Text = "1";
             this.tSTxtThread.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tSTxtThread.ToolTipText = "工作线程数量";
             // 
-            // tSS3
+            // tSS2
             // 
-            this.tSS3.Name = "tSS3";
-            this.tSS3.Size = new System.Drawing.Size(6, 25);
+            this.tSS2.Name = "tSS2";
+            this.tSS2.Size = new System.Drawing.Size(6, 25);
             // 
             // tSLbl2
             // 
             this.tSLbl2.Name = "tSLbl2";
             this.tSLbl2.Size = new System.Drawing.Size(64, 22);
             this.tSLbl2.Text = "延时(毫秒)";
+            this.tSLbl2.ToolTipText = "延时时间设定(毫秒)";
             // 
             // tSTxtDelay
             // 
-            this.tSTxtDelay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tSTxtDelay.Name = "tSTxtDelay";
             this.tSTxtDelay.Size = new System.Drawing.Size(50, 25);
             this.tSTxtDelay.Text = "500";
             this.tSTxtDelay.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tSTxtDelay.ToolTipText = "延时时间设定(毫秒)";
+            // 
+            // tSBtnStartTask
+            // 
+            this.tSBtnStartTask.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tSBtnStartTask.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSBtnStartTask.Image = ((System.Drawing.Image)(resources.GetObject("tSBtnStartTask.Image")));
+            this.tSBtnStartTask.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSBtnStartTask.Name = "tSBtnStartTask";
+            this.tSBtnStartTask.Size = new System.Drawing.Size(60, 22);
+            this.tSBtnStartTask.Text = "开始任务";
+            this.tSBtnStartTask.Click += new System.EventHandler(this.TSBtnStartTask_Click);
+            // 
+            // tSS3
+            // 
+            this.tSS3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tSS3.Name = "tSS3";
+            this.tSS3.Size = new System.Drawing.Size(6, 25);
             // 
             // tSLblStatus
             // 
@@ -224,6 +228,7 @@
             this.tSLblStatus.Name = "tSLblStatus";
             this.tSLblStatus.Size = new System.Drawing.Size(63, 22);
             this.tSLblStatus.Text = "状态: 停止";
+            this.tSLblStatus.ToolTipText = "任务执行状态";
             // 
             // FormDailyTask
             // 
@@ -235,8 +240,8 @@
             this.Controls.Add(this.lVAccounts);
             this.MinimumSize = new System.Drawing.Size(550, 300);
             this.Name = "FormDailyTask";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "每日任务";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "每日任务 - 仅执行勾选的账号";
             this.tSControl.ResumeLayout(false);
             this.tSControl.PerformLayout();
             this.ResumeLayout(false);
@@ -258,7 +263,6 @@
         private ToolStripSeparator tSS1;
         private ToolStripLabel tSLblStatus;
         private ToolStripSeparator tSS2;
-        private ToolStripButton tSBtnStopTask;
         private ToolStripLabel tSLbl1;
         private ToolStripTextBox tSTxtThread;
         private ToolStripSeparator tSS3;

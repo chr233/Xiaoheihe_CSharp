@@ -1,6 +1,6 @@
 ﻿namespace Xiaoheihe_Core.Data
 {
-    public class Account
+    public sealed class Account
     {
         public string Pkey { get; set; } = "";
         public string HeyboxID { get; set; } = "";
