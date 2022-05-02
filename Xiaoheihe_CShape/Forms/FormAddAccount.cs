@@ -1,4 +1,6 @@
-﻿
+﻿using System.Text;
+using System.Text.RegularExpressions;
+
 using Xiaoheihe_Core.Data;
 
 namespace Xiaoheihe_CShape.Forms
@@ -82,6 +84,59 @@ namespace Xiaoheihe_CShape.Forms
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void BtnFill_Click(object sender, EventArgs e)
+        {
+            string rawText = txtClipboard.Text;
+
+            if (string.IsNullOrEmpty(rawText))
+            {
+                MessageBox.Show("识别区域为空", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MatchCollection matches = Regex.Matches(rawText, @"([^&?]*)=([^&]*)");
+
+            foreach (Match match in matches)
+            {
+                if (match.Groups.Count == 3)
+                {
+                    string key = match.Groups[1].Value;
+                    string value = match.Groups[2].Value;
+
+                    switch (key)
+                    {
+                        case "heybox_id":
+                            txtHeyboxID.Text = value;
+                            break;
+                        case "imei":
+                            txtImei.Text = value;
+                            break;
+                        case "device_info":
+                            txtDeviceInfo.Text = value;
+                            break;
+                        case "os_type":
+                            txtOSType.Text = value;
+                            break;
+                        case "os_version":
+                            txtOSVersion.Text = value;
+                            break;
+                        case "channel":
+                            txtChannal.Text = value;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            Match pkey = Regex.Match(rawText, @"pkey=([^\n]+)");
+
+            if (pkey.Success)
+            {
+                txtPkey.Text = pkey.Groups[1].Value;
+            }
         }
     }
 }

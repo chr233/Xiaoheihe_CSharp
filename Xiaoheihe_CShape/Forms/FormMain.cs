@@ -225,10 +225,8 @@ namespace Xiaoheihe_CShape.Forms
 
         private void BtnTopupThread_Click(object sender, EventArgs e)
         {
-
-
-            Form formTopupThread = new FormTopupThread();
-            formTopupThread.Show();
+            //Form formTopupThread = new FormTopupThread();
+            //formTopupThread.Show();
 
         }
 

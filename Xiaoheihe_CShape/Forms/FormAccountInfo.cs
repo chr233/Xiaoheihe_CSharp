@@ -9,7 +9,7 @@ namespace Xiaoheihe_CShape.Forms
         private static string HkeyServer => Utils.GlobalConfig.HkeyServer;
         private static string XhhVersion => Utils.GlobalConfig.XhhVersion;
 
-        private uint UserID;
+        private readonly uint UserID;
 
         public FormAccountInfo(uint userID)
         {

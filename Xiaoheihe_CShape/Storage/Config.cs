@@ -14,6 +14,6 @@ namespace Xiaoheihe_CShape.Storage
         public uint TopupAuthorID { get; set; } = 0;
         public uint TopupThread { get; set; } = 2;
         public uint TopupDelay { get; set; } = 500;
-        public bool TopupRepeat { get; set; } = false;
+        public bool TopupRepeat { get; set; } = true;
     }
 }

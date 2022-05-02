@@ -270,6 +270,7 @@
             // 
             // btnTopupThread
             // 
+            this.btnTopupThread.Enabled = false;
             this.btnTopupThread.Location = new System.Drawing.Point(7, 22);
             this.btnTopupThread.Name = "btnTopupThread";
             this.btnTopupThread.Size = new System.Drawing.Size(117, 28);
@@ -289,6 +290,7 @@
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "特殊功能";
+            this.groupBox4.Visible = false;
             // 
             // button3
             // 

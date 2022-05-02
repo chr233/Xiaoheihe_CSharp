@@ -5,7 +5,7 @@
 ![stars](https://img.shields.io/github/stars/chr233/Xiaoheihe_CShape)
 [![License](https://img.shields.io/github/license/chr233/Xiaoheihe_CShape)](https://github.com/chr233/Xiaoheihe_CShape/blob/master/license)
 
-> Xiaoheihe_CShape 是一个基于 C# 的异步小黑盒客户端, 交流群: 916945024
+> Xiaoheihe_CShape 是一个基于 C# 的异步小黑盒客户端, 支持多账号, 交流群: 916945024
 
 > 本项目仅用于学习交流使用, 任何衍生用途与作者无关
 

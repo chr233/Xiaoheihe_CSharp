@@ -12,6 +12,7 @@
         public string OSVersion { get; set; } = "";
         public string DeviceInfo { get; set; } = "";
         public string Channal { get; set; } = "";
+        public string Description { get; set; } = "";
 
         public override string? ToString()
         {

@@ -25,12 +25,12 @@ namespace Xiaoheihe_CShape.Forms
                 AccountsDict[account.HeyboxID] = new(account, new DailyTaskData());
             }
 
-            UpdateAccountList();
-
             tSTxtThread.Text = DailyTaskThread.ToString();
             tSTxtDelay.Text = DailyTaskDelay.ToString();
 
             Icon = Properties.Resources.icon;
+
+            InitAccountList();
         }
 
         private void TSBtnStartTask_Click(object sender, EventArgs e)
@@ -219,7 +219,7 @@ namespace Xiaoheihe_CShape.Forms
 
                     int index = 0;
                     int likes = 0;
-                    int likesMax = 6;
+                    int likesMax = 5;
                     foreach (NewsLinkData news in newsLinks)
                     {
                         index++;
@@ -246,11 +246,24 @@ namespace Xiaoheihe_CShape.Forms
 
                             await Task.Delay((int)DailyTaskDelay);
 
-                            if (likes < likesMax)
+                            if (likes <= likesMax)
                             {
-                                data.Status = $"点赞文章任务 {likes++}/{likesMax}";
+                                data.Status = $"点赞文章任务 {likes}/{likesMax}";
                                 UpdateAccountListAsync();
-                                await xhh.LikeNews(news.LinkID, index);
+                                BasicResponse result = await xhh.LikeNews(news.LinkID, index);
+
+                                if (result != null)
+                                {
+                                    if (result.Status == "ok")
+                                    {
+                                        likes++;
+                                    }
+                                    else
+                                    {
+                                        data.Status = result.Message;
+                                    }
+                                }
+
                                 await Task.Delay((int)DailyTaskDelay);
                             }
                         }
@@ -281,8 +294,7 @@ namespace Xiaoheihe_CShape.Forms
             lVAccounts.Invoke(UpdateAccountList);
         }
 
-
-        private void UpdateAccountList()
+        private void InitAccountList()
         {
             lVAccounts.BeginUpdate();
             lVAccounts.Items.Clear();
@@ -304,6 +316,32 @@ namespace Xiaoheihe_CShape.Forms
                 item.Checked = ChecledItems.Contains(account.HeyboxID);
 
                 lVAccounts.Items.Add(item);
+            }
+
+            lVAccounts.EndUpdate();
+        }
+
+        private void UpdateAccountList()
+        {
+            lVAccounts.BeginUpdate();
+
+            foreach (ListViewItem item in lVAccounts.Items)
+            {
+                string userID = item.SubItems[1].Text;
+
+                if (AccountsDict.ContainsKey(userID))
+                {
+                    KeyValuePair<Account, DailyTaskData> pair = AccountsDict[userID];
+
+                    Account account = pair.Key;
+                    DailyTaskData data = pair.Value;
+
+                    item.SubItems[2].Text = account.NickName;
+                    item.SubItems[3].Text = account.Level;
+                    item.SubItems[4].Text = account.Experience;
+                    item.SubItems[5].Text = data.Tasks;
+                    item.SubItems[6].Text = data.Status;
+                }
             }
 
             lVAccounts.EndUpdate();
