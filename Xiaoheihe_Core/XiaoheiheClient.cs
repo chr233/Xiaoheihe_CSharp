@@ -18,7 +18,9 @@ namespace Xiaoheihe_Core
         internal Dictionary<string, string> RequestParams { get; set; }
         internal Dictionary<string, string> HttpHeaders { get; private set; }
         internal Uri HkeyServer { get; private set; }
-        internal HttpClient Http { get; private set; }
+        internal HttpClient HttpForXhh { get; private set; }
+        internal HttpClient HttpForHkey { get; private set; }
+
         internal JsonSerializerOptions JsonOptions { get; private set; } = new();
 
         /// <summary>
@@ -29,9 +31,16 @@ namespace Xiaoheihe_Core
         /// <param name="hkeyServer"></param>
         public XiaoheiheClient(Account account, string version, string hkeyServer)
         {
-            Http = new(new HttpClientHandler()
+            HttpForXhh = new(new HttpClientHandler()
             {
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            });
+
+            HttpForHkey = new(new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => {
+                    return true;
+                }
             });
 
             uint heyboxID = uint.Parse(account.HeyboxID);
@@ -40,7 +49,7 @@ namespace Xiaoheihe_Core
             HeyboxID = heyboxID;
             HeyboxVersion = version;
             RequestParams = Utils.DefaultParams(account, version);
-            HttpHeaders = Utils.SetDefaultHttpHeaders(Http, account.Pkey);
+            HttpHeaders = Utils.SetDefaultHttpHeaders(HttpForXhh, account.Pkey);
             HkeyServer = new Uri(hkeyServer);
 
             JsonOptions.Converters.Add(new DateTimeConverter());
@@ -62,7 +71,7 @@ namespace Xiaoheihe_Core
 
             HttpRequestMessage request = new(HttpMethod.Get, uri);
 
-            HttpResponseMessage response = Http.Send(request);
+            HttpResponseMessage response = HttpForHkey.Send(request);
 
             string hkey = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -216,7 +225,7 @@ namespace Xiaoheihe_Core
 
             HttpRequestMessage request = new(method, uri) { Content = content };
 
-            HttpResponseMessage response = Http.Send(request);
+            HttpResponseMessage response = HttpForXhh.Send(request);
 
             Stream receiveStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             StreamReader readStream = new(receiveStream, Encoding.UTF8);

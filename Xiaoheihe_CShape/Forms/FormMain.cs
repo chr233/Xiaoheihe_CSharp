@@ -253,5 +253,38 @@ namespace Xiaoheihe_CShape.Forms
                 }
             }
         }
+
+        private void TSMAll_Click(object sender, EventArgs e)
+        {
+            ListView.ListViewItemCollection items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = true;
+            }
+            lVAccounts.EndUpdate();
+        }
+
+        private void TSMNone_Click(object sender, EventArgs e)
+        {
+            ListView.ListViewItemCollection items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = false;
+            }
+            lVAccounts.EndUpdate();
+        }
+
+        private void TSMNot_Click(object sender, EventArgs e)
+        {
+            ListView.ListViewItemCollection items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = !item.Checked;
+            }
+            lVAccounts.EndUpdate();
+        }
     }
 }

@@ -38,9 +38,9 @@
             this.colDeviceName = new System.Windows.Forms.ColumnHeader();
             this.colChannal = new System.Windows.Forms.ColumnHeader();
             this.cMenuAccount = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.更新账号数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.编辑当前账号ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMNone = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSMNot = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnProfile = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
@@ -128,28 +128,32 @@
             // cMenuAccount
             // 
             this.cMenuAccount.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.更新账号数据ToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.编辑当前账号ToolStripMenuItem});
+            this.tSMAll,
+            this.tSMNone,
+            this.tSMNot});
             this.cMenuAccount.Name = "contextMenuStrip1";
-            this.cMenuAccount.Size = new System.Drawing.Size(149, 54);
+            this.cMenuAccount.Size = new System.Drawing.Size(113, 70);
             // 
-            // 更新账号数据ToolStripMenuItem
+            // tSMAll
             // 
-            this.更新账号数据ToolStripMenuItem.Name = "更新账号数据ToolStripMenuItem";
-            this.更新账号数据ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.更新账号数据ToolStripMenuItem.Text = "更新账号数据";
+            this.tSMAll.Name = "tSMAll";
+            this.tSMAll.Size = new System.Drawing.Size(112, 22);
+            this.tSMAll.Text = "全选";
+            this.tSMAll.Click += new System.EventHandler(this.TSMAll_Click);
             // 
-            // toolStripMenuItem1
+            // tSMNone
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(145, 6);
+            this.tSMNone.Name = "tSMNone";
+            this.tSMNone.Size = new System.Drawing.Size(112, 22);
+            this.tSMNone.Text = "全不选";
+            this.tSMNone.Click += new System.EventHandler(this.TSMNone_Click);
             // 
-            // 编辑当前账号ToolStripMenuItem
+            // tSMNot
             // 
-            this.编辑当前账号ToolStripMenuItem.Name = "编辑当前账号ToolStripMenuItem";
-            this.编辑当前账号ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.编辑当前账号ToolStripMenuItem.Text = "编辑当前账号";
+            this.tSMNot.Name = "tSMNot";
+            this.tSMNot.Size = new System.Drawing.Size(112, 22);
+            this.tSMNot.Text = "反选";
+            this.tSMNot.Click += new System.EventHandler(this.TSMNot_Click);
             // 
             // groupBox2
             // 
@@ -353,9 +357,6 @@
         private Button btnEditAccount;
         private Button btnDailyTask;
         private ContextMenuStrip cMenuAccount;
-        private ToolStripMenuItem 更新账号数据ToolStripMenuItem;
-        private ToolStripSeparator toolStripMenuItem1;
-        private ToolStripMenuItem 编辑当前账号ToolStripMenuItem;
         private GroupBox groupBox1;
         private GroupBox groupBox3;
         private Button btnProfile;
@@ -364,5 +365,8 @@
         private Button button3;
         private Button button4;
         private GroupBox groupBox5;
+        private ToolStripMenuItem tSMAll;
+        private ToolStripMenuItem tSMNone;
+        private ToolStripMenuItem tSMNot;
     }
 }
