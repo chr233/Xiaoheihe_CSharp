@@ -42,7 +42,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.编辑当前账号ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnProfile = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnEditAccount = new System.Windows.Forms.Button();
             this.btnAddAccount = new System.Windows.Forms.Button();
@@ -154,7 +154,7 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.btnProfile);
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
             this.groupBox2.Controls.Add(this.btnEditAccount);
             this.groupBox2.Controls.Add(this.btnAddAccount);
@@ -165,15 +165,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "账号编辑";
             // 
-            // button2
+            // btnProfile
             // 
-            this.button2.Location = new System.Drawing.Point(133, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(117, 28);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "&I. 查看个人资料";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnProfile.Location = new System.Drawing.Point(133, 22);
+            this.btnProfile.Name = "btnProfile";
+            this.btnProfile.Size = new System.Drawing.Size(117, 28);
+            this.btnProfile.TabIndex = 2;
+            this.btnProfile.Text = "&I. 查看个人资料";
+            this.btnProfile.UseVisualStyleBackColor = true;
+            this.btnProfile.Click += new System.EventHandler(this.BtnProfile_Click);
             // 
             // btnDeleteAccount
             // 
@@ -358,7 +358,7 @@
         private ToolStripMenuItem 编辑当前账号ToolStripMenuItem;
         private GroupBox groupBox1;
         private GroupBox groupBox3;
-        private Button button2;
+        private Button btnProfile;
         private Button btnTopupThread;
         private GroupBox groupBox4;
         private Button button3;

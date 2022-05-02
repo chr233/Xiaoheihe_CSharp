@@ -35,7 +35,7 @@ namespace Xiaoheihe_Core.Data
         private const string Recv = "<-";
 
         [JsonPropertyName("text")]
-        public string Text { get; set; }
+        public string Text { get; set; } = "";
 
         [JsonPropertyName("create_time")]
         public DateTime CreateTime { get; set; }

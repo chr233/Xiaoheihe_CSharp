@@ -230,7 +230,7 @@ namespace Xiaoheihe_CShape.Forms
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void BtnProfile_Click(object sender, EventArgs e)
         {
             ListView.SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
 
