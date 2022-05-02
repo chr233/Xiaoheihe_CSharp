@@ -44,7 +44,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnTest = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnEditAccount = new System.Windows.Forms.Button();
             this.btnAddAccount = new System.Windows.Forms.Button();
@@ -158,7 +157,6 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.btnTest);
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
             this.groupBox2.Controls.Add(this.btnEditAccount);
             this.groupBox2.Controls.Add(this.btnAddAccount);
@@ -186,16 +184,6 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "测试勾选账号";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(134, 90);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(117, 28);
-            this.btnTest.TabIndex = 8;
-            this.btnTest.Text = "测试";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.BtnTest_Click);
             // 
             // btnDeleteAccount
             // 
@@ -372,7 +360,6 @@
         private Button btnDeleteAccount;
         private Button btnEditAccount;
         private Button btnDailyTask;
-        private Button btnTest;
         private ContextMenuStrip cMenuAccount;
         private ToolStripMenuItem 更新账号数据ToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem1;

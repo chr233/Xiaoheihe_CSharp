@@ -197,33 +197,6 @@ namespace Xiaoheihe_CShape.Forms
             SaveCfg();
         }
 
-        private void BtnTest_Click(object sender, EventArgs e)
-        {
-            ListView.CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
-
-            if (checkedItems.Count == 0)
-            {
-                MessageBox.Show("未勾选任何条目", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                foreach (ListViewItem item in checkedItems)
-                {
-                    string heyboxID = item.SubItems[1].Text;
-                    if (AccountsDict.ContainsKey(heyboxID))
-                    {
-                        Account account = AccountsDict[heyboxID];
-
-                        XiaoheiheClient xhh = new(account, txtHBVersion.Text, txtHKeyServer.Text);
-
-                        //var result1 = xhh.GetFeedNews().Result;
-                        //var result2 = xhh.GetFollowingList();
-                        //int a = 0;
-                    }
-                }
-            }
-        }
-
         private void BtnDailyTask_Click(object sender, EventArgs e)
         {
             FormCollection collection = Application.OpenForms;
@@ -256,16 +229,6 @@ namespace Xiaoheihe_CShape.Forms
 
             Form formTopupThread = new FormTopupThread();
             formTopupThread.Show();
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
 
         }
     }
