@@ -10,6 +10,12 @@ namespace Xiaoheihe_Core.Data
     {
         [JsonPropertyName("moments")]
         public HashSet<MonentData> Moments { get; set; } = new();
+
+        [JsonPropertyName("push_mode")]
+        public int PushMode { get; set; }
+
+        [JsonPropertyName("user")]
+        public HeyboxUserDetailData User { get; set; } = new();
     }
 
     public sealed class MonentData

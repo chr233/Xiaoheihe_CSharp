@@ -51,7 +51,7 @@ namespace Xiaoheihe_Core.Data
         public HeyboxUserData User { get; set; } = new();
 
         [JsonPropertyName("commentid")]
-        public ulong Commentid { get; set; }
+        public ulong CommentID { get; set; }
 
         [JsonPropertyName("child_num")]
         public uint ChildCount { get; set; }

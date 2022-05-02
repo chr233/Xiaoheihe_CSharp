@@ -62,7 +62,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="xhh"></param>
         /// <param name="commentID"></param>
         /// <returns></returns>
-        public static async Task<BasicResponse> DeleteComment(this XiaoheiheClient xhh, long commentID)
+        public static async Task<BasicResponse> DeleteComment(this XiaoheiheClient xhh, ulong commentID)
         {
             string subPath = "/bbs/app/comment/delete";
 

@@ -1,5 +1,3 @@
-using Xiaoheihe_Core;
-using Xiaoheihe_Core.APIs;
 using Xiaoheihe_Core.Data;
 using Xiaoheihe_CShape.Storage;
 using static Xiaoheihe_Core.StaticValue;
@@ -230,6 +228,28 @@ namespace Xiaoheihe_CShape.Forms
             Form formTopupThread = new FormTopupThread();
             formTopupThread.Show();
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
+
+            if (selectedItems.Count == 0)
+            {
+                MessageBox.Show("未选中任何条目", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                foreach (ListViewItem item in selectedItems)
+                {
+                    string heyboxID = item.SubItems[1].Text;
+                    if (uint.TryParse(heyboxID, out uint userID))
+                    {
+                        FormAccountInfo formAccountInfo = new(userID);
+                        formAccountInfo.Show();
+                    }
+                }
+            }
         }
     }
 }
