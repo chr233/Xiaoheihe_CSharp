@@ -10,6 +10,12 @@ namespace Xiaoheihe_Core.Data
     {
         [JsonPropertyName("task_list")]
         public HashSet<TaskWithTitleData> TaskList { get; set; } = new();
+
+        [JsonPropertyName("user")]
+        public HeyboxUserData User { get; set; } = new();
+
+        [JsonPropertyName("level_info")]
+        public LevelInfoData LevelInfo { get; set; } = new();
     }
 
     public sealed class TaskWithTitleData

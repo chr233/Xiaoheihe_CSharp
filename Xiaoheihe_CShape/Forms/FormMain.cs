@@ -2,7 +2,6 @@ using Xiaoheihe_Core;
 using Xiaoheihe_Core.APIs;
 using Xiaoheihe_Core.Data;
 using Xiaoheihe_CShape.Storage;
-using static System.Windows.Forms.ListView;
 using static Xiaoheihe_Core.StaticValue;
 
 namespace Xiaoheihe_CShape.Forms
@@ -122,7 +121,7 @@ namespace Xiaoheihe_CShape.Forms
 
         private void BtnEditAccount_Click(object sender, EventArgs e)
         {
-            SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
+            ListView.SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
             if (selectedItems.Count == 0)
             {
                 MessageBox.Show("未选择任何条目", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -163,7 +162,7 @@ namespace Xiaoheihe_CShape.Forms
         }
         private void BtnDeleteAccount_Click(object sender, EventArgs e)
         {
-            CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
+            ListView.CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
 
             if (checkedItems.Count == 0)
             {
@@ -200,7 +199,7 @@ namespace Xiaoheihe_CShape.Forms
 
         private void BtnTest_Click(object sender, EventArgs e)
         {
-            CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
+            ListView.CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
 
             if (checkedItems.Count == 0)
             {

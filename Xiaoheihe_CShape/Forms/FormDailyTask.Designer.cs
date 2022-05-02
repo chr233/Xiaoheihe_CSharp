@@ -34,6 +34,7 @@
             this.colHeyboxID = new System.Windows.Forms.ColumnHeader();
             this.colNickName = new System.Windows.Forms.ColumnHeader();
             this.colLevel = new System.Windows.Forms.ColumnHeader();
+            this.colExp = new System.Windows.Forms.ColumnHeader();
             this.colTask = new System.Windows.Forms.ColumnHeader();
             this.colLog = new System.Windows.Forms.ColumnHeader();
             this.tSControl = new System.Windows.Forms.ToolStrip();
@@ -64,6 +65,7 @@
             this.colHeyboxID,
             this.colNickName,
             this.colLevel,
+            this.colExp,
             this.colTask,
             this.colLog});
             this.lVAccounts.FullRowSelect = true;
@@ -71,7 +73,7 @@
             this.lVAccounts.Location = new System.Drawing.Point(0, 28);
             this.lVAccounts.MultiSelect = false;
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(560, 333);
+            this.lVAccounts.Size = new System.Drawing.Size(671, 333);
             this.lVAccounts.TabIndex = 1;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
@@ -96,10 +98,15 @@
             this.colLevel.Text = "等级";
             this.colLevel.Width = 40;
             // 
+            // colExp
+            // 
+            this.colExp.Text = "经验";
+            this.colExp.Width = 100;
+            // 
             // colTask
             // 
             this.colTask.Text = "任务";
-            this.colTask.Width = 120;
+            this.colTask.Width = 130;
             // 
             // colLog
             // 
@@ -124,7 +131,7 @@
             this.tSLblStatus});
             this.tSControl.Location = new System.Drawing.Point(0, 0);
             this.tSControl.Name = "tSControl";
-            this.tSControl.Size = new System.Drawing.Size(560, 25);
+            this.tSControl.Size = new System.Drawing.Size(671, 25);
             this.tSControl.TabIndex = 3;
             this.tSControl.Text = "toolStrip1";
             // 
@@ -223,7 +230,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(560, 361);
+            this.ClientSize = new System.Drawing.Size(671, 361);
             this.Controls.Add(this.tSControl);
             this.Controls.Add(this.lVAccounts);
             this.MinimumSize = new System.Drawing.Size(550, 300);
@@ -260,5 +267,6 @@
         private ToolStripButton tSBtnAll;
         private ToolStripButton tSBtnNone;
         private ToolStripButton tSBtnNot;
+        private ColumnHeader colExp;
     }
 }
