@@ -2,7 +2,7 @@
 {
     internal static class StringTemplates
     {
-        internal static string[] Emojis = {
+        internal readonly static string[] Emojis = {
             "[cube_闭嘴]",
             "[cube_并不简单]",
             "[cube_沧桑]",
@@ -41,7 +41,7 @@
             "[cube_H币]"
         };
 
-        internal static string[] Words =
+        internal readonly static string[] Words =
         {
             "zsbd",
             "冲冲冲",

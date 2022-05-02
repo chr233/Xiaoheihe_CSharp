@@ -15,6 +15,7 @@ namespace Xiaoheihe_CShape.Forms
         {
             InitializeComponent();
             UserID = userID;
+            Icon = Properties.Resources.icon;
         }
 
         private void FormAccountInfo_Load(object sender, EventArgs e)

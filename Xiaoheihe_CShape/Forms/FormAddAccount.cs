@@ -24,6 +24,9 @@ namespace Xiaoheihe_CShape.Forms
             txtDeviceInfo.Text = account.DeviceInfo;
             txtChannal.Text = account.Channal;
             txtHeyboxID.ReadOnly = !Add;
+
+            Icon = Properties.Resources.icon;
+
         }
 
         private void BtnRandomImei_Click(object sender, EventArgs e)

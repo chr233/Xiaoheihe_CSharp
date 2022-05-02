@@ -5,6 +5,7 @@
         public FormLogin()
         {
             InitializeComponent();
+            Icon = Properties.Resources.icon;
         }
     }
 }

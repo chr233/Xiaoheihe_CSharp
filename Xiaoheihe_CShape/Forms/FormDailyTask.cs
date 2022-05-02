@@ -29,6 +29,8 @@ namespace Xiaoheihe_CShape.Forms
 
             tSTxtThread.Text = DailyTaskThread.ToString();
             tSTxtDelay.Text = DailyTaskDelay.ToString();
+
+            Icon = Properties.Resources.icon;
         }
 
         private void TSBtnStartTask_Click(object sender, EventArgs e)

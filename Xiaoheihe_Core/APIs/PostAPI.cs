@@ -11,26 +11,26 @@ namespace Xiaoheihe_Core.APIs
         /// <returns></returns>
         public static async Task<PostLinkResponse> PostEvent(this XiaoheiheClient xhh)
         {
-            string subPath = "/bbs/app/api/link/post";
+            //string subPath = "/bbs/app/api/link/post";
 
-            Dictionary<string, string> formData = new(4)
-            {
-                { "draft", "0" },
-                { "topic_ids", "0" },
-                { "hashtags", "[]" },
-                { "link_tag", "21" },
-                { "text", "ceshi" },
-                { "desc", "ceshi" },
-                { "tags", "[]" },
-            };
+            //Dictionary<string, string> formData = new(4)
+            //{
+            //    { "draft", "0" },
+            //    { "topic_ids", "0" },
+            //    { "hashtags", "[]" },
+            //    { "link_tag", "21" },
+            //    { "text", "ceshi" },
+            //    { "desc", "ceshi" },
+            //    { "tags", "[]" },
+            //};
 
-            FormUrlEncodedContent content = new(formData);
+            //FormUrlEncodedContent content = new(formData);
 
             throw new NotImplementedException();
 
-            PostLinkResponse response = await xhh.BasicRequest<PostLinkResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
+            //PostLinkResponse response = await xhh.BasicRequest<PostLinkResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
-            return response;
+            //return response;
         }
     }
 }

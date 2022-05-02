@@ -19,6 +19,8 @@ namespace Xiaoheihe_CShape.Forms
 
             Text = $"Ð¡ºÚºÐ ÖúÊÖ - {version.Major}.{version.Minor}.{version.Build}.{version.Revision} - by Chr_ - 2022";
 
+            Icon = Properties.Resources.icon;
+
             LoadCfg();
         }
 
