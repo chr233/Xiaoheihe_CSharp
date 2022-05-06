@@ -35,6 +35,11 @@
 - [x] 评论点赞
 - [x] 获取标签
 - [x] 获取游戏详情
+- [ ] ...
+
+## Hkey Server
+
+[Hkey Server](doc/hkey%20server.7z)
 
 ---
 
