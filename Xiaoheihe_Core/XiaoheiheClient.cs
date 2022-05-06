@@ -12,16 +12,14 @@ namespace Xiaoheihe_Core
     public class XiaoheiheClient
     {
         internal static Uri XiaoHeiHeAPI { get; } = new("https://api.xiaoheihe.cn");
-        internal string Pkey { get; set; }
-        public uint HeyboxID { get; private set; }
-        public string HeyboxVersion { get; private set; }
-        internal Dictionary<string, string> RequestParams { get; set; }
-        internal Dictionary<string, string> HttpHeaders { get; private set; }
-        internal Uri HkeyServer { get; private set; }
-        internal HttpClient HttpForXhh { get; private set; }
-        internal HttpClient HttpForHkey { get; private set; }
-
-        internal JsonSerializerOptions JsonOptions { get; private set; } = new();
+        internal static Uri XiaoHeiHeDataAPI { get; } = new("https://data.xiaoheihe.cn");
+        public uint HeyboxID { get; }
+        public string HeyboxVersion { get; }
+        internal Dictionary<string, string> RequestParams { get; private set; }
+        internal Uri HkeyServer { get; }
+        internal HttpClient HttpForXhh { get; }
+        internal HttpClient HttpForHkey { get; }
+        internal JsonSerializerOptions JsonOptions { get; }
 
         /// <summary>
         /// 构造函数
@@ -31,8 +29,20 @@ namespace Xiaoheihe_Core
         /// <param name="hkeyServer"></param>
         public XiaoheiheClient(Account account, string version, string hkeyServer)
         {
+            CookieContainer cookieContainer = new();
+
+            cookieContainer.Add(XiaoHeiHeAPI, new Cookie("pkey", account.Pkey));
+            cookieContainer.Add(XiaoHeiHeDataAPI, new Cookie("pkey", account.Pkey));
+
+            if (!string.IsNullOrEmpty(account.XhhTokenID))
+            {
+                cookieContainer.Add(XiaoHeiHeAPI, new Cookie("x_xhh_tokenid", account.XhhTokenID));
+                cookieContainer.Add(XiaoHeiHeDataAPI, new Cookie("x_xhh_tokenid", account.XhhTokenID));
+            }
+
             HttpForXhh = new(new HttpClientHandler()
             {
+                CookieContainer = cookieContainer,
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             });
 
@@ -45,13 +55,13 @@ namespace Xiaoheihe_Core
 
             uint heyboxID = uint.Parse(account.HeyboxID);
 
-            Pkey = account.Pkey;
             HeyboxID = heyboxID;
             HeyboxVersion = version;
             RequestParams = Utils.DefaultParams(account, version);
-            HttpHeaders = Utils.SetDefaultHttpHeaders(HttpForXhh, account.Pkey);
+            Utils.SetDefaultHttpHeaders(HttpForXhh);
             HkeyServer = new Uri(hkeyServer);
 
+            JsonOptions = new JsonSerializerOptions();
             JsonOptions.Converters.Add(new DateTimeConverter());
             JsonOptions.Converters.Add(new StringIntegerConverter());
         }
@@ -83,9 +93,9 @@ namespace Xiaoheihe_Core
         /// </summary>
         /// <param name="urlPath"></param>
         /// <returns></returns>
-        public async Task<Uri> BuildQueryParams(string urlPath)
+        public async Task<Uri> BuildQueryParams(string urlPath, bool useDataAPI = false)
         {
-            return await BuildQueryParamsAsync(urlPath, null).ConfigureAwait(false);
+            return await BuildQueryParamsAsync(urlPath, null, useDataAPI).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -94,9 +104,9 @@ namespace Xiaoheihe_Core
         /// <param name="urlPath"></param>
         /// <param name="extraParams"></param>
         /// <returns></returns>
-        public async Task<Uri> BuildQueryParamsAsync(string urlPath, Dictionary<string, string>? extraParams)
+        public async Task<Uri> BuildQueryParamsAsync(string urlPath, Dictionary<string, string>? extraParams, bool useDataAPI = false)
         {
-            UriBuilder urlBuilder = new(XiaoHeiHeAPI);
+            UriBuilder urlBuilder = new(useDataAPI ? XiaoHeiHeDataAPI : XiaoHeiHeAPI);
             urlBuilder.Path = urlPath;
 
             Dictionary<string, string> temp = RequestParams.ToDictionary(x => x.Key, x => x.Value);
@@ -143,20 +153,17 @@ namespace Xiaoheihe_Core
         /// </summary>
         /// <param name="response"></param>
         /// <exception cref="AccountErrorException"></exception>
-        private static void CheckResponse(BasicResponse response)
+        public static bool CheckResponse(BasicResponse response)
         {
             switch (response.Status.ToLower())
             {
                 case "ok":
-                    return;
+                case "ignore":
+                    return true;
                 case "relogin":
                     throw new AccountErrorException(message: response.Message);
                 case "failed":
-                    if (response.Message == "不能重复赞哦")
-                    {
-                        return;
-                    }
-                    throw new XhhCSBaseException(message: response.Message);
+                    return false;
                 default:
                     throw new UnknownException(message: response.Message);
             }
@@ -169,9 +176,9 @@ namespace Xiaoheihe_Core
         /// <param name="method"></param>
         /// <param name="subPath"></param>
         /// <returns></returns>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, bool useDataAPI = false) where T : BasicResponse
         {
-            return await BasicRequest<T>(method, subPath, null, null);
+            return await BasicRequest<T>(method, subPath, null, null, useDataAPI);
         }
 
         /// <summary>
@@ -182,9 +189,9 @@ namespace Xiaoheihe_Core
         /// <param name="subPath"></param>
         /// <param name="extraParams"></param>
         /// <returns></returns>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extraParams) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extraParams, bool useDataAPI = false) where T : BasicResponse
         {
-            return await BasicRequest<T>(method, subPath, extraParams, null).ConfigureAwait(false);
+            return await BasicRequest<T>(method, subPath, extraParams, null, useDataAPI).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -195,9 +202,9 @@ namespace Xiaoheihe_Core
         /// <param name="subPath"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, HttpContent content) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, HttpContent content, bool useDataAPI = false) where T : BasicResponse
         {
-            return await BasicRequest<T>(method, subPath, null, content).ConfigureAwait(false);
+            return await BasicRequest<T>(method, subPath, null, content, useDataAPI).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -211,12 +218,12 @@ namespace Xiaoheihe_Core
         /// <returns></returns>
         /// <exception cref="HkeyServerErrorException"></exception>
         /// <exception cref="NullResponseException"></exception>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content) where T : BasicResponse
+        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content, bool useDataAPI = false) where T : BasicResponse
         {
             Uri uri;
             try
             {
-                uri = await BuildQueryParamsAsync(subPath, extraParams).ConfigureAwait(false);
+                uri = await BuildQueryParamsAsync(subPath, extraParams, useDataAPI).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -234,15 +241,6 @@ namespace Xiaoheihe_Core
             T? result = JsonSerializer.Deserialize<T>(strJson, JsonOptions);
 
             if (result == null) { throw new NullResponseException(); }
-
-            try
-            {
-                CheckResponse(result);
-            }
-            catch
-            {
-                throw;
-            }
 
             return result;
         }

@@ -48,6 +48,7 @@
             // 
             // picAvatar
             // 
+            this.picAvatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picAvatar.ImageLocation = "";
             this.picAvatar.Location = new System.Drawing.Point(12, 12);
             this.picAvatar.Name = "picAvatar";

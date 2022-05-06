@@ -3,6 +3,7 @@
     public sealed class Account
     {
         public string Pkey { get; set; } = "";
+        public string XhhTokenID { get; set; } = "";
         public string HeyboxID { get; set; } = "";
         public string Imei { get; set; } = "";
         public string NickName { get; set; } = "";

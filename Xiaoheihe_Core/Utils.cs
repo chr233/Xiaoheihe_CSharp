@@ -28,7 +28,7 @@ namespace Xiaoheihe_Core
             if (string.IsNullOrEmpty(account.Imei)) { account.Imei = RandomImei(); }
             if (string.IsNullOrEmpty(version)) { version = DefaultHBVersion; }
 
-            Dictionary<string, string> paramDict = new(38)
+            Dictionary<string, string> paramDict = new(40)
             {
                 { "userid", "" },
                 { "type", "" },
@@ -53,6 +53,7 @@ namespace Xiaoheihe_Core
                 { "sort_filter", "" },
                 { "owner_only", "" },
                 { "hide_cy", "" },
+                { "return_json", "" },
                 { "time_", "" },
                 { "heybox_id", account.HeyboxID },
                 { "imei", account.Imei },
@@ -78,12 +79,11 @@ namespace Xiaoheihe_Core
         /// <param name="client"></param>
         /// <param name="pkey"></param>
         /// <returns></returns>
-        public static Dictionary<string, string> SetDefaultHttpHeaders(HttpClient client, string pkey)
+        public static void SetDefaultHttpHeaders(HttpClient client)
         {
             Dictionary<string, string> headers = new(6)
             {
                 { "Host", "api.xiaoheihe.cn" },
-                { "Cookie", $"pkey={pkey}" },
                 { "Referer", "http://api.maxjia.com/" },
                 { "User-Agent", "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 ApiMaxJia/1.0" },
                 { "Accept-Encoding", "gzip, deflate" },
@@ -95,8 +95,6 @@ namespace Xiaoheihe_Core
             {
                 client.DefaultRequestHeaders.Add(header.Key, header.Value);
             }
-
-            return headers;
         }
 
         /// <summary>

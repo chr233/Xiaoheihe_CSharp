@@ -101,7 +101,14 @@ namespace Xiaoheihe_CShape.Forms
                     DailyTaskData data = pair.Value;
                     data.Tasks = "待更新";
                     data.Status = "等待执行";
-                    await DoDailyTask(account, data, semaphore);
+
+                    try
+                    {
+                        await DoDailyTask(account, data, semaphore);
+                    }catch (Exception ex)
+                    {
+
+                    }
 
                 });
             }

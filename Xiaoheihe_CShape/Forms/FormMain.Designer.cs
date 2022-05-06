@@ -42,6 +42,7 @@
             this.tSMNone = new System.Windows.Forms.ToolStripMenuItem();
             this.tSMNot = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnReload = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnEditAccount = new System.Windows.Forms.Button();
@@ -56,6 +57,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.cMenuAccount.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -158,6 +160,8 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnReload);
             this.groupBox2.Controls.Add(this.btnProfile);
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
             this.groupBox2.Controls.Add(this.btnEditAccount);
@@ -169,9 +173,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "账号编辑";
             // 
+            // btnReload
+            // 
+            this.btnReload.Location = new System.Drawing.Point(134, 90);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(117, 28);
+            this.btnReload.TabIndex = 3;
+            this.btnReload.Text = "&R. 刷新列表";
+            this.btnReload.UseVisualStyleBackColor = true;
+            this.btnReload.Click += new System.EventHandler(this.BtnReload_Click);
+            // 
             // btnProfile
             // 
-            this.btnProfile.Location = new System.Drawing.Point(133, 22);
+            this.btnProfile.Location = new System.Drawing.Point(134, 22);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(117, 28);
             this.btnProfile.TabIndex = 2;
@@ -313,6 +327,16 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "HkeyServer";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(134, 56);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(116, 28);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -370,5 +394,7 @@
         private ToolStripMenuItem tSMAll;
         private ToolStripMenuItem tSMNone;
         private ToolStripMenuItem tSMNot;
+        private Button btnReload;
+        private Button button1;
     }
 }

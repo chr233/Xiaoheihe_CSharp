@@ -20,11 +20,13 @@ namespace Xiaoheihe_CShape.Forms
             txtHeyboxID.Text = account.HeyboxID;
             btnOK.Text = okBtn;
             txtPkey.Text = account.Pkey;
+            txtXToken.Text = account.XhhTokenID;
             txtImei.Text = account.Imei;
             txtOSType.Text = account.OSType;
             txtOSVersion.Text = account.OSVersion;
             txtDeviceInfo.Text = account.DeviceInfo;
             txtChannal.Text = account.Channal;
+            txtDescription.Text = account.Description;
             txtHeyboxID.ReadOnly = !Add;
 
             Icon = Properties.Resources.icon;
@@ -131,11 +133,18 @@ namespace Xiaoheihe_CShape.Forms
                 }
             }
 
-            Match pkey = Regex.Match(rawText, @"pkey=([^\n]+)");
+            Match pkey = Regex.Match(rawText, @"pkey=([^\n;]+)");
 
             if (pkey.Success)
             {
                 txtPkey.Text = pkey.Groups[1].Value;
+            }
+
+            Match xhh_tokenID = Regex.Match(rawText, @"x_xhh_tokenid=([^\n;]+)");
+
+            if (xhh_tokenID.Success)
+            {
+                txtXToken.Text = xhh_tokenID.Groups[1].Value;
             }
         }
     }

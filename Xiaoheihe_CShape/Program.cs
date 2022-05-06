@@ -12,6 +12,7 @@ namespace Xiaoheihe_CShape
         {
             ApplicationConfiguration.Initialize();
             Application.Run(new FormMain());
+            //Application.Run(new FormClient());
         }
     }
 }

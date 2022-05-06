@@ -1,4 +1,5 @@
 using Xiaoheihe_Core.Data;
+using Xiaoheihe_Core.APIs;
 using Xiaoheihe_CShape.Storage;
 using static Xiaoheihe_Core.StaticValue;
 
@@ -7,9 +8,7 @@ namespace Xiaoheihe_CShape.Forms
     public partial class FormMain : Form
     {
         private readonly Dictionary<string, Account> AccountsDict = new();
-
         private static HashSet<string> ChecledItems => Utils.GlobalConfig.CheckedItems;
-
 
         public FormMain()
         {
@@ -98,6 +97,7 @@ namespace Xiaoheihe_CShape.Forms
                 string heyboxID = frmAdd.txtHeyboxID.Text;
                 account.HeyboxID = heyboxID;
                 account.Pkey = frmAdd.txtPkey.Text;
+                account.XhhTokenID = frmAdd.txtXToken.Text;
                 account.Imei = frmAdd.txtImei.Text;
                 account.NickName = "待更新";
                 account.Level = "0";
@@ -105,6 +105,7 @@ namespace Xiaoheihe_CShape.Forms
                 account.OSVersion = frmAdd.txtOSVersion.Text;
                 account.DeviceInfo = frmAdd.txtDeviceInfo.Text;
                 account.Channal = frmAdd.txtChannal.Text;
+                account.Description = frmAdd.txtDescription.Text;
 
                 frmAdd.Dispose();
 
@@ -140,13 +141,15 @@ namespace Xiaoheihe_CShape.Forms
                     {
                         account.HeyboxID = frmAdd.txtHeyboxID.Text;
                         account.Pkey = frmAdd.txtPkey.Text;
+                        account.XhhTokenID = frmAdd.txtXToken.Text;
                         account.Imei = frmAdd.txtImei.Text;
-                        account.NickName = "待更新";
-                        account.Level = "0";
+                        account.NickName ??= "待更新";
+                        account.Level ??= "0";
                         account.OSType = frmAdd.txtOSType.Text;
                         account.OSVersion = frmAdd.txtOSVersion.Text;
                         account.DeviceInfo = frmAdd.txtDeviceInfo.Text;
                         account.Channal = frmAdd.txtChannal.Text;
+                        account.Description = frmAdd.txtDescription.Text;
 
                         AccountsDict[account.HeyboxID] = account;
                     }
@@ -283,6 +286,37 @@ namespace Xiaoheihe_CShape.Forms
                 item.Checked = !item.Checked;
             }
             lVAccounts.EndUpdate();
+        }
+
+        private void BtnReload_Click(object sender, EventArgs e)
+        {
+            UpdateAccountList();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
+
+            if (selectedItems.Count == 0)
+            {
+                MessageBox.Show("未选中任何条目", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                foreach (ListViewItem item in selectedItems)
+                {
+                    string heyboxID = item.SubItems[1].Text;
+
+                    if (AccountsDict.ContainsKey(heyboxID))
+                    {
+                        Account account = AccountsDict[heyboxID];
+
+                        Xiaoheihe_Core.XiaoheiheClient xhh = new(account, Utils.GlobalConfig.XhhVersion, Utils.GlobalConfig.HkeyServer);
+
+                        var result = xhh.GetLinkWebView(80631064,6).Result;
+                    }
+                }
+            }
         }
     }
 }
