@@ -12,7 +12,7 @@ namespace Xiaoheihe_Core.Data
         public byte ShowUserSubscribeBotton { get; set; }
 
         [JsonPropertyName("link")]
-        public object Link { get; set; } = new();
+        public WebViewLinkData Link { get; set; } = new();
     }
 
     public sealed class WebViewLinkData
@@ -39,7 +39,7 @@ namespace Xiaoheihe_Core.Data
         public uint LinkID { get; set; }
 
         [JsonPropertyName("topics")]
-        public TopicData Topics { get; set; } = new();
+        public HashSet<TopicData> Topics { get; set; } = new();
 
         [JsonPropertyName("original")]
         public byte Original { get; set; }
@@ -108,23 +108,6 @@ namespace Xiaoheihe_Core.Data
         }
     }
 
-    public sealed class BatteryData
-    {
-        [JsonPropertyName("count")]
-        public uint Count { get; set; }
-
-        [JsonPropertyName("enabled")]
-        public byte Enabled { get; set; }
-
-        [JsonPropertyName("charged")]
-        public bool Charged { get; set; }
-
-        public override string? ToString()
-        {
-            return $"{Count} {Charged} {Enabled}";
-        }
-    }
-
     public sealed class ReleaseInfoData
     {
         [JsonPropertyName("release_val")]
@@ -154,10 +137,10 @@ namespace Xiaoheihe_Core.Data
         public string Url { get; set; } = "";
 
         [JsonPropertyName("width")]
-        public uint Width { get; set; }
+        public string Width { get; set; } = "";
 
         [JsonPropertyName("height")]
-        public uint Height { get; set; }
+        public string Height { get; set; } = "";
 
         public override string? ToString()
         {

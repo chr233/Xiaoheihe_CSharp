@@ -31,6 +31,7 @@ namespace Xiaoheihe_Core
             Dictionary<string, string> paramDict = new(40)
             {
                 { "userid", "" },
+                { "link_id", "" },
                 { "type", "" },
                 { "h_src", "" },
                 { "shared_type", "" },

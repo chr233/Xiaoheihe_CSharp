@@ -105,9 +105,10 @@ namespace Xiaoheihe_CShape.Forms
                     try
                     {
                         await DoDailyTask(account, data, semaphore);
-                    }catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
-
+                        data.Status = ex.Message;
                     }
 
                 });
@@ -149,10 +150,11 @@ namespace Xiaoheihe_CShape.Forms
                 }
 
                 HeyboxUserData userData = taskListResponse.Result.User;
+                LevelInfoData levelInfo = taskListResponse.Result.LevelInfo;
 
                 account.NickName = userData.UserName;
                 account.Level = userData.LevelInfo.Level.ToString();
-                account.Experience = $"{userData.LevelInfo.Exp}/{userData.LevelInfo.MaxExp}";
+                account.Experience = $"{levelInfo.Exp}/{levelInfo.MaxExp}";
 
                 HashSet<TaskWithTitleData> taskGroups = taskListResponse.Result.TaskList;
 

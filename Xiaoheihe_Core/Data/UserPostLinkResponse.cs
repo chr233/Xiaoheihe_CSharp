@@ -100,7 +100,7 @@ namespace Xiaoheihe_Core.Data
         public string Name { get; set; } = "";
 
         [JsonPropertyName("topic_id")]
-        public uint TopicID { get; set; }
+        public int TopicID { get; set; }
 
         public override string? ToString()
         {

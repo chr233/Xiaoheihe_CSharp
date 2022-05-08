@@ -37,7 +37,7 @@ namespace Xiaoheihe_Core.APIs
                 extraParams.Add(isNewer ? "newer" : "older", pointer.ToString());
             }
 
-            UserMessageResponse response = await xhh.BasicRequest<UserMessageResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            UserMessageResponse response = await xhh.BasicRequestAsync<UserMessageResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -79,7 +79,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
+            BasicResponse response = await xhh.BasicRequestAsync<BasicResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
 
             return response;
         }

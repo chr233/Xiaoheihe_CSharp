@@ -51,7 +51,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            SendCommentsResponse response = await xhh.BasicRequest<SendCommentsResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
+            SendCommentsResponse response = await xhh.BasicRequestAsync<SendCommentsResponse>(HttpMethod.Post, subPath, extraParams, content).ConfigureAwait(false);
 
             return response;
         }
@@ -73,14 +73,63 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
+            BasicResponse response = await xhh.BasicRequestAsync<BasicResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }
 
+        /// <summary>
+        /// 获取评论列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <returns></returns>
+        public async static Task<CommentListResponse> GetCommentList(this XiaoheiheClient xhh, uint linkID)
+        {
+            return await xhh.GetCommentList(linkID, 1, 0, SortFilter.Hot, false, false).ConfigureAwait(false);
+        }
 
         /// <summary>
-        /// 获取评论列表(Bug)
+        /// 获取评论列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public async static Task<CommentListResponse> GetCommentList(this XiaoheiheClient xhh, uint linkID, uint page)
+        {
+            return await xhh.GetCommentList(linkID, 1, page, SortFilter.Hot, false, false).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取评论列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <param name="page"></param>
+        /// <param name="sortType"></param>
+        /// <returns></returns>
+        public async static Task<CommentListResponse> GetCommentList(this XiaoheiheClient xhh, uint linkID, uint page, SortFilter sortType)
+        {
+            return await xhh.GetCommentList(linkID, 1, page, sortType, false, false).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取评论列表
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <param name="index"></param>
+        /// <param name="page"></param>
+        /// <param name="sortType"></param>
+        /// <returns></returns>
+        public async static Task<CommentListResponse> GetCommentList(this XiaoheiheClient xhh, uint linkID, uint index, uint page, SortFilter sortType)
+        {
+            return await xhh.GetCommentList(linkID, index, page, sortType, false, false).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取评论列表
         /// </summary>
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
@@ -90,7 +139,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="hideCy"></param>
         /// <param name="authorOnly"></param>
         /// <returns></returns>
-        public static async Task<CommentListResponse> GetLinkTree(this XiaoheiheClient xhh, uint linkID, uint index, uint page, SortFilter sortType, bool hideCy, bool authorOnly)
+        public async static Task<CommentListResponse> GetCommentList(this XiaoheiheClient xhh, uint linkID, uint index, uint page, SortFilter sortType, bool hideCy, bool authorOnly)
         {
             string subPath = "/bbs/app/link/tree";
 
@@ -109,7 +158,7 @@ namespace Xiaoheihe_Core.APIs
                 { "index", index.ToString() },
             };
 
-            CommentListResponse response = await xhh.BasicRequest<CommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            CommentListResponse response = await xhh.BasicRequestAsync<CommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }

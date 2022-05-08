@@ -26,7 +26,7 @@ namespace Xiaoheihe_Core.Data
         public byte CyControl { get; set; }
 
         [JsonPropertyName("link")]
-        public uint LInk { get; set; }
+        public CommentLinkData Link { get; set; } = new();
 
         [JsonPropertyName("sort_filter")]
         public HashSet<SortFilterData> SortFilter { get; set; } = new();
@@ -39,7 +39,14 @@ namespace Xiaoheihe_Core.Data
 
         public override string? ToString()
         {
-            return Comment.ToString();
+            if(Comment.Count > 0)
+            {
+                return $"[{Comment.Count}] {Comment.First()}";
+            }
+            else
+            {
+                return $"[{Comment.Count}]";
+            }
         }
     }
 
@@ -48,7 +55,7 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("child_num")]
         public uint ChildCount { get; set; }
 
-        [JsonPropertyName("comment_id")]
+        [JsonPropertyName("commentid")]
         public ulong CommentID { get; set; }
 
         [JsonPropertyName("create_at")]
@@ -97,11 +104,10 @@ namespace Xiaoheihe_Core.Data
         }
     }
 
-
     public sealed class CommentLinkData : BaseCommentLinkData
     {
         [JsonPropertyName("battery")]
-        public uint Battery { get; set; }
+        public BatteryExData Battery { get; set; } = new();
 
         [JsonPropertyName("click")]
         public uint Click { get; set; }
@@ -177,14 +183,5 @@ namespace Xiaoheihe_Core.Data
 
         [JsonPropertyName("use_concept_type")]
         public byte UseConceptType { get; set; }
-    }
-
-    public sealed class SortFilterData
-    {
-        [JsonPropertyName("key")]
-        public string Key { get; set; } = "";
-
-        [JsonPropertyName("text")]
-        public string Text { get; set; } = "";
     }
 }

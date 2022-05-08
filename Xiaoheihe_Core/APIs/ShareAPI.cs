@@ -37,7 +37,7 @@ namespace Xiaoheihe_Core.APIs
                     { "index", index.ToString() },
                 };
 
-                await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+                await xhh.BasicRequestAsync<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
                 return;
             }
@@ -52,7 +52,7 @@ namespace Xiaoheihe_Core.APIs
                     { "shared_type", "normal" },
                 };
 
-                await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+                await xhh.BasicRequestAsync<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
                 return;
             }
@@ -84,7 +84,7 @@ namespace Xiaoheihe_Core.APIs
                 { "shared_type", "BBSComment" },
             };
 
-            BasicResponse response = await xhh.BasicRequest<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            BasicResponse response = await xhh.BasicRequestAsync<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }

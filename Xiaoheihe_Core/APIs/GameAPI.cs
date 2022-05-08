@@ -33,7 +33,7 @@ namespace Xiaoheihe_Core.APIs
                 { "platf", platform },
             };
 
-            GameDetailResponse response = await xhh.BasicRequest<GameDetailResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            GameDetailResponse response = await xhh.BasicRequestAsync<GameDetailResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }

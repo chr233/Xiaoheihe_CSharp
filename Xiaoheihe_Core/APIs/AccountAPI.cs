@@ -13,7 +13,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/account/info/";
 
-            AccountInfoResponse response = await xhh.BasicRequest<AccountInfoResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
+            AccountInfoResponse response = await xhh.BasicRequestAsync<AccountInfoResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }
@@ -27,7 +27,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/task/sign_list/";
 
-            TaskSignListResponse response = await xhh.BasicRequest<TaskSignListResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
+            TaskSignListResponse response = await xhh.BasicRequestAsync<TaskSignListResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }
@@ -41,7 +41,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/task/list/";
 
-            TaskListResponse response = await xhh.BasicRequest<TaskListResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
+            TaskListResponse response = await xhh.BasicRequestAsync<TaskListResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }
@@ -55,7 +55,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/task/sign/";
 
-            TaskSignResponse response = await xhh.BasicRequest<TaskSignResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
+            TaskSignResponse response = await xhh.BasicRequestAsync<TaskSignResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }

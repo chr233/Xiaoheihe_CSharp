@@ -51,19 +51,30 @@ namespace Xiaoheihe_Core.APIs
 
             };
 
-            AppFeedNewsResponse response = await xhh.BasicRequest<AppFeedNewsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            AppFeedNewsResponse response = await xhh.BasicRequestAsync<AppFeedNewsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
- 
+
         /// <summary>
-        /// 获取文章内容(bug)
+        /// 获取文章内容
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <param name="linkID"></param>
+        /// <returns></returns>
+        public static async Task<LinkWebViewResponse> GetNewsContent(this XiaoheiheClient xhh, uint linkID)
+        {
+            return await xhh.GetNewsContent(linkID, 1).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取文章内容
         /// </summary>
         /// <param name="xhh"></param>
         /// <param name="linkID"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static async Task<LinkWebViewResponse> GetLinkWebView(this XiaoheiheClient xhh, uint linkID, uint index)
+        public static async Task<LinkWebViewResponse> GetNewsContent(this XiaoheiheClient xhh, uint linkID, uint index)
         {
             string subPath = "/bbs/app/link/web/view";
 
@@ -77,7 +88,7 @@ namespace Xiaoheihe_Core.APIs
                 { "h_src", h_src },
             };
 
-            LinkWebViewResponse response = await xhh.BasicRequest<LinkWebViewResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            LinkWebViewResponse response = await xhh.BasicRequestAsync<LinkWebViewResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }

@@ -63,7 +63,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            ImageUploadInfoResponse response = await xhh.BasicRequest<ImageUploadInfoResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
+            ImageUploadInfoResponse response = await xhh.BasicRequestAsync<ImageUploadInfoResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }
@@ -77,7 +77,7 @@ namespace Xiaoheihe_Core.APIs
         {
             string subPath = "/bbs/app/api/qcloud/cos/upload/token";
 
-            ImageUploadTokenResponse response = await xhh.BasicRequest<ImageUploadTokenResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
+            ImageUploadTokenResponse response = await xhh.BasicRequestAsync<ImageUploadTokenResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 
             return response;
         }

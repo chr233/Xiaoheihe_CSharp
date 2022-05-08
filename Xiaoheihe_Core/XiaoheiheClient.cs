@@ -12,7 +12,6 @@ namespace Xiaoheihe_Core
     public class XiaoheiheClient
     {
         internal static Uri XiaoHeiHeAPI { get; } = new("https://api.xiaoheihe.cn");
-        internal static Uri XiaoHeiHeDataAPI { get; } = new("https://data.xiaoheihe.cn");
         public uint HeyboxID { get; }
         public string HeyboxVersion { get; }
         internal Dictionary<string, string> RequestParams { get; private set; }
@@ -32,12 +31,10 @@ namespace Xiaoheihe_Core
             CookieContainer cookieContainer = new();
 
             cookieContainer.Add(XiaoHeiHeAPI, new Cookie("pkey", account.Pkey));
-            cookieContainer.Add(XiaoHeiHeDataAPI, new Cookie("pkey", account.Pkey));
 
             if (!string.IsNullOrEmpty(account.XhhTokenID))
             {
                 cookieContainer.Add(XiaoHeiHeAPI, new Cookie("x_xhh_tokenid", account.XhhTokenID));
-                cookieContainer.Add(XiaoHeiHeDataAPI, new Cookie("x_xhh_tokenid", account.XhhTokenID));
             }
 
             HttpForXhh = new(new HttpClientHandler()
@@ -93,9 +90,9 @@ namespace Xiaoheihe_Core
         /// </summary>
         /// <param name="urlPath"></param>
         /// <returns></returns>
-        public async Task<Uri> BuildQueryParams(string urlPath, bool useDataAPI = false)
+        public async Task<Uri> BuildQueryParams(string urlPath)
         {
-            return await BuildQueryParamsAsync(urlPath, null, useDataAPI).ConfigureAwait(false);
+            return await BuildQueryParamsAsync(urlPath, null).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -104,9 +101,9 @@ namespace Xiaoheihe_Core
         /// <param name="urlPath"></param>
         /// <param name="extraParams"></param>
         /// <returns></returns>
-        public async Task<Uri> BuildQueryParamsAsync(string urlPath, Dictionary<string, string>? extraParams, bool useDataAPI = false)
+        public async Task<Uri> BuildQueryParamsAsync(string urlPath, Dictionary<string, string>? extraParams)
         {
-            UriBuilder urlBuilder = new(useDataAPI ? XiaoHeiHeDataAPI : XiaoHeiHeAPI);
+            UriBuilder urlBuilder = new(XiaoHeiHeAPI);
             urlBuilder.Path = urlPath;
 
             Dictionary<string, string> temp = RequestParams.ToDictionary(x => x.Key, x => x.Value);
@@ -176,9 +173,9 @@ namespace Xiaoheihe_Core
         /// <param name="method"></param>
         /// <param name="subPath"></param>
         /// <returns></returns>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, bool useDataAPI = false) where T : BasicResponse
+        public async Task<T> BasicRequestAsync<T>(HttpMethod method, string subPath) where T : BasicResponse
         {
-            return await BasicRequest<T>(method, subPath, null, null, useDataAPI);
+            return await BasicRequestAsync<T>(method, subPath, null, null);
         }
 
         /// <summary>
@@ -189,9 +186,9 @@ namespace Xiaoheihe_Core
         /// <param name="subPath"></param>
         /// <param name="extraParams"></param>
         /// <returns></returns>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string> extraParams, bool useDataAPI = false) where T : BasicResponse
+        public async Task<T> BasicRequestAsync<T>(HttpMethod method, string subPath, Dictionary<string, string> extraParams) where T : BasicResponse
         {
-            return await BasicRequest<T>(method, subPath, extraParams, null, useDataAPI).ConfigureAwait(false);
+            return await BasicRequestAsync<T>(method, subPath, extraParams, null).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -202,9 +199,9 @@ namespace Xiaoheihe_Core
         /// <param name="subPath"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, HttpContent content, bool useDataAPI = false) where T : BasicResponse
+        public async Task<T> BasicRequestAsync<T>(HttpMethod method, string subPath, HttpContent content) where T : BasicResponse
         {
-            return await BasicRequest<T>(method, subPath, null, content, useDataAPI).ConfigureAwait(false);
+            return await BasicRequestAsync<T>(method, subPath, null, content).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -218,12 +215,12 @@ namespace Xiaoheihe_Core
         /// <returns></returns>
         /// <exception cref="HkeyServerErrorException"></exception>
         /// <exception cref="NullResponseException"></exception>
-        public async Task<T> BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content, bool useDataAPI = false) where T : BasicResponse
+        public async Task<T> BasicRequestAsync<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content) where T : BasicResponse
         {
             Uri uri;
             try
             {
-                uri = await BuildQueryParamsAsync(subPath, extraParams, useDataAPI).ConfigureAwait(false);
+                uri = await BuildQueryParamsAsync(subPath, extraParams).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -237,6 +234,33 @@ namespace Xiaoheihe_Core
             Stream receiveStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             StreamReader readStream = new(receiveStream, Encoding.UTF8);
             string strJson = await readStream.ReadToEndAsync().ConfigureAwait(false);
+
+            T? result = JsonSerializer.Deserialize<T>(strJson, JsonOptions);
+
+            if (result == null) { throw new NullResponseException(); }
+
+            return result;
+        }
+
+        public T BasicRequest<T>(HttpMethod method, string subPath, Dictionary<string, string>? extraParams, HttpContent? content) where T : BasicResponse
+        {
+            Uri uri;
+            try
+            {
+                uri = BuildQueryParamsAsync(subPath, extraParams).Result;
+            }
+            catch (Exception ex)
+            {
+                throw new HkeyServerErrorException(ex.Message);
+            }
+
+            HttpRequestMessage request = new(method, uri) { Content = content };
+
+            HttpResponseMessage response = HttpForXhh.Send(request);
+
+            Stream receiveStream = response.Content.ReadAsStream();
+            StreamReader readStream = new(receiveStream, Encoding.UTF8);
+            string strJson = readStream.ReadToEnd();
 
             T? result = JsonSerializer.Deserialize<T>(strJson, JsonOptions);
 

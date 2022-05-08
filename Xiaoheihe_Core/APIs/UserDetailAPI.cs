@@ -43,7 +43,7 @@ namespace Xiaoheihe_Core.APIs
                 { "limit", "30" },
             };
 
-            FollowListResponse response = await xhh.BasicRequest<FollowListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            FollowListResponse response = await xhh.BasicRequestAsync<FollowListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -87,7 +87,7 @@ namespace Xiaoheihe_Core.APIs
                 { "limit", "30" },
             };
 
-            FollowListResponse response = await xhh.BasicRequest<FollowListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            FollowListResponse response = await xhh.BasicRequestAsync<FollowListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -110,7 +110,7 @@ namespace Xiaoheihe_Core.APIs
 
             FormUrlEncodedContent content = new(formData);
 
-            FollowListResponse response = await xhh.BasicRequest<FollowListResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
+            FollowListResponse response = await xhh.BasicRequestAsync<FollowListResponse>(HttpMethod.Post, subPath, content).ConfigureAwait(false);
 
             return response;
         }
@@ -165,7 +165,7 @@ namespace Xiaoheihe_Core.APIs
                 { "limit", "30" },
             };
 
-            UserEventsResponse response = await xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            UserEventsResponse response = await xhh.BasicRequestAsync<UserEventsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -217,7 +217,7 @@ namespace Xiaoheihe_Core.APIs
                 extraParams.Add("list_type", "article");
             }
 
-            UserPostLinkResponse response = await xhh.BasicRequest<UserPostLinkResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            UserPostLinkResponse response = await xhh.BasicRequestAsync<UserPostLinkResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -265,7 +265,7 @@ namespace Xiaoheihe_Core.APIs
                 { "only_cy", onlyCy ? "1" : "0" },
             };
 
-            UserCommentListResponse response = await xhh.BasicRequest<UserCommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            UserCommentListResponse response = await xhh.BasicRequestAsync<UserCommentListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -311,7 +311,7 @@ namespace Xiaoheihe_Core.APIs
                 { "type_filter", "following" },
             };
 
-            FriendListResponse response = await xhh.BasicRequest<FriendListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            FriendListResponse response = await xhh.BasicRequestAsync<FriendListResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }

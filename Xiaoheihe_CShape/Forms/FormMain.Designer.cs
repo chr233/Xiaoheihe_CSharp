@@ -42,6 +42,7 @@
             this.tSMNone = new System.Windows.Forms.ToolStripMenuItem();
             this.tSMNot = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnTest = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
@@ -57,7 +58,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.cMenuAccount.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -160,7 +160,7 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnTest);
             this.groupBox2.Controls.Add(this.btnReload);
             this.groupBox2.Controls.Add(this.btnProfile);
             this.groupBox2.Controls.Add(this.btnDeleteAccount);
@@ -172,6 +172,16 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "账号编辑";
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(134, 56);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(116, 28);
+            this.btnTest.TabIndex = 4;
+            this.btnTest.Text = "&T. 调试专用";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.BtnTest_Click);
             // 
             // btnReload
             // 
@@ -327,16 +337,6 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "HkeyServer";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(134, 56);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 28);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -354,6 +354,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "小黑盒 CShape";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.cMenuAccount.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -395,6 +396,6 @@
         private ToolStripMenuItem tSMNone;
         private ToolStripMenuItem tSMNot;
         private Button btnReload;
-        private Button button1;
+        private Button btnTest;
     }
 }

@@ -20,8 +20,21 @@ namespace Xiaoheihe_CShape.Forms
 
             Icon = Properties.Resources.icon;
 
+#if DEBUG
+            btnTest.Visible = true;
+#else
+            btnTest.Visible = false;
+#endif
+
+
+
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
             LoadCfg();
         }
+
 
         private void SaveAndReload()
         {
@@ -316,7 +329,8 @@ namespace Xiaoheihe_CShape.Forms
             UpdateAccountList();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+#if DEBUG
+        private void BtnTest_Click(object sender, EventArgs e)
         {
             ListView.SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
 
@@ -336,10 +350,13 @@ namespace Xiaoheihe_CShape.Forms
 
                         Xiaoheihe_Core.XiaoheiheClient xhh = new(account, Utils.GlobalConfig.XhhVersion, Utils.GlobalConfig.HkeyServer);
 
-                        var result = xhh.GetLinkTree(80631064, 6, 0, SortFilter.Hot, false, false).Result;
+                        //var result = xhh.GetLinkTree(80631064, 6, 0, SortFilter.Hot, false, false);
+                        var result = xhh.GetNewsContent(80631064, 6).Result;
                     }
                 }
             }
         }
+#endif
+
     }
 }

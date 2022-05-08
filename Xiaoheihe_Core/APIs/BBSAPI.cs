@@ -43,7 +43,7 @@ namespace Xiaoheihe_Core.APIs
                 { "filters", filter },
             };
 
-            UserEventsResponse response = await xhh.BasicRequest<UserEventsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            UserEventsResponse response = await xhh.BasicRequestAsync<UserEventsResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
@@ -63,7 +63,7 @@ namespace Xiaoheihe_Core.APIs
                 { "news_list_type", "normal" },
             };
 
-            FavourTopicResponse response = await xhh.BasicRequest<FavourTopicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+            FavourTopicResponse response = await xhh.BasicRequestAsync<FavourTopicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
 
             return response;
         }
