@@ -17,7 +17,14 @@
 
         public override string? ToString()
         {
-            return $"[{HeyboxID}] {NickName}";
+            if (string.IsNullOrEmpty(Description))
+            {
+                return $"[{HeyboxID}] {NickName}";
+            }
+            else
+            {
+                return $"[{HeyboxID}] {NickName} ({Description})";
+            }
         }
     }
 }

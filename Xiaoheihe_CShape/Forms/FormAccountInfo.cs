@@ -45,7 +45,7 @@ namespace Xiaoheihe_CShape.Forms
                 user = new() { UserName = "读取出错", Signature = ex.Message };
             }
 
-            Invoke(() => {
+            Invoke((Delegate)(() => {
                 picAvatar.ImageLocation = user.Avatar ?? "";
                 txtUserName.Text = user.UserName;
                 txtUserID.Text = user.UserID;
@@ -55,7 +55,7 @@ namespace Xiaoheihe_CShape.Forms
                 txtFollowCount.Text = user.FollowingCount.ToString();
                 txtAwardedCount.Text = user.AwardedCount.ToString();
                 UseWaitCursor = false;
-            });
+            }));
         }
     }
 }

@@ -33,8 +33,6 @@
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUserID = new System.Windows.Forms.TextBox();
-            this.txtSignature = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtLevel = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,6 +41,7 @@
             this.txtAwardedCount = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtSignature = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +61,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(102, 15);
+            this.label1.Location = new System.Drawing.Point(109, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 17);
             this.label1.TabIndex = 1;
@@ -71,7 +70,7 @@
             // 
             // txtUserName
             // 
-            this.txtUserName.Location = new System.Drawing.Point(152, 12);
+            this.txtUserName.Location = new System.Drawing.Point(159, 12);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.ReadOnly = true;
             this.txtUserName.Size = new System.Drawing.Size(153, 23);
@@ -81,7 +80,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(102, 46);
+            this.label2.Location = new System.Drawing.Point(109, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(21, 17);
             this.label2.TabIndex = 3;
@@ -90,37 +89,17 @@
             // 
             // txtUserID
             // 
-            this.txtUserID.Location = new System.Drawing.Point(152, 46);
+            this.txtUserID.Location = new System.Drawing.Point(159, 40);
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.ReadOnly = true;
             this.txtUserID.Size = new System.Drawing.Size(153, 23);
             this.txtUserID.TabIndex = 4;
             this.txtUserID.UseWaitCursor = true;
             // 
-            // txtSignature
-            // 
-            this.txtSignature.Location = new System.Drawing.Point(152, 75);
-            this.txtSignature.Multiline = true;
-            this.txtSignature.Name = "txtSignature";
-            this.txtSignature.ReadOnly = true;
-            this.txtSignature.Size = new System.Drawing.Size(152, 65);
-            this.txtSignature.TabIndex = 5;
-            this.txtSignature.UseWaitCursor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(102, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 17);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "签名";
-            this.label3.UseWaitCursor = true;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(102, 149);
+            this.label4.Location = new System.Drawing.Point(109, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 17);
             this.label4.TabIndex = 7;
@@ -129,7 +108,7 @@
             // 
             // txtLevel
             // 
-            this.txtLevel.Location = new System.Drawing.Point(152, 146);
+            this.txtLevel.Location = new System.Drawing.Point(159, 69);
             this.txtLevel.Name = "txtLevel";
             this.txtLevel.ReadOnly = true;
             this.txtLevel.Size = new System.Drawing.Size(152, 23);
@@ -139,7 +118,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(102, 178);
+            this.label5.Location = new System.Drawing.Point(109, 101);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 17);
             this.label5.TabIndex = 9;
@@ -148,7 +127,7 @@
             // 
             // txtFanCount
             // 
-            this.txtFanCount.Location = new System.Drawing.Point(152, 175);
+            this.txtFanCount.Location = new System.Drawing.Point(159, 98);
             this.txtFanCount.Name = "txtFanCount";
             this.txtFanCount.ReadOnly = true;
             this.txtFanCount.Size = new System.Drawing.Size(152, 23);
@@ -157,7 +136,7 @@
             // 
             // txtFollowCount
             // 
-            this.txtFollowCount.Location = new System.Drawing.Point(152, 204);
+            this.txtFollowCount.Location = new System.Drawing.Point(159, 127);
             this.txtFollowCount.Name = "txtFollowCount";
             this.txtFollowCount.ReadOnly = true;
             this.txtFollowCount.Size = new System.Drawing.Size(152, 23);
@@ -166,7 +145,7 @@
             // 
             // txtAwardedCount
             // 
-            this.txtAwardedCount.Location = new System.Drawing.Point(152, 233);
+            this.txtAwardedCount.Location = new System.Drawing.Point(159, 156);
             this.txtAwardedCount.Name = "txtAwardedCount";
             this.txtAwardedCount.ReadOnly = true;
             this.txtAwardedCount.Size = new System.Drawing.Size(153, 23);
@@ -176,7 +155,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(102, 207);
+            this.label6.Location = new System.Drawing.Point(109, 130);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 17);
             this.label6.TabIndex = 13;
@@ -186,18 +165,31 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(102, 236);
+            this.label7.Location = new System.Drawing.Point(109, 159);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(32, 17);
             this.label7.TabIndex = 14;
             this.label7.Text = "获赞";
             this.label7.UseWaitCursor = true;
             // 
+            // txtSignature
+            // 
+            this.txtSignature.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSignature.Location = new System.Drawing.Point(12, 104);
+            this.txtSignature.Multiline = true;
+            this.txtSignature.Name = "txtSignature";
+            this.txtSignature.ReadOnly = true;
+            this.txtSignature.Size = new System.Drawing.Size(84, 72);
+            this.txtSignature.TabIndex = 15;
+            this.txtSignature.Text = "加载中";
+            this.txtSignature.UseWaitCursor = true;
+            // 
             // FormAccountInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 267);
+            this.ClientSize = new System.Drawing.Size(325, 191);
+            this.Controls.Add(this.txtSignature);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtAwardedCount);
@@ -206,8 +198,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtLevel);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtSignature);
             this.Controls.Add(this.txtUserID);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtUserName);
@@ -234,8 +224,6 @@
         private TextBox txtUserName;
         private Label label2;
         private TextBox txtUserID;
-        private TextBox txtSignature;
-        private Label label3;
         private Label label4;
         private TextBox txtLevel;
         private Label label5;
@@ -244,5 +232,6 @@
         private TextBox txtAwardedCount;
         private Label label6;
         private Label label7;
+        private TextBox txtSignature;
     }
 }

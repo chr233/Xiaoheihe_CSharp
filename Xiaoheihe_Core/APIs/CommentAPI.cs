@@ -90,7 +90,7 @@ namespace Xiaoheihe_Core.APIs
         /// <param name="hideCy"></param>
         /// <param name="authorOnly"></param>
         /// <returns></returns>
-        public static async Task<CommentListResponse> GetNewsCommentList(this XiaoheiheClient xhh, uint linkID, uint index, uint page, SortFilter sortType, bool hideCy, bool authorOnly)
+        public static async Task<CommentListResponse> GetLinkTree(this XiaoheiheClient xhh, uint linkID, uint index, uint page, SortFilter sortType, bool hideCy, bool authorOnly)
         {
             string subPath = "/bbs/app/link/tree";
 

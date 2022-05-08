@@ -53,10 +53,10 @@ namespace Xiaoheihe_CShape.Forms
                 AccountsDict[account.HeyboxID] = account;
             }
 
-            UpdateAccountList();
+            InitAccountList();
         }
 
-        private void UpdateAccountList()
+        private void InitAccountList()
         {
             lVAccounts.BeginUpdate();
             lVAccounts.Items.Clear();
@@ -75,6 +75,29 @@ namespace Xiaoheihe_CShape.Forms
                 item.Checked = ChecledItems.Contains(account.HeyboxID);
 
                 lVAccounts.Items.Add(item);
+            }
+
+            lVAccounts.EndUpdate();
+        }
+
+        private void UpdateAccountList()
+        {
+            lVAccounts.BeginUpdate();
+
+            foreach (ListViewItem item in lVAccounts.Items)
+            {
+                string userID = item.SubItems[1].Text;
+
+                if (AccountsDict.ContainsKey(userID))
+                {
+                    Account account = AccountsDict[userID];
+
+                    item.SubItems[2].Text = account.NickName;
+                    item.SubItems[3].Text = account.Level;
+                    item.SubItems[4].Text = $"{account.OSType} {account.OSVersion}";
+                    item.SubItems[5].Text = account.DeviceInfo;
+                    item.SubItems[6].Text = account.Channal;
+                }
             }
 
             lVAccounts.EndUpdate();
@@ -313,7 +336,7 @@ namespace Xiaoheihe_CShape.Forms
 
                         Xiaoheihe_Core.XiaoheiheClient xhh = new(account, Utils.GlobalConfig.XhhVersion, Utils.GlobalConfig.HkeyServer);
 
-                        var result = xhh.GetLinkWebView(80631064,6).Result;
+                        var result = xhh.GetLinkTree(80631064, 6, 0, SortFilter.Hot, false, false).Result;
                     }
                 }
             }
