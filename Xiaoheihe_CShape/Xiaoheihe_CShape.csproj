@@ -55,10 +55,6 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="powershell -Command &quot;&amp;'$(SolutionDir)scripts\Pre-Build.ps1' '$(ProjectDir)'&quot;" />
   </Target>
