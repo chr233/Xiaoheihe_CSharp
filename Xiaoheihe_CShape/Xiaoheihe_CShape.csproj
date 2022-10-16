@@ -22,6 +22,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Properties\icon.ico" />
   </ItemGroup>
 
@@ -30,6 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\FormS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\FormSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

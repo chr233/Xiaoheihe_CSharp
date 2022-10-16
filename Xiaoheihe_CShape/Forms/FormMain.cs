@@ -21,7 +21,7 @@ namespace Xiaoheihe_CShape.Forms
             Icon = Properties.Resources.icon;
 
 #if DEBUG
-            btnTest.Visible = true;
+            btnSetting.Visible = true;
 #else
             btnTest.Visible = false;
 #endif
@@ -330,7 +330,7 @@ namespace Xiaoheihe_CShape.Forms
         }
 
 #if DEBUG
-        private void BtnTest_Click(object sender, EventArgs e)
+        private void BtnSetting_Click(object sender, EventArgs e)
         {
             ListView.SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
 
@@ -355,6 +355,11 @@ namespace Xiaoheihe_CShape.Forms
                     }
                 }
             }
+        }
+
+        private void lVAccounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 #endif
 
