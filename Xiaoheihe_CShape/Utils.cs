@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
-
+using Xiaoheihe_Core.Data;
 using Xiaoheihe_CShape.Storage;
 
 namespace Xiaoheihe_CShape
@@ -8,6 +8,8 @@ namespace Xiaoheihe_CShape
     public static class Utils
     {
         public static Config GlobalConfig { get; private set; } = new();
+
+        public static Dictionary<string, Account> AccountsDict { get; private set; } = new();
 
         /// <summary>
         /// 读取配置路径
@@ -42,6 +44,7 @@ namespace Xiaoheihe_CShape
         /// <param name="filePath"></param>
         public static void SaveConfig(string filePath)
         {
+            GlobalConfig.Accounts = AccountsDict.Values.ToList();
 
             JsonSerializerOptions options = new()
             {
@@ -69,10 +72,21 @@ namespace Xiaoheihe_CShape
         /// <param name="filePath"></param>
         public static void LoadConfig(string filePath)
         {
+            AccountsDict.Clear();
             if (File.Exists(filePath))
             {
                 string strConfig = File.ReadAllText(filePath, Encoding.UTF8);
                 GlobalConfig = JsonSerializer.Deserialize<Config>(strConfig ?? "") ?? new();
+
+                foreach (Account account in GlobalConfig.Accounts)
+                {
+                    if (!AccountsDict.ContainsKey(account.HeyboxID))
+                    {
+                        AccountsDict[account.HeyboxID] = account;
+                    }
+                }
+                
+                GlobalConfig.Accounts = AccountsDict.Values.ToList();
             }
             else
             {

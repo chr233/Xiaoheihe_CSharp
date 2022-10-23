@@ -17,5 +17,6 @@ namespace Xiaoheihe_CShape.Storage
         public bool TopupRepeat { get; set; } = true;
 
         public List<string> Proxies { get; set; } = new();
+        public uint ChangeProxyCount { get; set; }
     }
 }

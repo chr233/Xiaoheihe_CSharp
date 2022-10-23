@@ -87,11 +87,11 @@ dotnet_style_object_initializer = true:suggestion
 #Style - implicit and explicit types
 
 #prefer explicit type over var in all cases, unless overridden by another code style rule
-csharp_style_var_elsewhere = false:suggestion
+csharp_style_var_elsewhere = false:silent
 #prefer explicit type over var to declare variables with built-in system types such as int
-csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_for_built_in_types = true:silent
 #prefer explicit type over var when the type is already mentioned on the right-hand side of a declaration
-csharp_style_var_when_type_is_apparent = false:suggestion
+csharp_style_var_when_type_is_apparent = true:silent
 
 #Style - language keyword and framework type options
 
@@ -197,6 +197,8 @@ csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 insert_final_newline = true
 csharp_space_around_binary_operators = before_and_after
+csharp_style_prefer_method_group_conversion = true:silent
+csharp_style_prefer_top_level_statements = true:silent
 
 [*.vb]
 #### ÃüÃûÑùÊ½ ####

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Xiaoheihe_CShape.Storage;
 
 namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormSetting : Form
     {
+        private bool CloseAlert;
+        private static Config MyConfig => Utils.GlobalConfig;
+
         public FormSetting()
         {
             InitializeComponent();
@@ -19,7 +14,71 @@ namespace Xiaoheihe_CShape.Forms
 
         private void FormSetting_Load(object sender, EventArgs e)
         {
+            Icon = Properties.Resources.icon;
 
+            txtHBVersion.Text = MyConfig.XhhVersion;
+            txtHKeyServer.Text = MyConfig.HkeyServer;
+            txtProxies.Text = string.Join('\n', MyConfig.Proxies);
+        }
+
+        private void FormSetting_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CloseAlert)
+            {
+                DialogResult result = MessageBox.Show("不保存设置就退出吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result != DialogResult.OK)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        private void OnConfigChange(object sender, EventArgs e)
+        {
+            CloseAlert = true;
+        }
+
+        private void BtnAccept_Click(object sender, EventArgs e)
+        {
+            MyConfig.XhhVersion = txtHBVersion.Text;
+            MyConfig.HkeyServer = txtHKeyServer.Text;
+
+            List<string> proxies = new();
+            foreach (string line in txtProxies.Lines)
+            {
+                if (!string.IsNullOrEmpty(line))
+                {
+                    proxies.Add(line);
+                }
+            }
+
+            MyConfig.Proxies = proxies;
+
+            if (proxies.Count == 0 && updProxyChangeCount.Value > 0)
+            {
+                MessageBox.Show("检测到代理列表为空，自动禁用代理相关功能",
+                    "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                updProxyChangeCount.Value = 0;
+            }
+
+            MyConfig.ChangeProxyCount = (uint)updProxyChangeCount.Value;
+
+            txtProxies.Text = string.Join('\n', MyConfig.Proxies);
+
+            Utils.SaveConfig();
+            CloseAlert = false;
+            Close();
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void BtnOpen_Click(object sender, EventArgs e)
+        {
+            string configPath = Utils.GetConfigFilePath();
+            System.Diagnostics.Process.Start("Explorer.exe", "/select," + configPath);
         }
     }
 }

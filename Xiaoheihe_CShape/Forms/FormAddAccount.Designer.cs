@@ -150,7 +150,7 @@
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.Location = new System.Drawing.Point(247, 283);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 32);
+            this.btnCancel.Size = new System.Drawing.Size(75, 28);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.TabStop = false;
             this.btnCancel.Text = "&C. 取消";
@@ -162,7 +162,7 @@
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOK.Location = new System.Drawing.Point(112, 283);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(129, 32);
+            this.btnOK.Size = new System.Drawing.Size(129, 28);
             this.btnOK.TabIndex = 7;
             this.btnOK.TabStop = false;
             this.btnOK.Text = "&A. 添加";
@@ -315,7 +315,7 @@
             this.btnFill.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnFill.Location = new System.Drawing.Point(78, 283);
             this.btnFill.Name = "btnFill";
-            this.btnFill.Size = new System.Drawing.Size(128, 32);
+            this.btnFill.Size = new System.Drawing.Size(128, 28);
             this.btnFill.TabIndex = 10;
             this.btnFill.Text = "&I. 识别并填充";
             this.btnFill.UseVisualStyleBackColor = true;

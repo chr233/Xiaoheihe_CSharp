@@ -8,7 +8,7 @@ namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormDailyTask : Form
     {
-        private static HashSet<string> ChecledItems => Utils.GlobalConfig.CheckedItems;
+        private static HashSet<string> ChecledItems => Utils.GlobalConfig.CheckedItems.ToHashSet();
         private static uint DailyTaskThread => Utils.GlobalConfig.DailyTaskThread;
         private static uint DailyTaskDelay => Utils.GlobalConfig.DailyTaskDelay;
         private static string HkeyServer => Utils.GlobalConfig.HkeyServer;

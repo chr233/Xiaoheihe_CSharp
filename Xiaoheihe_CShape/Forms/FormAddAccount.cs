@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Principal;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using Xiaoheihe_Core.Data;
