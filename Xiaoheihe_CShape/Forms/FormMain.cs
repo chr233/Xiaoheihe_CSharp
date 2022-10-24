@@ -1,7 +1,5 @@
-using Xiaoheihe_Core.Data;
 using Xiaoheihe_Core.APIs;
-using Xiaoheihe_CShape.Storage;
-using static Xiaoheihe_Core.StaticValue;
+using Xiaoheihe_Core.Data;
 
 namespace Xiaoheihe_CShape.Forms
 {

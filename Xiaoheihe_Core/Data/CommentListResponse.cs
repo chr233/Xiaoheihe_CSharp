@@ -39,7 +39,7 @@ namespace Xiaoheihe_Core.Data
 
         public override string? ToString()
         {
-            if(Comment.Count > 0)
+            if (Comment.Count > 0)
             {
                 return $"[{Comment.Count}] {Comment.First()}";
             }

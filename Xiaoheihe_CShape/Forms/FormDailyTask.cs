@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System.Net;
 using Xiaoheihe_Core;
 using Xiaoheihe_Core.APIs;
 using Xiaoheihe_Core.Data;
@@ -10,10 +10,12 @@ namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormDailyTask : Form
     {
-        private static Config Myconfig => Utils.GlobalConfig;
-        private static HashSet<string> ChecledItems => Myconfig.CheckedItems.ToHashSet();
+        private static Config MyConfig => Utils.GlobalConfig;
+        private static HashSet<string> ChecledItems => MyConfig.CheckedItems.ToHashSet();
         private static Dictionary<string, Account> AccountsDict => Utils.AccountsDict;
         private static Dictionary<string, KeyValuePair<Account, DailyTaskData>> DailyTaskDict { get; } = new();
+
+        private int NextProxyIndex = -1;
 
         public FormDailyTask()
         {
@@ -29,16 +31,29 @@ namespace Xiaoheihe_CShape.Forms
                 DailyTaskDict[account.HeyboxID] = new(account, new());
             }
 
-            updThreadCount.Value = Myconfig.DailyTaskThread;
-            updTaskDelay.Value = Myconfig.DailyTaskDelay;
+            updThreadCount.Value = MyConfig.DailyTaskThread;
+            updTaskDelay.Value = MyConfig.DailyTaskDelay;
+
+            bool proxyAvilable = MyConfig.Proxies.Count > 0;
+            chkUseProxy.Enabled = proxyAvilable;
+            chkUseProxy.Checked = MyConfig.UseProxy && proxyAvilable;
+
+            if (proxyAvilable)
+            {
+                gbProxy.Text = $"代理设置 可用 {MyConfig.Proxies.Count} 条";
+            }
+            else
+            {
+                gbProxy.Text = "代理设置 (无可用代理)";
+            }
 
             InitAccountList();
         }
 
         private void FormDailyTask_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Myconfig.DailyTaskThread = (uint)updThreadCount.Value;
-            Myconfig.DailyTaskDelay = (uint)updTaskDelay.Value;
+            MyConfig.DailyTaskThread = (uint)updThreadCount.Value;
+            MyConfig.DailyTaskDelay = (uint)updTaskDelay.Value;
 
             List<string> checkedItems = new();
             foreach (ListViewItem item in lVAccounts.CheckedItems)
@@ -46,10 +61,9 @@ namespace Xiaoheihe_CShape.Forms
                 checkedItems.Add(item.SubItems[1].Text);
             }
 
-            Myconfig.CheckedItems = checkedItems;
+            MyConfig.CheckedItems = checkedItems;
             Utils.SaveConfig();
         }
-
 
         private void UpdateAccountListAsync()
         {
@@ -155,8 +169,10 @@ namespace Xiaoheihe_CShape.Forms
             int delay = (int)updTaskDelay.Value;
             int thread = (int)updThreadCount.Value;
 
-            Myconfig.DailyTaskDelay = (uint)delay;
-            Myconfig.DailyTaskThread = (uint)thread;
+            MyConfig.DailyTaskDelay = (uint)delay;
+            MyConfig.DailyTaskThread = (uint)thread;
+            MyConfig.UseProxy = chkUseProxy.Checked;
+
             Utils.SaveConfig();
 
             var checkedItems = lVAccounts.CheckedItems;
@@ -174,6 +190,11 @@ namespace Xiaoheihe_CShape.Forms
 
             if (selectedAccounts.Count > 0)
             {
+                bool useProxy = MyConfig.Proxies.Count > 0 && chkUseProxy.Checked;
+
+                NextProxyIndex = useProxy ? 0 : -1;
+
+                chkUseProxy.Enabled = false;
                 btnStartTask.Enabled = false;
                 updTaskDelay.Enabled = false;
                 updThreadCount.Enabled = false;
@@ -220,6 +241,7 @@ namespace Xiaoheihe_CShape.Forms
             }
 
             Invoke(() => {
+                chkUseProxy.Enabled = MyConfig.Proxies.Count > 0;
                 btnStartTask.Enabled = true;
                 updTaskDelay.Enabled = true;
                 updThreadCount.Enabled = true;
@@ -233,12 +255,63 @@ namespace Xiaoheihe_CShape.Forms
         {
             await semaphore.WaitAsync();
 
-            XiaoheiheClient xhh = new(account, Myconfig.XhhVersion, Myconfig.HkeyServer);
+            WebProxy? proxy = null;
 
-            data.Status = "开始执行";
+            if (NextProxyIndex != -1)
+            {
+                int i = 3;
+                while (i-- > 0)
+                {
+                    if (NextProxyIndex >= MyConfig.Proxies.Count)
+                    {
+                        NextProxyIndex = 0;
+                    }
+                    string uri = MyConfig.Proxies[NextProxyIndex++].ToLower();
+
+                    if (!uri.StartsWith("http://"))
+                    {
+                        uri = "http://" + uri;
+                    }
+
+                    try
+                    {
+                        proxy = new WebProxy(new Uri(uri))
+                        {
+                            BypassProxyOnLocal = true
+                        };
+
+                        XiaoheiheClient testXhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer, proxy);
+
+                        var result = await testXhh.GetTaskList();
+                        if (result.Status == "ok")
+                        {
+                            break;
+                        }
+                    }
+                    catch
+                    {
+                        PrintLog(account.HeyboxID, data, "代理配置有误");
+                    }
+                }
+
+                if (proxy == null)
+                {
+                    PrintLog(account.HeyboxID, data, "找不到可用代理, 使用直连模式");
+                }
+            }
+
+            XiaoheiheClient xhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer);
+
+
+            if (xhh == null)
+            {
+                return;
+            }
+
+            PrintLog(xhh.HeyboxID, data, "开始执行任务");
             UpdateAccountListAsync();
 
-            bool sign = false, share1 = false, share2 = false, like = false;
+            bool sign = false, share1 = false, share2 = false, share3 = false;
 
             async Task CheckTask()
             {
@@ -246,7 +319,7 @@ namespace Xiaoheihe_CShape.Forms
 
                 if (taskListResponse == null || taskListResponse.Result == null)
                 {
-                    data.Status = "读取任务出错 响应为空";
+                    PrintLog(xhh.HeyboxID, data, "读取任务出错 响应为空");
                     return;
                 }
 
@@ -271,25 +344,25 @@ namespace Xiaoheihe_CShape.Forms
                             }
                             else if (task.Title.StartsWith("分享"))
                             {
-                                if (!task.Title.Contains("评论"))
+                                if (task.Title.Contains("头条"))
                                 {
                                     share1 = task.State == "finish";
                                 }
-                                else
+                                else if (task.Title.Contains("评论"))
                                 {
                                     share2 = task.State == "finish";
                                 }
-                            }
-                            else
-                            {
-                                like = task.State == "finish";
+                                else
+                                {
+                                    share3 = task.State == "finish";
+                                }
                             }
                         }
                     }
                 }
 
-                data.Tasks = $"签到{Utils.B2S(sign)}分享{Utils.B2S(share1)}|{Utils.B2S(share2)}点赞{Utils.B2S(like)}";
-                data.Status = "读取任务状态";
+                data.Tasks = $"签到{Utils.B2S(sign)}分享{Utils.B2S(share1)}{Utils.B2S(share2)}{Utils.B2S(share3)}";
+                PrintLog(xhh.HeyboxID, data, "读取任务状态");
                 UpdateAccountListAsync();
             }
 
@@ -299,7 +372,7 @@ namespace Xiaoheihe_CShape.Forms
 
                 if (taskListResponse == null || taskListResponse.Result == null)
                 {
-                    data.Status = "读取任务出错 响应为空";
+                    PrintLog(xhh.HeyboxID, data, "读取任务出错 响应为空");
                     return;
                 }
 
@@ -307,29 +380,27 @@ namespace Xiaoheihe_CShape.Forms
 
                 if (!sign)
                 {
-                    data.Status = "签到任务";
+                    PrintLog(xhh.HeyboxID, data, "签到任务");
                     UpdateAccountListAsync();
 
                     await xhh.TaskSign();
                 }
 
-                if (!share1 || !share2 || !like)
+                if (!share1 || !share2 || !share3)
                 {
-                    data.Status = "读取新闻列表";
+                    PrintLog(xhh.HeyboxID, data, "读取新闻列表");
                     UpdateAccountListAsync();
 
                     AppFeedNewsResponse appFeedNews = await xhh.GetFeedNews(0);
                     if (appFeedNews == null || appFeedNews.Result == null)
                     {
-                        data.Status = "读取新闻列表 响应为空";
+                        PrintLog(xhh.HeyboxID, data, "读取新闻列表 响应为空");
                         return;
                     }
 
                     HashSet<NewsLinkData>? newsLinks = appFeedNews.Result.Links;
 
                     int index = 0;
-                    int likes = 0;
-                    int likesMax = 5;
                     foreach (NewsLinkData news in newsLinks)
                     {
                         index++;
@@ -338,7 +409,7 @@ namespace Xiaoheihe_CShape.Forms
                         {
                             if (!share1)
                             {
-                                data.Status = "分享新闻任务";
+                                PrintLog(xhh.HeyboxID, data, "分享新闻任务");
                                 UpdateAccountListAsync();
                                 await xhh.ShareNews(news.LinkID, index).ConfigureAwait(false);
                                 share1 = true;
@@ -348,7 +419,7 @@ namespace Xiaoheihe_CShape.Forms
 
                             if (!share2)
                             {
-                                data.Status = "分享评论任务";
+                                PrintLog(xhh.HeyboxID, data, "分享评论任务");
                                 UpdateAccountListAsync();
                                 await xhh.ShareComment().ConfigureAwait(false);
                                 share2 = true;
@@ -356,37 +427,25 @@ namespace Xiaoheihe_CShape.Forms
 
                             await Task.Delay(delay);
 
-                            if (likes <= likesMax)
+                            if (!share3)
                             {
-                                data.Status = $"点赞文章任务 {likes}/{likesMax}";
+                                PrintLog(xhh.HeyboxID, data, "分享游戏任务");
                                 UpdateAccountListAsync();
-                                BasicResponse result = await xhh.LikeNews(news.LinkID, index);
-
-                                if (result != null)
-                                {
-                                    if (result.Status == "ok")
-                                    {
-                                        likes++;
-                                    }
-                                    else
-                                    {
-                                        data.Status = result.Message;
-                                    }
-                                }
-
-                                await Task.Delay(delay);
+                                await xhh.ShareGame().ConfigureAwait(false);
+                                share2 = true;
                             }
+
+                            await Task.Delay(delay);
                         }
 
-                        if (likes >= likesMax && share1 && share2)
+                        if (share1 && share2 && share3)
                         {
                             break;
                         }
                     }
                     await CheckTask().ConfigureAwait(false);
                 }
-
-                data.Status = (sign && share1 && share2 && like) ? "每日任务全部完成" : "每日任务未全部完成";
+                PrintLog(xhh.HeyboxID, data, (sign && share1 && share2 && share3) ? "每日任务全部完成" : "每日任务未全部完成");
                 UpdateAccountListAsync();
             }
             catch (XhhCSBaseException ex)
@@ -397,6 +456,20 @@ namespace Xiaoheihe_CShape.Forms
             {
                 semaphore.Release();
             }
+        }
+
+        private void PrintLog(uint heyboxId, DailyTaskData data, string msg)
+        {
+            PrintLog(heyboxId.ToString(), data, msg);
+        }
+
+        private void PrintLog(string heyboxId, DailyTaskData data, string msg)
+        {
+            Invoke(() => {
+                data.Status = msg;
+                lstLog.Items.Add($"[{DateTime.Now:T}] {heyboxId} {msg}");
+                lstLog.TopIndex = lstLog.Items.Count - 1;
+            });
         }
     }
 }

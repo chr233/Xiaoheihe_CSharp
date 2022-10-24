@@ -33,8 +33,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtHBVersion = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.updProxyChangeCount = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.txtProxies = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAccept = new System.Windows.Forms.Button();
@@ -43,7 +41,6 @@
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.updProxyChangeCount)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox5
@@ -97,8 +94,6 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.updProxyChangeCount);
-            this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtProxies);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(12, 137);
@@ -107,31 +102,6 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "代理设置";
-            // 
-            // updProxyChangeCount
-            // 
-            this.updProxyChangeCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.updProxyChangeCount.Location = new System.Drawing.Point(278, 342);
-            this.updProxyChangeCount.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.updProxyChangeCount.Name = "updProxyChangeCount";
-            this.updProxyChangeCount.Size = new System.Drawing.Size(80, 23);
-            this.updProxyChangeCount.TabIndex = 3;
-            this.updProxyChangeCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.updProxyChangeCount.ValueChanged += new System.EventHandler(this.OnConfigChange);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 345);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(226, 17);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "多少个账号更换一次代理, 0代表禁用代理";
             // 
             // txtProxies
             // 
@@ -143,7 +113,7 @@
             this.txtProxies.Name = "txtProxies";
             this.txtProxies.PlaceholderText = "127.0.0.1:8080";
             this.txtProxies.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtProxies.Size = new System.Drawing.Size(351, 299);
+            this.txtProxies.Size = new System.Drawing.Size(351, 326);
             this.txtProxies.TabIndex = 2;
             this.txtProxies.TextChanged += new System.EventHandler(this.OnConfigChange);
             // 
@@ -216,7 +186,6 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.updProxyChangeCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -232,8 +201,6 @@
         private Label label1;
         private Button btnAccept;
         private Button btnCancel;
-        private NumericUpDown updProxyChangeCount;
-        private Label label2;
         private Button btnOpen;
     }
 }

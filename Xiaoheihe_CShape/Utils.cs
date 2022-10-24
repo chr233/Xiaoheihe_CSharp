@@ -11,7 +11,7 @@ namespace Xiaoheihe_CShape
         /// 全局配置
         /// </summary>
         public static Config GlobalConfig { get; private set; } = new();
-        
+
         /// <summary>
         /// 账号字典
         /// </summary>
@@ -91,7 +91,7 @@ namespace Xiaoheihe_CShape
                         AccountsDict[account.HeyboxID] = account;
                     }
                 }
-                
+
                 GlobalConfig.Accounts = AccountsDict.Values.ToList();
             }
             else

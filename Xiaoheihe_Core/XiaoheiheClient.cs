@@ -26,7 +26,7 @@ namespace Xiaoheihe_Core
         /// <param name="account"></param>
         /// <param name="version"></param>
         /// <param name="hkeyServer"></param>
-        public XiaoheiheClient(Account account, string version, string hkeyServer)
+        public XiaoheiheClient(Account account, string version, string hkeyServer, WebProxy? proxy = null)
         {
             CookieContainer cookieContainer = new();
 
@@ -40,7 +40,9 @@ namespace Xiaoheihe_Core
             HttpForXhh = new(new HttpClientHandler()
             {
                 CookieContainer = cookieContainer,
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+                UseProxy = proxy != null,
+                Proxy = proxy
             });
 
             HttpForHkey = new(new HttpClientHandler()

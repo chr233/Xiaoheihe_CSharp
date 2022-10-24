@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Xiaoheihe_Core.Data;
-using Xiaoheihe_CShape.Storage;
+﻿using Xiaoheihe_Core.Data;
 using static Xiaoheihe_Core.StaticValue;
 
 namespace Xiaoheihe_CShape.Forms
@@ -83,7 +81,7 @@ namespace Xiaoheihe_CShape.Forms
                     if (result != DialogResult.Yes)
                     {
                         return;
-                    }                 
+                    }
                 }
                 AccountsDict[account.HeyboxID] = account;
 

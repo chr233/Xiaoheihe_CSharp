@@ -54,15 +54,6 @@ namespace Xiaoheihe_CShape.Forms
 
             MyConfig.Proxies = proxies;
 
-            if (proxies.Count == 0 && updProxyChangeCount.Value > 0)
-            {
-                MessageBox.Show("检测到代理列表为空，自动禁用代理相关功能",
-                    "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                updProxyChangeCount.Value = 0;
-            }
-
-            MyConfig.ChangeProxyCount = (uint)updProxyChangeCount.Value;
-
             txtProxies.Text = string.Join('\n', MyConfig.Proxies);
 
             Utils.SaveConfig();

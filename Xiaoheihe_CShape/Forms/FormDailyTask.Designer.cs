@@ -36,7 +36,7 @@
             this.colLevel = new System.Windows.Forms.ColumnHeader();
             this.colExp = new System.Windows.Forms.ColumnHeader();
             this.colTask = new System.Windows.Forms.ColumnHeader();
-            this.colLog = new System.Windows.Forms.ColumnHeader();
+            this.colStatus = new System.Windows.Forms.ColumnHeader();
             this.cMenuAccount = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tSMAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tSMNone = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,8 @@
             this.btnClearLog = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkUseProxy = new System.Windows.Forms.CheckBox();
+            this.gbProxy = new System.Windows.Forms.GroupBox();
             this.cMenuAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -61,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.updTaskDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.updThreadCount)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.gbProxy.SuspendLayout();
             this.SuspendLayout();
             // 
             // lVAccounts
@@ -74,7 +77,7 @@
             this.colLevel,
             this.colExp,
             this.colTask,
-            this.colLog});
+            this.colStatus});
             this.lVAccounts.ContextMenuStrip = this.cMenuAccount;
             this.lVAccounts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lVAccounts.FullRowSelect = true;
@@ -82,7 +85,7 @@
             this.lVAccounts.Location = new System.Drawing.Point(0, 0);
             this.lVAccounts.MultiSelect = false;
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(503, 231);
+            this.lVAccounts.Size = new System.Drawing.Size(525, 231);
             this.lVAccounts.TabIndex = 0;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
@@ -116,10 +119,10 @@
             this.colTask.Text = "任务";
             this.colTask.Width = 130;
             // 
-            // colLog
+            // colStatus
             // 
-            this.colLog.Text = "日志";
-            this.colLog.Width = 150;
+            this.colStatus.Text = "日志";
+            this.colStatus.Width = 130;
             // 
             // cMenuAccount
             // 
@@ -158,7 +161,7 @@
             this.lstLog.ItemHeight = 17;
             this.lstLog.Location = new System.Drawing.Point(0, 0);
             this.lstLog.Name = "lstLog";
-            this.lstLog.Size = new System.Drawing.Size(503, 166);
+            this.lstLog.Size = new System.Drawing.Size(525, 166);
             this.lstLog.TabIndex = 1;
             // 
             // splitContainer1
@@ -177,7 +180,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lstLog);
-            this.splitContainer1.Size = new System.Drawing.Size(503, 401);
+            this.splitContainer1.Size = new System.Drawing.Size(525, 401);
             this.splitContainer1.SplitterDistance = 231;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -188,7 +191,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.updTaskDelay);
             this.groupBox1.Controls.Add(this.updThreadCount);
-            this.groupBox1.Location = new System.Drawing.Point(521, 12);
+            this.groupBox1.Location = new System.Drawing.Point(543, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(152, 83);
             this.groupBox1.TabIndex = 6;
@@ -268,7 +271,7 @@
             // btnClearLog
             // 
             this.btnClearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearLog.Location = new System.Drawing.Point(521, 385);
+            this.btnClearLog.Location = new System.Drawing.Point(543, 385);
             this.btnClearLog.Name = "btnClearLog";
             this.btnClearLog.Size = new System.Drawing.Size(152, 28);
             this.btnClearLog.TabIndex = 6;
@@ -290,18 +293,40 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.lblStatus);
             this.groupBox2.Controls.Add(this.btnStartTask);
-            this.groupBox2.Location = new System.Drawing.Point(521, 101);
+            this.groupBox2.Location = new System.Drawing.Point(543, 157);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(152, 58);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "状态";
             // 
+            // chkUseProxy
+            // 
+            this.chkUseProxy.AutoSize = true;
+            this.chkUseProxy.Location = new System.Drawing.Point(39, 22);
+            this.chkUseProxy.Name = "chkUseProxy";
+            this.chkUseProxy.Size = new System.Drawing.Size(75, 21);
+            this.chkUseProxy.TabIndex = 0;
+            this.chkUseProxy.Text = "使用代理";
+            this.chkUseProxy.UseVisualStyleBackColor = true;
+            // 
+            // gbProxy
+            // 
+            this.gbProxy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbProxy.Controls.Add(this.chkUseProxy);
+            this.gbProxy.Location = new System.Drawing.Point(543, 101);
+            this.gbProxy.Name = "gbProxy";
+            this.gbProxy.Size = new System.Drawing.Size(152, 50);
+            this.gbProxy.TabIndex = 9;
+            this.gbProxy.TabStop = false;
+            this.gbProxy.Text = "代理设置";
+            // 
             // FormDailyTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(685, 425);
+            this.ClientSize = new System.Drawing.Size(707, 425);
+            this.Controls.Add(this.gbProxy);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnClearLog);
             this.Controls.Add(this.groupBox1);
@@ -323,6 +348,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.updThreadCount)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.gbProxy.ResumeLayout(false);
+            this.gbProxy.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -335,7 +362,6 @@
         private ColumnHeader colNickName;
         private ColumnHeader colLevel;
         private ColumnHeader colTask;
-        private ColumnHeader colLog;
         private ColumnHeader colExp;
         private ListBox lstLog;
         private SplitContainer splitContainer1;
@@ -352,5 +378,8 @@
         private ToolStripMenuItem tSMNot;
         private Label lblStatus;
         private GroupBox groupBox2;
+        private ColumnHeader colStatus;
+        private CheckBox chkUseProxy;
+        private GroupBox gbProxy;
     }
 }

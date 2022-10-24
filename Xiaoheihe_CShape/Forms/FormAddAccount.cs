@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 using Xiaoheihe_Core.Data;
 
@@ -18,14 +16,14 @@ namespace Xiaoheihe_CShape.Forms
 
             Account = account;
             IsAdd = add;
-            
-            
+
+
         }
 
         private void FormAddAccount_Load(object sender, EventArgs e)
         {
             Icon = Properties.Resources.icon;
-            
+
             string title = IsAdd ? "添加账号" : "编辑账号";
 
             string okBtn = IsAdd ? "&A. 添加" : "&A. 修改";

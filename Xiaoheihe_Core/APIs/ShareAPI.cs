@@ -88,5 +88,24 @@ namespace Xiaoheihe_Core.APIs
 
             return response;
         }
+
+        /// <summary>
+        /// 分享游戏
+        /// </summary>
+        /// <param name="xhh"></param>
+        /// <returns></returns>
+        public static async Task<BasicResponse> ShareGame(this XiaoheiheClient xhh)
+        {
+            string subPath = "/task/shared/";
+
+            Dictionary<string, string> extraParams = new(1)
+            {
+                { "shared_type", "game" },
+            };
+
+            BasicResponse response = await xhh.BasicRequestAsync<BasicResponse>(HttpMethod.Get, subPath, extraParams).ConfigureAwait(false);
+
+            return response;
+        }
     }
 }
