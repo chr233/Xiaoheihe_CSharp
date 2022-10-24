@@ -18,7 +18,8 @@ namespace Xiaoheihe_CShape.Forms
 
             txtHBVersion.Text = MyConfig.XhhVersion;
             txtHKeyServer.Text = MyConfig.HkeyServer;
-            txtProxies.Text = string.Join('\n', MyConfig.Proxies);
+            txtProxies.Text = string.Join(Environment.NewLine, MyConfig.Proxies);
+            CloseAlert = false;
         }
 
         private void FormSetting_FormClosing(object sender, FormClosingEventArgs e)
