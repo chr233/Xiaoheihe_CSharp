@@ -8,30 +8,41 @@ namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormAddAccount : Form
     {
-        public FormAddAccount(Account account, bool Add)
+        private Account Account { get; }
+
+        private bool IsAdd { get; }
+
+        public FormAddAccount(Account account, bool add)
         {
             InitializeComponent();
 
-            string title = Add ? "添加账号" : "编辑账号";
+            Account = account;
+            IsAdd = add;
+            
+            
+        }
 
-            string okBtn = Add ? "&A. 添加" : "&A. 修改";
+        private void FormAddAccount_Load(object sender, EventArgs e)
+        {
+            Icon = Properties.Resources.icon;
+            
+            string title = IsAdd ? "添加账号" : "编辑账号";
+
+            string okBtn = IsAdd ? "&A. 添加" : "&A. 修改";
 
             Text = title;
             groupBox2.Text = title;
-            txtHeyboxID.Text = account.HeyboxID;
+            txtHeyboxID.Text = Account.HeyboxID;
             btnOK.Text = okBtn;
-            txtPkey.Text = account.Pkey;
-            txtXToken.Text = account.XhhTokenID;
-            txtImei.Text = account.Imei;
-            txtOSType.Text = account.OSType;
-            txtOSVersion.Text = account.OSVersion;
-            txtDeviceInfo.Text = account.DeviceInfo;
-            txtChannal.Text = account.Channal;
-            txtDescription.Text = account.Description;
-            txtHeyboxID.ReadOnly = !Add;
-
-            Icon = Properties.Resources.icon;
-
+            txtPkey.Text = Account.Pkey;
+            txtXToken.Text = Account.XhhTokenID;
+            txtImei.Text = Account.Imei;
+            txtOSType.Text = Account.OSType;
+            txtOSVersion.Text = Account.OSVersion;
+            txtDeviceInfo.Text = Account.DeviceInfo;
+            txtChannal.Text = Account.Channal;
+            txtDescription.Text = Account.Description;
+            txtHeyboxID.ReadOnly = !IsAdd;
         }
 
         private void BtnRandomImei_Click(object sender, EventArgs e)
@@ -101,7 +112,7 @@ namespace Xiaoheihe_CShape.Forms
 
             MatchCollection matches = Regex.Matches(rawText, @"([^&?]*)=([^&]*)");
 
-            foreach (Match match in matches)
+            foreach (Match match in matches.Cast<Match>())
             {
                 if (match.Groups.Count == 3)
                 {

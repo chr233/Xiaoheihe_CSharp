@@ -24,7 +24,6 @@ namespace Xiaoheihe_CShape.Forms
             Icon = Properties.Resources.icon;
 
             Utils.LoadConfig();
-
             UpdateAccountList();
         }
 
@@ -67,47 +66,17 @@ namespace Xiaoheihe_CShape.Forms
             UpdateAccountList();
         }
 
-        private void LVAccounts_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            ChecledItems.Clear();
-
-            foreach (ListViewItem item in lVAccounts.CheckedItems)
-            {
-                ChecledItems.Add(item.SubItems[1].Text);
-            }
-        }
-
         private void BtnDailyTask_Click(object sender, EventArgs e)
         {
-            FormCollection collection = Application.OpenForms;
-
-            Form? formDailyTask = null;
-
-            foreach (Form form in collection)
-            {
-                if (form is FormDailyTask)
-                {
-                    formDailyTask = form;
-                    break;
-                }
-            }
-
-            if (formDailyTask == null)
-            {
-                formDailyTask = new FormDailyTask();
-                formDailyTask.Show();
-            }
-            else
-            {
-                formDailyTask.Focus();
-            }
+            using FormDailyTask formDailyTask = new();
+            formDailyTask.ShowDialog(this);
+            UpdateAccountList();
         }
 
         private void BtnTopupThread_Click(object sender, EventArgs e)
         {
             //Form formTopupThread = new FormTopupThread();
             //formTopupThread.Show();
-
         }
 
         private void BtnProfile_Click(object sender, EventArgs e)
@@ -181,7 +150,7 @@ namespace Xiaoheihe_CShape.Forms
 
         private void Test()
         {
-            ListView.SelectedListViewItemCollection selectedItems = lVAccounts.SelectedItems;
+            var selectedItems = lVAccounts.SelectedItems;
 
             if (selectedItems.Count == 0)
             {

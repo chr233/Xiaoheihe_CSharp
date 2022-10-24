@@ -1,100 +1,201 @@
-﻿using Xiaoheihe_Core;
+﻿using System.Threading;
+using Xiaoheihe_Core;
 using Xiaoheihe_Core.APIs;
 using Xiaoheihe_Core.Data;
 using Xiaoheihe_Core.Exceptions;
 using Xiaoheihe_CShape.Data;
+using Xiaoheihe_CShape.Storage;
 
 namespace Xiaoheihe_CShape.Forms
 {
     public partial class FormDailyTask : Form
     {
-        private static HashSet<string> ChecledItems => Utils.GlobalConfig.CheckedItems.ToHashSet();
-        private static uint DailyTaskThread => Utils.GlobalConfig.DailyTaskThread;
-        private static uint DailyTaskDelay => Utils.GlobalConfig.DailyTaskDelay;
-        private static string HkeyServer => Utils.GlobalConfig.HkeyServer;
-        private static string XhhVersion => Utils.GlobalConfig.XhhVersion;
-
-        private readonly Dictionary<string, KeyValuePair<Account, DailyTaskData>> AccountsDict = new();
+        private static Config Myconfig => Utils.GlobalConfig;
+        private static HashSet<string> ChecledItems => Myconfig.CheckedItems.ToHashSet();
+        private static Dictionary<string, Account> AccountsDict => Utils.AccountsDict;
+        private static Dictionary<string, KeyValuePair<Account, DailyTaskData>> DailyTaskDict { get; } = new();
 
         public FormDailyTask()
         {
             InitializeComponent();
+        }
 
-            foreach (Account account in Utils.GlobalConfig.Accounts)
+        private void FormDailyTask_Load(object sender, EventArgs e)
+        {
+            Icon = Properties.Resources.icon;
+
+            foreach (Account account in AccountsDict.Values)
             {
-                AccountsDict[account.HeyboxID] = new(account, new DailyTaskData());
+                DailyTaskDict[account.HeyboxID] = new(account, new());
             }
 
-            tSTxtThread.Text = DailyTaskThread.ToString();
-            tSTxtDelay.Text = DailyTaskDelay.ToString();
-
-            Icon = Properties.Resources.icon;
+            updThreadCount.Value = Myconfig.DailyTaskThread;
+            updTaskDelay.Value = Myconfig.DailyTaskDelay;
 
             InitAccountList();
         }
 
-        private void TSBtnStartTask_Click(object sender, EventArgs e)
+        private void FormDailyTask_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (uint.TryParse(tSTxtThread.Text, out uint thread) && thread > 0)
+            Myconfig.DailyTaskThread = (uint)updThreadCount.Value;
+            Myconfig.DailyTaskDelay = (uint)updTaskDelay.Value;
+
+            List<string> checkedItems = new();
+            foreach (ListViewItem item in lVAccounts.CheckedItems)
             {
-                if (uint.TryParse(tSTxtDelay.Text, out uint delay))
+                checkedItems.Add(item.SubItems[1].Text);
+            }
+
+            Myconfig.CheckedItems = checkedItems;
+            Utils.SaveConfig();
+        }
+
+
+        private void UpdateAccountListAsync()
+        {
+            lVAccounts.Invoke(UpdateAccountList);
+        }
+
+        private void InitAccountList()
+        {
+            lVAccounts.BeginUpdate();
+            lVAccounts.Items.Clear();
+
+            uint count = 1;
+            foreach (var pair in DailyTaskDict.Values)
+            {
+                Account account = pair.Key;
+                DailyTaskData data = pair.Value;
+
+                ListViewItem item = new("")
                 {
-                    Utils.GlobalConfig.DailyTaskThread = thread;
-                    Utils.GlobalConfig.DailyTaskDelay = delay;
-                    Utils.SaveConfig();
-
-                    ListView.CheckedListViewItemCollection checkedItems = lVAccounts.CheckedItems;
-
-                    HashSet<KeyValuePair<Account, DailyTaskData>> selectedAccounts = new();
-
-                    foreach (ListViewItem item in checkedItems)
+                    Text = count++.ToString(),
+                    SubItems =
                     {
-                        string heyboxID = item.SubItems[1].Text;
-                        if (AccountsDict.ContainsKey(heyboxID))
-                        {
-                            selectedAccounts.Add(AccountsDict[heyboxID]);
-                        }
-                    }
+                        account.HeyboxID,
+                        account.NickName,
+                        account.Level,
+                        account.Experience,
+                        data.Tasks,
+                        data.Status
+                    },
+                    Checked = ChecledItems.Contains(account.HeyboxID)
+                };
+                lVAccounts.Items.Add(item);
+            }
+            lVAccounts.EndUpdate();
+        }
 
-                    if (selectedAccounts.Count > 0)
-                    {
-                        tSBtnStartTask.Enabled = false;
-                        tSTxtDelay.Enabled = false;
-                        tSTxtThread.Enabled = false;
-                        tSLblStatus.Text = "状态: 执行中";
+        private void UpdateAccountList()
+        {
+            lVAccounts.BeginUpdate();
 
+            foreach (ListViewItem item in lVAccounts.Items)
+            {
+                string userID = item.SubItems[1].Text;
 
-                        Task.Run(() => StartTask(selectedAccounts));
-                    }
-                    else
-                    {
-                        MessageBox.Show("尚未勾选任何账号", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
+                if (AccountsDict.ContainsKey(userID))
                 {
-                    MessageBox.Show("延迟时间非法", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    tSTxtDelay.SelectAll();
-                    tSTxtDelay.Focus();
+                    var pair = DailyTaskDict[userID];
+
+                    Account account = pair.Key;
+                    DailyTaskData data = pair.Value;
+
+                    item.SubItems[2].Text = account.NickName;
+                    item.SubItems[3].Text = account.Level;
+                    item.SubItems[4].Text = account.Experience;
+                    item.SubItems[5].Text = data.Tasks;
+                    item.SubItems[6].Text = data.Status;
                 }
+            }
+
+            lVAccounts.EndUpdate();
+        }
+
+        private void TSMAll_Click(object sender, EventArgs e)
+        {
+            var items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = true;
+            }
+            lVAccounts.EndUpdate();
+        }
+
+        private void TSMNone_Click(object sender, EventArgs e)
+        {
+            var items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = false;
+            }
+            lVAccounts.EndUpdate();
+        }
+
+        private void TSMNot_Click(object sender, EventArgs e)
+        {
+            var items = lVAccounts.Items;
+            lVAccounts.BeginUpdate();
+            foreach (ListViewItem item in items)
+            {
+                item.Checked = !item.Checked;
+            }
+            lVAccounts.EndUpdate();
+        }
+
+        private void BtnClearLog_Click(object sender, EventArgs e)
+        {
+            lstLog.Items.Clear();
+        }
+
+        private void BtnStartTask_Click(object sender, EventArgs e)
+        {
+            int delay = (int)updTaskDelay.Value;
+            int thread = (int)updThreadCount.Value;
+
+            Myconfig.DailyTaskDelay = (uint)delay;
+            Myconfig.DailyTaskThread = (uint)thread;
+            Utils.SaveConfig();
+
+            var checkedItems = lVAccounts.CheckedItems;
+
+            HashSet<KeyValuePair<Account, DailyTaskData>> selectedAccounts = new();
+
+            foreach (ListViewItem item in checkedItems)
+            {
+                string heyboxID = item.SubItems[1].Text;
+                if (AccountsDict.ContainsKey(heyboxID))
+                {
+                    selectedAccounts.Add(DailyTaskDict[heyboxID]);
+                }
+            }
+
+            if (selectedAccounts.Count > 0)
+            {
+                btnStartTask.Enabled = false;
+                updTaskDelay.Enabled = false;
+                updThreadCount.Enabled = false;
+                lblStatus.Text = "执行中";
+
+                Task.Run(() => StartTask(selectedAccounts, thread, delay));
             }
             else
             {
-                MessageBox.Show("线程数非法, 线程数必须 > 0", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                tSTxtThread.SelectAll();
-                tSTxtThread.Focus();
+                MessageBox.Show("尚未勾选任何账号", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private async Task StartTask(HashSet<KeyValuePair<Account, DailyTaskData>> accounts)
+        private async Task StartTask(HashSet<KeyValuePair<Account, DailyTaskData>> accounts, int threadCount, int delay)
         {
-            SemaphoreSlim semaphore = new((int)DailyTaskThread);
+            SemaphoreSlim semaphore = new(threadCount);
 
             Task[] tasks = new Task[accounts.Count];
 
             int i = 0;
 
-            foreach (KeyValuePair<Account, DailyTaskData> pair in accounts)
+            foreach (var pair in accounts)
             {
                 tasks[i++] = Task.Run(async () => {
                     Account account = pair.Key;
@@ -104,13 +205,12 @@ namespace Xiaoheihe_CShape.Forms
 
                     try
                     {
-                        await DoDailyTask(account, data, semaphore);
+                        await DoDailyTask(account, data, semaphore, delay);
                     }
                     catch (Exception ex)
                     {
                         data.Status = ex.Message;
                     }
-
                 });
             }
 
@@ -120,19 +220,20 @@ namespace Xiaoheihe_CShape.Forms
             }
 
             Invoke(() => {
-                tSBtnStartTask.Enabled = true;
-                tSTxtDelay.Enabled = true;
-                tSTxtThread.Enabled = true;
-                tSLblStatus.Text = "状态: 结束";
+                btnStartTask.Enabled = true;
+                updTaskDelay.Enabled = true;
+                updThreadCount.Enabled = true;
+
+                lblStatus.Text = "未运行";
                 Utils.SaveConfig();
             });
         }
 
-        private async Task DoDailyTask(Account account, DailyTaskData data, SemaphoreSlim semaphore)
+        private async Task DoDailyTask(Account account, DailyTaskData data, SemaphoreSlim semaphore, int delay)
         {
             await semaphore.WaitAsync();
 
-            XiaoheiheClient xhh = new(account, XhhVersion, HkeyServer);
+            XiaoheiheClient xhh = new(account, Myconfig.XhhVersion, Myconfig.HkeyServer);
 
             data.Status = "开始执行";
             UpdateAccountListAsync();
@@ -243,7 +344,7 @@ namespace Xiaoheihe_CShape.Forms
                                 share1 = true;
                             }
 
-                            await Task.Delay((int)DailyTaskDelay);
+                            await Task.Delay(delay);
 
                             if (!share2)
                             {
@@ -253,7 +354,7 @@ namespace Xiaoheihe_CShape.Forms
                                 share2 = true;
                             }
 
-                            await Task.Delay((int)DailyTaskDelay);
+                            await Task.Delay(delay);
 
                             if (likes <= likesMax)
                             {
@@ -273,7 +374,7 @@ namespace Xiaoheihe_CShape.Forms
                                     }
                                 }
 
-                                await Task.Delay((int)DailyTaskDelay);
+                                await Task.Delay(delay);
                             }
                         }
 
@@ -296,97 +397,6 @@ namespace Xiaoheihe_CShape.Forms
             {
                 semaphore.Release();
             }
-        }
-
-        private void UpdateAccountListAsync()
-        {
-            lVAccounts.Invoke(UpdateAccountList);
-        }
-
-        private void InitAccountList()
-        {
-            lVAccounts.BeginUpdate();
-            lVAccounts.Items.Clear();
-
-            foreach (KeyValuePair<Account, DailyTaskData> pair in AccountsDict.Values)
-            {
-                ListViewItem item = new("");
-
-                Account account = pair.Key;
-                DailyTaskData data = pair.Value;
-
-                item.SubItems.Add(account.HeyboxID);
-                item.SubItems.Add(account.NickName);
-                item.SubItems.Add(account.Level);
-                item.SubItems.Add(account.Experience);
-                item.SubItems.Add(data.Tasks);
-                item.SubItems.Add(data.Status);
-
-                item.Checked = ChecledItems.Contains(account.HeyboxID);
-
-                lVAccounts.Items.Add(item);
-            }
-
-            lVAccounts.EndUpdate();
-        }
-
-        private void UpdateAccountList()
-        {
-            lVAccounts.BeginUpdate();
-
-            foreach (ListViewItem item in lVAccounts.Items)
-            {
-                string userID = item.SubItems[1].Text;
-
-                if (AccountsDict.ContainsKey(userID))
-                {
-                    KeyValuePair<Account, DailyTaskData> pair = AccountsDict[userID];
-
-                    Account account = pair.Key;
-                    DailyTaskData data = pair.Value;
-
-                    item.SubItems[2].Text = account.NickName;
-                    item.SubItems[3].Text = account.Level;
-                    item.SubItems[4].Text = account.Experience;
-                    item.SubItems[5].Text = data.Tasks;
-                    item.SubItems[6].Text = data.Status;
-                }
-            }
-
-            lVAccounts.EndUpdate();
-        }
-
-        private void TSBtnAll_Click(object sender, EventArgs e)
-        {
-            ListView.ListViewItemCollection items = lVAccounts.Items;
-            lVAccounts.BeginUpdate();
-            foreach (ListViewItem item in items)
-            {
-                item.Checked = true;
-            }
-            lVAccounts.EndUpdate();
-        }
-
-        private void TSBtnNone_Click(object sender, EventArgs e)
-        {
-            ListView.ListViewItemCollection items = lVAccounts.Items;
-            lVAccounts.BeginUpdate();
-            foreach (ListViewItem item in items)
-            {
-                item.Checked = false;
-            }
-            lVAccounts.EndUpdate();
-        }
-
-        private void TSBtnNot_Click(object sender, EventArgs e)
-        {
-            ListView.ListViewItemCollection items = lVAccounts.Items;
-            lVAccounts.BeginUpdate();
-            foreach (ListViewItem item in items)
-            {
-                item.Checked = !item.Checked;
-            }
-            lVAccounts.EndUpdate();
         }
     }
 }

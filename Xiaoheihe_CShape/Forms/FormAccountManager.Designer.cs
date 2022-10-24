@@ -176,26 +176,26 @@
             this.tSMNone,
             this.tSMNot});
             this.cMenuAccount.Name = "contextMenuStrip1";
-            this.cMenuAccount.Size = new System.Drawing.Size(181, 92);
+            this.cMenuAccount.Size = new System.Drawing.Size(113, 70);
             // 
             // tSMAll
             // 
             this.tSMAll.Name = "tSMAll";
-            this.tSMAll.Size = new System.Drawing.Size(180, 22);
+            this.tSMAll.Size = new System.Drawing.Size(112, 22);
             this.tSMAll.Text = "全选";
             this.tSMAll.Click += new System.EventHandler(this.tSMAll_Click);
             // 
             // tSMNone
             // 
             this.tSMNone.Name = "tSMNone";
-            this.tSMNone.Size = new System.Drawing.Size(180, 22);
+            this.tSMNone.Size = new System.Drawing.Size(112, 22);
             this.tSMNone.Text = "全不选";
             this.tSMNone.Click += new System.EventHandler(this.tSMNone_Click);
             // 
             // tSMNot
             // 
             this.tSMNot.Name = "tSMNot";
-            this.tSMNot.Size = new System.Drawing.Size(180, 22);
+            this.tSMNot.Size = new System.Drawing.Size(112, 22);
             this.tSMNot.Text = "反选";
             this.tSMNot.Click += new System.EventHandler(this.tSMNot_Click);
             // 
@@ -209,6 +209,7 @@
             this.Controls.Add(this.groupBox2);
             this.MinimumSize = new System.Drawing.Size(500, 412);
             this.Name = "FormAccountManager";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "账号管理";
             this.Load += new System.EventHandler(this.FormSetting_Load);
             this.groupBox2.ResumeLayout(false);

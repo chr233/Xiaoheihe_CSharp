@@ -9,17 +9,17 @@ namespace Xiaoheihe_CShape.Forms
         private static string HkeyServer => Utils.GlobalConfig.HkeyServer;
         private static string XhhVersion => Utils.GlobalConfig.XhhVersion;
 
-        private readonly uint UserID;
+        private uint UserID { get; }
 
         public FormAccountInfo(uint userID)
         {
             InitializeComponent();
             UserID = userID;
-            Icon = Properties.Resources.icon;
         }
 
         private void FormAccountInfo_Load(object sender, EventArgs e)
         {
+            Icon = Properties.Resources.icon;
             Task.Run(() => LoadUserInfo(UserID));
         }
 

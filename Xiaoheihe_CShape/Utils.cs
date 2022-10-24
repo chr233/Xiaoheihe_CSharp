@@ -7,8 +7,14 @@ namespace Xiaoheihe_CShape
 {
     public static class Utils
     {
+        /// <summary>
+        /// 全局配置
+        /// </summary>
         public static Config GlobalConfig { get; private set; } = new();
-
+        
+        /// <summary>
+        /// 账号字典
+        /// </summary>
         public static Dictionary<string, Account> AccountsDict { get; private set; } = new();
 
         /// <summary>

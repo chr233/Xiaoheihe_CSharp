@@ -75,11 +75,10 @@
             this.lVAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lVAccounts.Location = new System.Drawing.Point(12, 12);
             this.lVAccounts.Name = "lVAccounts";
-            this.lVAccounts.Size = new System.Drawing.Size(532, 475);
+            this.lVAccounts.Size = new System.Drawing.Size(532, 372);
             this.lVAccounts.TabIndex = 0;
             this.lVAccounts.UseCompatibleStateImageBehavior = false;
             this.lVAccounts.View = System.Windows.Forms.View.Details;
-            this.lVAccounts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.LVAccounts_ItemChecked);
             // 
             // colNo
             // 
@@ -118,26 +117,26 @@
             this.tSMNone,
             this.tSMNot});
             this.cMenuAccount.Name = "contextMenuStrip1";
-            this.cMenuAccount.Size = new System.Drawing.Size(113, 70);
+            this.cMenuAccount.Size = new System.Drawing.Size(181, 92);
             // 
             // tSMAll
             // 
             this.tSMAll.Name = "tSMAll";
-            this.tSMAll.Size = new System.Drawing.Size(112, 22);
+            this.tSMAll.Size = new System.Drawing.Size(180, 22);
             this.tSMAll.Text = "全选";
             this.tSMAll.Click += new System.EventHandler(this.TSMAll_Click);
             // 
             // tSMNone
             // 
             this.tSMNone.Name = "tSMNone";
-            this.tSMNone.Size = new System.Drawing.Size(112, 22);
+            this.tSMNone.Size = new System.Drawing.Size(180, 22);
             this.tSMNone.Text = "全不选";
             this.tSMNone.Click += new System.EventHandler(this.TSMNone_Click);
             // 
             // tSMNot
             // 
             this.tSMNot.Name = "tSMNot";
-            this.tSMNot.Size = new System.Drawing.Size(112, 22);
+            this.tSMNot.Size = new System.Drawing.Size(180, 22);
             this.tSMNot.Text = "反选";
             this.tSMNot.Click += new System.EventHandler(this.TSMNot_Click);
             // 
@@ -182,14 +181,14 @@
             this.btnEditAccount.Name = "btnEditAccount";
             this.btnEditAccount.Size = new System.Drawing.Size(121, 28);
             this.btnEditAccount.TabIndex = 0;
-            this.btnEditAccount.Text = "&A. 账号管理";
+            this.btnEditAccount.Text = "&A. 账号管理器";
             this.btnEditAccount.UseVisualStyleBackColor = true;
             this.btnEditAccount.Click += new System.EventHandler(this.BtnEditAccount_Click);
             // 
             // btnSetting
             // 
             this.btnSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetting.Location = new System.Drawing.Point(550, 459);
+            this.btnSetting.Location = new System.Drawing.Point(550, 356);
             this.btnSetting.Name = "btnSetting";
             this.btnSetting.Size = new System.Drawing.Size(134, 28);
             this.btnSetting.TabIndex = 4;
@@ -266,7 +265,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 499);
+            this.ClientSize = new System.Drawing.Size(696, 396);
             this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
