@@ -257,7 +257,7 @@ namespace Xiaoheihe_CShape.Forms
             await semaThread.WaitAsync();
 
             WebProxy? proxy = null;
-            
+
             if (NextProxyIndex != -1)
             {
                 await semaProxy.WaitAsync();
@@ -293,7 +293,7 @@ namespace Xiaoheihe_CShape.Forms
                     }
                     catch
                     {
-                        PrintLog(account.HeyboxID, data, "代理配置有误");
+                        PrintLog(account.HeyboxID, data, "代理测试未通过");
                     }
                 }
 
@@ -406,6 +406,8 @@ namespace Xiaoheihe_CShape.Forms
                     HashSet<NewsLinkData>? newsLinks = appFeedNews.Result.Links;
 
                     int index = 0;
+                    int likes = 0;
+                    int likesMax = 5;
                     foreach (NewsLinkData news in newsLinks)
                     {
                         index++;
@@ -441,6 +443,27 @@ namespace Xiaoheihe_CShape.Forms
                             }
 
                             await Task.Delay(delay);
+
+                            if (likes <= likesMax)
+                            {
+                                PrintLog(xhh.HeyboxID, data, $"点赞文章任务 {likes}/{likesMax}");
+                                UpdateAccountListAsync();
+                                BasicResponse result = await xhh.LikeNews(news.LinkID, index);
+
+                                if (result != null)
+                                {
+                                    if (result.Status == "ok")
+                                    {
+                                        likes++;
+                                    }
+                                    else
+                                    {
+                                        data.Status = result.Message;
+                                    }
+                                }
+
+                                await Task.Delay(delay);
+                            }
                         }
 
                         if (share1 && share2 && share3)
