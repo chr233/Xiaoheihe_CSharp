@@ -210,7 +210,8 @@ namespace Xiaoheihe_CShape.Forms
 
         private async Task StartTask(HashSet<KeyValuePair<Account, DailyTaskData>> accounts, int threadCount, int delay)
         {
-            SemaphoreSlim semaphore = new(threadCount);
+            SemaphoreSlim semaThread = new(threadCount);
+            SemaphoreSlim semaProxy = new(1);
 
             Task[] tasks = new Task[accounts.Count];
 
@@ -226,7 +227,7 @@ namespace Xiaoheihe_CShape.Forms
 
                     try
                     {
-                        await DoDailyTask(account, data, semaphore, delay);
+                        await DoDailyTask(account, data, semaThread, semaProxy, delay);
                     }
                     catch (Exception ex)
                     {
@@ -251,14 +252,16 @@ namespace Xiaoheihe_CShape.Forms
             });
         }
 
-        private async Task DoDailyTask(Account account, DailyTaskData data, SemaphoreSlim semaphore, int delay)
+        private async Task DoDailyTask(Account account, DailyTaskData data, SemaphoreSlim semaThread, SemaphoreSlim semaProxy, int delay)
         {
-            await semaphore.WaitAsync();
+            await semaThread.WaitAsync();
 
             WebProxy? proxy = null;
-
+            
             if (NextProxyIndex != -1)
             {
+                await semaProxy.WaitAsync();
+
                 int i = 3;
                 while (i-- > 0)
                 {
@@ -298,6 +301,8 @@ namespace Xiaoheihe_CShape.Forms
                 {
                     PrintLog(account.HeyboxID, data, "找不到可用代理, 使用直连模式");
                 }
+
+                semaProxy.Release();
             }
 
             XiaoheiheClient xhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer);
@@ -454,7 +459,7 @@ namespace Xiaoheihe_CShape.Forms
             }
             finally
             {
-                semaphore.Release();
+                semaThread.Release();
             }
         }
 
