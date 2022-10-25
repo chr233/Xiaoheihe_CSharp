@@ -288,6 +288,7 @@ namespace Xiaoheihe_CShape.Forms
                         var result = await testXhh.GetTaskList();
                         if (result.Status == "ok")
                         {
+                            PrintLog(account.HeyboxID, data, $"代理 {uri} 测试通过");
                             break;
                         }
                     }
@@ -335,9 +336,7 @@ namespace Xiaoheihe_CShape.Forms
                 account.Level = userData.LevelInfo.Level.ToString();
                 account.Experience = $"{levelInfo.Exp}/{levelInfo.MaxExp}";
 
-                HashSet<TaskWithTitleData> taskGroups = taskListResponse.Result.TaskList;
-
-                foreach (TaskWithTitleData taskWithTitle in taskGroups)
+                foreach (var taskWithTitle in taskListResponse.Result.TaskList)
                 {
                     if (taskWithTitle != null && taskWithTitle.Title == "每日任务")
                     {
@@ -370,6 +369,8 @@ namespace Xiaoheihe_CShape.Forms
                 PrintLog(xhh.HeyboxID, data, "读取任务状态");
                 UpdateAccountListAsync();
             }
+
+            bool limited = false;
 
             try
             {
@@ -411,7 +412,6 @@ namespace Xiaoheihe_CShape.Forms
                     foreach (NewsLinkData news in newsLinks)
                     {
                         index++;
-
                         if (news.ContentType == 1)
                         {
                             if (!share1)
@@ -458,7 +458,12 @@ namespace Xiaoheihe_CShape.Forms
                                     }
                                     else
                                     {
-                                        data.Status = result.Message;
+                                        PrintLog(xhh.HeyboxID, data, result.Message);
+                                        if (result.Message.Contains("限制访问"))
+                                        {
+                                            limited = true;
+                                            break;
+                                        }
                                     }
                                 }
 
@@ -466,19 +471,23 @@ namespace Xiaoheihe_CShape.Forms
                             }
                         }
 
-                        if (share1 && share2 && share3)
+                        if (share1 && share2 && share3 && likes > likesMax)
                         {
                             break;
                         }
                     }
                     await CheckTask().ConfigureAwait(false);
                 }
+                if (limited)
+                {
+                    data.Tasks = "账号被限制访问";
+                }
                 PrintLog(xhh.HeyboxID, data, (sign && share1 && share2 && share3) ? "每日任务全部完成" : "每日任务未全部完成");
                 UpdateAccountListAsync();
             }
             catch (XhhCSBaseException ex)
             {
-                data.Status = ex.Message;
+                PrintLog(xhh.HeyboxID, data, "请求出错 " + ex.Message);
             }
             finally
             {
