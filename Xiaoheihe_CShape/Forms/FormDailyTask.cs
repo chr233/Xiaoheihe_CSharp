@@ -437,7 +437,7 @@ namespace Xiaoheihe_CShape.Forms
                                 PrintLog(xhh.HeyboxID, data, "分享游戏任务");
                                 UpdateAccountListAsync();
                                 await xhh.ShareGame().ConfigureAwait(false);
-                                share2 = true;
+                                share3 = true;
                             }
 
                             await Task.Delay(delay);
