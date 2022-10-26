@@ -5,7 +5,7 @@ namespace Xiaoheihe_Core.Exceptions
     /// <summary>
     /// 未知错误
     /// </summary>
-    public sealed class UnknownException : XhhCSBaseException
+    public sealed class UnknownException : XhhBaseException
     {
         public UnknownException()
         {

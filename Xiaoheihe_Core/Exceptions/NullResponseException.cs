@@ -5,7 +5,7 @@ namespace Xiaoheihe_Core.Exceptions
     /// <summary>
     /// 空响应错误
     /// </summary>
-    public sealed class NullResponseException : XhhCSBaseException
+    public sealed class NullResponseException : XhhBaseException
     {
         public NullResponseException()
         {

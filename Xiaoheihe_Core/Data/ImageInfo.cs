@@ -2,14 +2,14 @@
 
 namespace Xiaoheihe_Core.Data
 {
-    internal sealed class ImageInfo
+    public sealed class ImageInfo
     {
-        internal string ImageType { get; set; } = "jpeg";
-        internal int Width { get; set; }
-        internal int Height { get; set; }
-        internal long Size { get; set; }
+        public string ImageType { get; set; } = "jpeg";
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public long Size { get; set; }
 
-        internal string Package()
+        public string Package()
         {
             Dictionary<string, string> data = new(4)
             {

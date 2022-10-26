@@ -5,7 +5,7 @@ namespace Xiaoheihe_Core.Exceptions
     /// <summary>
     /// 账号信息错误
     /// </summary>
-    public sealed class AccountErrorException : XhhCSBaseException
+    public sealed class AccountErrorException : XhhBaseException
     {
         public AccountErrorException()
         {

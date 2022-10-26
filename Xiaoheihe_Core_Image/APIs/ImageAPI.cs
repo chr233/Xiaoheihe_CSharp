@@ -2,9 +2,10 @@
 using COSXML;
 using COSXML.Auth;
 using COSXML.Transfer;
+using Xiaoheihe_Core;
 using Xiaoheihe_Core.Data;
 
-namespace Xiaoheihe_Core.APIs
+namespace Xiaoheihe_Core_Image.APIs
 {
     public static class ImageAPI
     {

@@ -5,7 +5,7 @@ namespace Xiaoheihe_Core.Exceptions
     /// <summary>
     /// Hkey Server响应错误
     /// </summary>
-    public sealed class HkeyServerErrorException : XhhCSBaseException
+    public sealed class HkeyServerErrorException : XhhBaseException
     {
         public HkeyServerErrorException()
         {

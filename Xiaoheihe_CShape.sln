@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaoheihe_Core_Image", "Xiaoheihe_Core_Image\Xiaoheihe_Core_Image.csproj", "{6D47AABF-AFDB-4087-A464-8A01CD7F50FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0311D383-AADA-4D2A-9833-0641443007F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0311D383-AADA-4D2A-9833-0641443007F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0311D383-AADA-4D2A-9833-0641443007F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D47AABF-AFDB-4087-A464-8A01CD7F50FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D47AABF-AFDB-4087-A464-8A01CD7F50FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D47AABF-AFDB-4087-A464-8A01CD7F50FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D47AABF-AFDB-4087-A464-8A01CD7F50FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

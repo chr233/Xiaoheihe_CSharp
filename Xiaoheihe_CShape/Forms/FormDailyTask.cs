@@ -485,7 +485,7 @@ namespace Xiaoheihe_CShape.Forms
                 PrintLog(xhh.HeyboxID, data, (sign && share1 && share2 && share3) ? "每日任务全部完成" : "每日任务未全部完成");
                 UpdateAccountListAsync();
             }
-            catch (XhhCSBaseException ex)
+            catch (XhhBaseException ex)
             {
                 PrintLog(xhh.HeyboxID, data, "请求出错 " + ex.Message);
             }
