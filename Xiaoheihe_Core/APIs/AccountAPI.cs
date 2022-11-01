@@ -53,7 +53,7 @@ namespace Xiaoheihe_Core.APIs
         /// <returns></returns>
         public static async Task<TaskSignResponse> TaskSign(this XiaoheiheClient xhh)
         {
-            string subPath = "/task/sign/";
+            string subPath = "/task/sign_v3/sign";
 
             TaskSignResponse response = await xhh.BasicRequestAsync<TaskSignResponse>(HttpMethod.Get, subPath).ConfigureAwait(false);
 

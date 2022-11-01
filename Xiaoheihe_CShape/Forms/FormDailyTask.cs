@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using Xiaoheihe_Core;
 using Xiaoheihe_Core.APIs;
 using Xiaoheihe_Core.Data;
@@ -211,7 +212,6 @@ namespace Xiaoheihe_CShape.Forms
         private async Task StartTask(HashSet<KeyValuePair<Account, DailyTaskData>> accounts, int threadCount, int delay)
         {
             SemaphoreSlim semaThread = new(threadCount);
-            SemaphoreSlim semaProxy = new(1);
 
             Task[] tasks = new Task[accounts.Count];
 
@@ -227,7 +227,7 @@ namespace Xiaoheihe_CShape.Forms
 
                     try
                     {
-                        await DoDailyTask(account, data, semaThread, semaProxy, delay);
+                        await DoDailyTask(account, data, semaThread, delay);
                     }
                     catch (Exception ex)
                     {
@@ -252,16 +252,14 @@ namespace Xiaoheihe_CShape.Forms
             });
         }
 
-        private async Task DoDailyTask(Account account, DailyTaskData data, SemaphoreSlim semaThread, SemaphoreSlim semaProxy, int delay)
+        private async Task DoDailyTask(Account account, DailyTaskData data, SemaphoreSlim semaThread, int delay)
         {
             await semaThread.WaitAsync();
 
-            WebProxy? proxy = null;
+            XiaoheiheClient? xhh = null;
 
             if (NextProxyIndex != -1)
             {
-                await semaProxy.WaitAsync();
-
                 int i = 3;
                 while (i-- > 0)
                 {
@@ -278,36 +276,41 @@ namespace Xiaoheihe_CShape.Forms
 
                     try
                     {
-                        proxy = new WebProxy(new Uri(uri))
+                        WebProxy? proxy = new WebProxy(new Uri(uri))
                         {
                             BypassProxyOnLocal = true
                         };
 
-                        XiaoheiheClient testXhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer, proxy);
+                        PrintLog(account.HeyboxID, data, $"测试代理 {uri}");
 
-                        var result = await testXhh.GetTaskList();
+                        xhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer, proxy);
+
+                        var result = await xhh.GetTaskList();
                         if (result.Status == "ok")
                         {
-                            PrintLog(account.HeyboxID, data, $"代理 {uri} 测试通过");
+                            PrintLog(account.HeyboxID, data, "代理可用");
                             break;
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        PrintLog(account.HeyboxID, data, "代理测试未通过");
+                        Debug.WriteLine(ex.Message);
+                        xhh = null;
+                        PrintLog(account.HeyboxID, data, "代理不可用");
                     }
                 }
 
-                if (proxy == null)
+                if (xhh == null)
                 {
+                    xhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer, null);
                     PrintLog(account.HeyboxID, data, "找不到可用代理, 使用直连模式");
                 }
-
-                semaProxy.Release();
             }
-
-            XiaoheiheClient xhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer);
-
+            else
+            {
+                xhh = new(account, MyConfig.XhhVersion, MyConfig.HkeyServer, null);
+                PrintLog(account.HeyboxID, data, "使用直连模式");
+            }
 
             if (xhh == null)
             {
@@ -383,6 +386,8 @@ namespace Xiaoheihe_CShape.Forms
                 }
 
                 await CheckTask().ConfigureAwait(false);
+
+                bool allDone = sign && share1 && share2 && share3;
 
                 if (!sign)
                 {
@@ -476,8 +481,13 @@ namespace Xiaoheihe_CShape.Forms
                             break;
                         }
                     }
+                }
+
+                if (!allDone)
+                {
                     await CheckTask().ConfigureAwait(false);
                 }
+
                 if (limited)
                 {
                     data.Tasks = "账号被限制访问";

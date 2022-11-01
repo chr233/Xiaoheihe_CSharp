@@ -9,7 +9,7 @@ namespace Xiaoheihe_Core.Data
     public sealed class TaskListResultData : BasicResultData
     {
         [JsonPropertyName("task_list")]
-        public HashSet<TaskWithTitleData> TaskList { get; set; } = new();
+        public List<TaskWithTitleData> TaskList { get; set; } = new();
 
         [JsonPropertyName("user")]
         public HeyboxUserData User { get; set; } = new();
@@ -21,7 +21,7 @@ namespace Xiaoheihe_Core.Data
     public sealed class TaskWithTitleData
     {
         [JsonPropertyName("tasks")]
-        public HashSet<TaskDetailData> Tasks { get; set; } = new();
+        public List<TaskDetailData> Tasks { get; set; } = new();
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";
@@ -38,17 +38,11 @@ namespace Xiaoheihe_Core.Data
         [JsonPropertyName("title")]
         public string Title { get; set; } = "";
 
-        [JsonPropertyName("award_coin")]
-        public uint AwardCoin { get; set; }
-
         [JsonPropertyName("state_desc")]
         public string StateDesc { get; set; } = "";
 
         [JsonPropertyName("state")]
         public string State { get; set; } = "";
-
-        [JsonPropertyName("award_exp")]
-        public uint AwardExp { get; set; }
 
         [JsonPropertyName("icon")]
         public string Icon { get; set; } = "";
